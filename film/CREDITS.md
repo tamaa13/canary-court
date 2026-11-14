@@ -39,4 +39,3 @@ The four clips above also appear, muted, as tiles in the wall.
 - The Bloomberg caption track names the Visa CEO "Brian"; he is Ryan McInerney.
 - Each excerpt is a whole phrase as spoken, cut on word boundaries (word timings from whisper.cpp, checked by transcribing
   every cut again: each one reads back as exactly its phrase).
-- Research notes with the full quotes and context: the PM's `news-clips.md`.
