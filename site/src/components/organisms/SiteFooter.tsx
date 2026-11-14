@@ -22,7 +22,7 @@ export function SiteFooter() {
                 <TextLink href="/join">Join with your agent</TextLink>
               </li>
               <li>
-                <TextLink href="/demo">The 2-minute demo</TextLink>
+                <TextLink href={links.demoVideo}>Watch the demo (1:44)</TextLink>
               </li>
               <li>
                 <TextLink href="/#how">How it works</TextLink>

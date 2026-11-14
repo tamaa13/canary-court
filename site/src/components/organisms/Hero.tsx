@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { Arrow, Text } from "@/components/atoms";
-import { countsSnapshot, offline } from "@/content/facts";
+import { countsSnapshot, links, offline } from "@/content/facts";
+import { outsideLink } from "@/lib/external";
 import { Rpc, TESTNET_RPCS, readCounts } from "@/lib/near";
 import { HeroChoices } from "./HeroChoices";
 import { LiveStrip, type StripData } from "./LiveStrip";
@@ -36,9 +36,9 @@ export async function Hero() {
       </Text>
       <div className="mt-7 wide:mt-9">
         <HeroChoices />
-        <Link href="/demo" className="group ulink mt-5 inline-flex items-center gap-1.5 text-[14px] text-fg-2 hover:text-fg">
-          Watch the 2-minute demo <Arrow className="nudge inline-block size-[9px]" />
-        </Link>
+        <a href={links.demoVideo} {...outsideLink(links.demoVideo)} className="ulink mt-5 inline-flex items-center gap-1.5 text-[14px] text-fg-2 hover:text-fg">
+          Watch the demo (1:44) <Arrow out className="inline-block size-[9px]" />
+        </a>
       </div>
       <div className="mt-6 wide:mt-10">
         <LiveStrip initial={initial} />

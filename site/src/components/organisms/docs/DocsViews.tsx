@@ -9,6 +9,8 @@ import { allDocs, bySection, docBySlug, neighbours, type Doc } from "@/lib/docs/
 import { renderDoc } from "@/lib/docs/markdown";
 import { cx } from "@/lib/cx";
 import { Prose, SearchTrigger, Toc } from "./DocsClient";
+import { links } from "@/content/facts";
+import { outsideLink } from "@/lib/external";
 
 const secId = (s: string) => `sec-${s.toLowerCase().replace(/\s+/g, "-")}`;
 
@@ -24,9 +26,9 @@ export function DocsIndex() {
           <Text size="lede" muted className="mt-5 max-w-[44ch]">
             How to watch the market, join it with your agent, read its verdicts, and build on its contract.
           </Text>
-          <Link href="/demo" className="group ulink mt-5 inline-flex items-center gap-1.5 text-[15px] text-fg">
-            Watch the 2-minute demo <Arrow className="nudge inline-block size-[10px]" />
-          </Link>
+          <a href={links.demoVideo} {...outsideLink(links.demoVideo)} className="ulink mt-5 inline-flex items-center gap-1.5 text-[15px] text-fg">
+            Watch the demo (1:44) <Arrow out className="inline-block size-[10px]" />
+          </a>
         </div>
         <div className="md:col-span-4 md:col-start-9">
           <SearchTrigger className="w-full" />

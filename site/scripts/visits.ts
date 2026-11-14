@@ -1,5 +1,5 @@
-// pnpm visits [--days 7] [--json]: what GoatCounter (canarycourt.goatcounter.com) has counted for the site: totals, the
-// count per page, and the demo video's steps (events "demo-play/<step>"). Needs an API token in GOATCOUNTER_TOKEN
+// pnpm visits [--days 7] [--json]: what GoatCounter (canarycourt.goatcounter.com) has counted for the site: totals and
+// the count per page. Needs an API token in GOATCOUNTER_TOKEN
 // (GoatCounter → your user name → API); it's never printed. Plain fetch, which talks HTTP/1.1 (curl can trip over
 // HTTP/2 there).
 
@@ -41,14 +41,11 @@ for (let more = true; more && hits.length < 1000; ) {
 }
 
 const pages = hits.filter((h) => !h.event).sort((a, b) => b.count - a.count);
-const STEPS = ["play", "25", "50", "75", "ended"];
-const video = Object.fromEntries(STEPS.map((s) => [s, hits.find((h) => h.event && h.path === `demo-play/${s}`)?.count ?? 0]));
 
 const summary = {
   range: { from: range.start, to: range.end, days },
   totals: { visits: total.total, events: total.total_events },
   pages: pages.map((h) => ({ path: h.path, count: h.count })),
-  demoVideo: video,
 };
 
 if (json) console.log(JSON.stringify(summary, null, 2));
@@ -58,6 +55,4 @@ else {
   console.log("Pages");
   for (const p of pages.slice(0, 25)) console.log(`  ${String(p.count).padStart(6)}  ${p.path}`);
   if (!pages.length) console.log("  (none yet)");
-  const v = video;
-  console.log(`\nDemo video\n  play ${v.play} → 25% ${v["25"]} → 50% ${v["50"]} → 75% ${v["75"]} → ended ${v.ended}`);
 }

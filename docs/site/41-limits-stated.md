@@ -62,4 +62,4 @@ Read this before you rely on anything Canary Court says. The full threat model i
 
 ## Visits we count
 
-We count visits with [GoatCounter](https://www.goatcounter.com): the page, the referring site, the page title, the screen size and the country. GoatCounter sets no cookies and stores no IP addresses. For the demo video we count plays and how far they get (a quarter, half, three quarters, the end). The site sends these counts straight to GoatCounter, with no tracking script; our own development and video-capture runs aren't counted.
+We count visits with [GoatCounter](https://www.goatcounter.com): the page, the referring site, the page title, the screen size and the country. GoatCounter sets no cookies and stores no IP addresses. The site sends these counts straight to GoatCounter, with no tracking script; our own development and video-capture runs aren't counted.

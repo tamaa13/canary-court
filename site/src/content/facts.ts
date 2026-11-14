@@ -25,6 +25,8 @@ export type Fact = {
 
 export const links = {
   repo: REPO,
+  /** the demo film (1:44) */
+  demoVideo: "https://youtu.be/mauz3U-f-4o",
   app: "/app",
   explorer: EXPLORER,
   contract: `${EXPLORER}/address/redteam.arifnovrian.testnet`,

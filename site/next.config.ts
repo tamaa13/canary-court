@@ -13,6 +13,10 @@ const config: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   devIndicators: false,
+  // (the demo page is gone: the film lives on YouTube; old links keep working)
+  async redirects() {
+    return [{ source: "/demo", destination: "https://youtu.be/mauz3U-f-4o", permanent: true }];
+  },
   outputFileTracingRoot: repo,
   turbopack: {
     root: repo,

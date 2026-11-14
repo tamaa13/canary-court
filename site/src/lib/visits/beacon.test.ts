@@ -18,12 +18,8 @@ test("no referrer for a direct visit or a move within the site", () => {
   assert.equal(params(countUrl({ event: "view", path: "/app", ref: "canary-court.vercel.app" }, at)).r, undefined);
 });
 
-test("a demo-video step is an event", () => {
-  assert.deepEqual(params(countUrl({ event: "video", step: "50" }, at)), { p: "demo-play/50", t: "Demo video: 50", e: "true", rnd: "0.5" });
-});
-
 test("nothing is counted locally or in a capture", () => {
   assert.equal(countUrl({ event: "view", path: "/", ref: "direct" }, { ...at, hostname: "localhost", host: "localhost:3100" }), null);
   assert.equal(countUrl({ event: "view", path: "/", ref: "direct" }, { ...at, hostname: "127.0.0.1", host: "127.0.0.1:3100" }), null);
-  assert.equal(countUrl({ event: "video", step: "play" }, { ...at, capture: true }), null);
+  assert.equal(countUrl({ event: "view", path: "/", ref: "direct" }, { ...at, capture: true }), null);
 });
