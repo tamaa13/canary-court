@@ -57,8 +57,8 @@ export function SiteFooter() {
         <div className="mt-14 flex flex-wrap justify-between gap-x-8 gap-y-2">
           <p className="max-w-[60ch] text-[13px] text-fg-2">
             {network.name} only, with mock USDC and a fictional treasury agent. The key it guards is a random canary made for each run. Not audited;
-            not for real funds. We count visits (page, referring site, country, device type) without cookies or personal data; IPs are never
-            stored.
+            not for real funds. We count visits with GoatCounter (page, referring site, screen size, country); it sets no cookies and stores
+            no IP addresses.
           </p>
           {/* (on the smallest phones the header has no room for the theme switch: it's here instead) */}
           <p className="flex items-center gap-3 text-[13px] text-fg-2 min-[375px]:hidden">

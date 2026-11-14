@@ -9,7 +9,7 @@
     "start": "next start -p 3100",
     "typecheck": "tsc --noEmit",
     "snapshot": "tsx scripts/snapshot.ts",
-    "test": "tsx --test src/lib/visits/record.test.ts",
+    "test": "tsx --test src/lib/visits/beacon.test.ts",
     "visits": "tsx scripts/visits.ts"
   },
   "dependencies": {

@@ -1,126 +1,63 @@
-// pnpm visits [--days 7] [--json]: what the visit counter (src/lib/visits/record.ts) has seen, read straight from the
-// same Upstash Redis over its REST API. Credentials: UPSTASH_REDIS_REST_URL / _TOKEN (or the Marketplace's
-// KV_REST_API_URL / _TOKEN), else the macOS Keychain items "canary-court-upstash-url" / "canary-court-upstash-token".
-// Days are UTC. Nothing here is personal: counts per page, referring site, country, device, video step, and a daily
-// estimate of unique visitors.
+// pnpm visits [--days 7] [--json]: what GoatCounter (canarycourt.goatcounter.com) has counted for the site: totals, the
+// count per page, and the demo video's steps (events "demo-play/<step>"). Needs an API token in GOATCOUNTER_TOKEN
+// (GoatCounter → your user name → API); it's never printed. Plain fetch, which talks HTTP/1.1 (curl can trip over
+// HTTP/2 there).
 
-import { execFileSync } from "node:child_process";
+export {};
 
-type Counts = Record<string, number>;
-interface Day {
-  day: string;
-  visitors: number;
-  views: number;
-  page: Counts;
-  ref: Counts;
-  country: Counts;
-  device: Counts;
-  video: Counts;
-}
-
+const BASE = "https://canarycourt.goatcounter.com";
 const args = process.argv.slice(2);
-const days = Math.max(1, Math.min(90, Number(args[args.indexOf("--days") + 1]) || 7));
+const days = Math.max(1, Math.min(365, Number(args[args.indexOf("--days") + 1]) || 7));
 const json = args.includes("--json");
-const siteHost = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://canary-court.vercel.app").replace(/^https?:\/\//, "").replace(/\/.*$/, "");
 
-function keychain(service: string): string | undefined {
-  try {
-    return execFileSync("security", ["find-generic-password", "-s", service, "-w"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim() || undefined;
-  } catch {
-    return undefined;
-  }
-}
-
-const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL ?? keychain("canary-court-upstash-url");
-const token = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN ?? keychain("canary-court-upstash-token");
-if (!url || !token) {
-  console.error(
-    "No Redis credentials: set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN (or KV_REST_API_URL / KV_REST_API_TOKEN),\n" +
-      "or add them to the Keychain as canary-court-upstash-url / canary-court-upstash-token.",
-  );
+const token = process.env.GOATCOUNTER_TOKEN;
+if (!token) {
+  console.log("Set GOATCOUNTER_TOKEN to a GoatCounter API token first, e.g. GOATCOUNTER_TOKEN=$(security find-generic-password -s <item> -w) pnpm visits");
   process.exit(1);
 }
 
-async function pipeline(cmds: (string | number)[][]): Promise<unknown[]> {
-  const r = await fetch(`${url!.replace(/\/$/, "")}/pipeline`, {
-    method: "POST",
-    headers: { authorization: `Bearer ${token}`, "content-type": "application/json" },
-    body: JSON.stringify(cmds),
-  });
-  if (!r.ok) throw new Error(`Redis said ${r.status}: ${await r.text()}`);
-  return ((await r.json()) as { result?: unknown; error?: string }[]).map((x) => {
-    if (x.error) throw new Error(x.error);
-    return x.result;
-  });
+type Hit = { count: number; event: boolean; path: string; title?: string; path_id: number };
+
+async function get<T>(path: string, q: Record<string, string>): Promise<T> {
+  const url = `${BASE}${path}?${new URLSearchParams(q)}`;
+  const r = await fetch(url, { headers: { authorization: `Bearer ${token}`, "content-type": "application/json" } });
+  if (!r.ok) throw new Error(`GoatCounter ${path}: HTTP ${r.status}`);
+  return (await r.json()) as T;
 }
 
-/** HGETALL's flat [field, value, …] → { field: n } */
-const toCounts = (flat: unknown): Counts => {
-  const out: Counts = {};
-  const a = Array.isArray(flat) ? flat : [];
-  for (let i = 0; i + 1 < a.length; i += 2) out[String(a[i])] = Number(a[i + 1]);
-  return out;
-};
-const sum = (c: Counts) => Object.values(c).reduce((x, n) => x + n, 0);
-const merge = (list: Counts[]) => list.reduce<Counts>((acc, c) => {
-  for (const [k, n] of Object.entries(c)) acc[k] = (acc[k] ?? 0) + n;
-  return acc;
-}, {});
-const top = (c: Counts, n = 10) => Object.entries(c).sort((a, b) => b[1] - a[1]).slice(0, n);
+const end = new Date();
+const start = new Date(end.getTime() - days * 86_400_000);
+const range = { start: start.toISOString(), end: end.toISOString() };
 
-const today = new Date();
-const dayList = Array.from({ length: days }, (_, i) => {
-  const d = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() - (days - 1 - i)));
-  return d.toISOString().slice(0, 10);
-});
-const NAMES = ["page", "ref", "country", "device", "video"] as const;
-const res = await pipeline(dayList.flatMap((d) => [...NAMES.map((n) => ["HGETALL", `v:${d}:${n}`]), ["PFCOUNT", `v:${d}:uv`]]));
-const perDay: Day[] = dayList.map((day, i) => {
-  const r = res.slice(i * 6, i * 6 + 6);
-  const [page, ref, country, device, video] = r.slice(0, 5).map(toCounts) as [Counts, Counts, Counts, Counts, Counts];
-  return { day, visitors: Number(r[5] ?? 0), views: sum(page), page, ref, country, device, video };
-});
+const total = await get<{ total: number; total_events: number; total_utc: number }>("/api/v0/stats/total", range);
+// (100 paths a page; the next page excludes the paths already listed)
+const hits: Hit[] = [];
+for (let more = true; more && hits.length < 1000; ) {
+  const q: Record<string, string> = { ...range, limit: "100" };
+  if (hits.length) q.exclude_paths = hits.map((h) => h.path_id).join(",");
+  const page = await get<{ hits: Hit[]; more: boolean }>("/api/v0/stats/hits", q);
+  hits.push(...page.hits);
+  more = page.more && page.hits.length > 0;
+}
 
-const all = {
-  page: merge(perDay.map((d) => d.page)),
-  ref: merge(perDay.map((d) => d.ref)),
-  country: merge(perDay.map((d) => d.country)),
-  device: merge(perDay.map((d) => d.device)),
-  video: merge(perDay.map((d) => d.video)),
-};
-const last = perDay[perDay.length - 1]!;
-const before = perDay.slice(0, -1);
-const avg = (f: (d: Day) => number) => (before.length ? before.reduce((x, d) => x + f(d), 0) / before.length : 0);
+const pages = hits.filter((h) => !h.event).sort((a, b) => b.count - a.count);
+const STEPS = ["play", "25", "50", "75", "ended"];
+const video = Object.fromEntries(STEPS.map((s) => [s, hits.find((h) => h.event && h.path === `demo-play/${s}`)?.count ?? 0]));
+
 const summary = {
-  range: { from: dayList[0], to: dayList[dayList.length - 1], days, utc: true },
-  totals: { views: sum(all.page), visitorDays: perDay.reduce((x, d) => x + d.visitors, 0) },
-  perDay: perDay.map(({ day, visitors, views }) => ({ day, visitors, views })),
-  pages: top(all.page, 15),
-  referrers: top(Object.fromEntries(Object.entries(all.ref).map(([k, n]) => [k === siteHost ? "(within the site)" : k, n])), 15),
-  countries: top(all.country, 15),
-  devices: all.device,
-  video: { play: all.video.play ?? 0, "25%": all.video["25"] ?? 0, "50%": all.video["50"] ?? 0, "75%": all.video["75"] ?? 0, ended: all.video.ended ?? 0 },
-  today: { day: last.day, visitors: last.visitors, views: last.views, previousDailyAverage: { visitors: Math.round(avg((d) => d.visitors) * 10) / 10, views: Math.round(avg((d) => d.views) * 10) / 10 } },
+  range: { from: range.start, to: range.end, days },
+  totals: { visits: total.total, events: total.total_events },
+  pages: pages.map((h) => ({ path: h.path, count: h.count })),
+  demoVideo: video,
 };
 
-if (json) {
-  console.log(JSON.stringify(summary, null, 2));
-} else {
-  const pct = (n: number, of: number) => (of ? `${Math.round((n / of) * 100)}%` : "—");
-  const rows = (list: [string, number][], of: number) => list.map(([k, n]) => `  ${String(n).padStart(6)}  ${pct(n, of).padStart(4)}  ${k}`).join("\n") || "  (none)";
-  const views = summary.totals.views;
-  console.log(`Canary Court visits, ${summary.range.from} → ${summary.range.to} (UTC)\n`);
-  console.log(`Views ${views} · visitor-days ${summary.totals.visitorDays} (unique per day; not linkable across days)\n`);
-  console.log("Per day             visitors   views");
-  for (const d of summary.perDay) console.log(`  ${d.day}        ${String(d.visitors).padStart(6)}  ${String(d.views).padStart(6)}`);
-  console.log(
-    `\nToday (${last.day}, so far): ${last.visitors} visitors, ${last.views} views · before: ${summary.today.previousDailyAverage.visitors} visitors, ${summary.today.previousDailyAverage.views} views a day on average`,
-  );
-  console.log(`\nTop pages\n${rows(summary.pages, views)}`);
-  console.log(`\nReferrers\n${rows(summary.referrers, views)}`);
-  console.log(`\nCountries\n${rows(summary.countries, views)}`);
-  const dev = sum(all.device);
-  console.log(`\nDevices\n  mobile ${pct(all.device.mobile ?? 0, dev)} · desktop ${pct(all.device.desktop ?? 0, dev)}`);
-  const v = summary.video;
-  console.log(`\nDemo video\n  plays ${v.play} → 25% ${v["25%"]} → 50% ${v["50%"]} → 75% ${v["75%"]} → ended ${v.ended}${v.play ? ` (${pct(v.ended, v.play)} watched to the end)` : ""}`);
+if (json) console.log(JSON.stringify(summary, null, 2));
+else {
+  console.log(`Canary Court on GoatCounter, the last ${days} day${days === 1 ? "" : "s"} (${range.start.slice(0, 10)} → ${range.end.slice(0, 10)})\n`);
+  console.log(`Visits ${total.total} · events ${total.total_events}  (GoatCounter counts a visitor once per page per session)\n`);
+  console.log("Pages");
+  for (const p of pages.slice(0, 25)) console.log(`  ${String(p.count).padStart(6)}  ${p.path}`);
+  if (!pages.length) console.log("  (none yet)");
+  const v = video;
+  console.log(`\nDemo video\n  play ${v.play} → 25% ${v["25"]} → 50% ${v["50"]} → 75% ${v["75"]} → ended ${v.ended}`);
 }

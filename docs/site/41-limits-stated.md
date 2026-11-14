@@ -62,4 +62,4 @@ Read this before you rely on anything Canary Court says. The full threat model i
 
 ## Visits we count
 
-We count visits (page, referring site, country, device type) without cookies or personal data; IPs are never stored. A day's unique visitors are counted from a one-way hash of the IP and browser string with a salt that changes every day and is deleted two days later, so no hash can be linked to anyone after that. For the demo video we count plays and how far they get (a quarter, half, three quarters, the end). Every counter expires after 90 days. Bots are skipped by their user agent, and nothing goes to a third-party analytics service: the counters live in our own Redis.
+We count visits with [GoatCounter](https://www.goatcounter.com): the page, the referring site, the page title, the screen size and the country. GoatCounter sets no cookies and stores no IP addresses. For the demo video we count plays and how far they get (a quarter, half, three quarters, the end). The site sends these counts straight to GoatCounter, with no tracking script; our own development and video-capture runs aren't counted.
