@@ -130,7 +130,7 @@ The money is protected by layers that don't depend on any LLM behaving.
    - An OutLayer queue timeout refunds **0.009 NEAR** (the 0.02 fee minus OutLayer's maximum charge of 0.011), is logged `infra_timeout`, and doesn't count in `agent.failed`.
    - Attacker-fault errors keep the fee, and so does a NEAR AI outage (`LLM_UNAVAILABLE`).
    - Only a replayed payload with attested evidence earns a strike.
-7. **Upgrades and trust.** The contract is **not locked yet**. The team holds the contract account's full-access key until feature freeze. At freeze it will be deleted with [`contracts/scripts/lock.sh`](contracts/scripts/lock.sh). After that the owner can still change the policy and the enclave, and both changes are visible on-chain.
+7. **Locked contract.** On 2026-11-14 the only full-access key on `redteam.arifnovrian.testnet` was deleted with [`contracts/scripts/lock.sh`](contracts/scripts/lock.sh), in tx [`EUpzUJw1…`](https://testnet.nearblocks.io/txns/EUpzUJw1b3N8LnEj4N1XY7m6qWCM6SLyXeQmnJDsBqVJ). Nobody can redeploy or change the code. The final code sha256 is `2063042cbda558b0e571bf9bd4ea831dd78fede7bebf02fd86a4276616c45047`. Owner methods still work, because they are authorized by the owner account, not by a key on `redteam`. So the owner can still change the policy and the enclave, and both changes are visible on-chain.
 
 Full tables:
 - keys and method list: [`contracts/DEPLOYMENTS.md`](contracts/DEPLOYMENTS.md);
@@ -219,7 +219,7 @@ The official track text is from nearhackathon.com/HACKATHON.md. For each track: 
 - **Key rotation.** A new enclave build means a new key: run `set_enclave`, then re-register targets.
 - **Attestation coverage.** External quote verification (Phala / NVIDIA NRAS) wasn't tested.
 - **Reputation and disputes.** Reputation is simple counts, and there is no dispute or appeal flow.
-- **Not locked yet.** See Security model, point 7.
+- **Owner stays trusted.** The contract code is locked (sha `2063042c…`, key deleted in tx [`EUpzUJw1…`](https://testnet.nearblocks.io/txns/EUpzUJw1b3N8LnEj4N1XY7m6qWCM6SLyXeQmnJDsBqVJ)). Owner methods still work, so the owner can change the policy and the enclave. See Security model, point 7.
 
 More: [`docs/site/41-limits-stated.md`](docs/site/41-limits-stated.md) and the "Known history" in [`contracts/README.md`](contracts/README.md).
 

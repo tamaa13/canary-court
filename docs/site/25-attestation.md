@@ -77,8 +77,10 @@ null  model.sigs     | llm=mock (mock target: no model)
   signature chains up to Intel and NVIDIA. Submit `intel_quote` and `nvidia_payload` to an external verifier for that.
 - **Request delivery.** OutLayer's coordinator can delay or drop requests. It cannot forge a result that passes these
   checks.
-- **The contract owner stays trusted.** Until freeze it can redeploy the contract. After freeze it can still change the
-  policy and the enclave; both are visible on chain (`config.code` above catches an enclave change).
+- **The contract owner stays trusted.** It can't redeploy the contract any more: its last full-access key was deleted
+  in tx `EUpzUJw1b3N8LnEj4N1XY7m6qWCM6SLyXeQmnJDsBqVJ`, and you can check that `view_access_key_list` for
+  `redteam.arifnovrian.testnet` is empty. It can still change the policy and the enclave; both are visible on chain
+  (`config.code` above catches an enclave change).
 - **Mock targets** involve no model at all: a canned stub that ignores the system prompt. The output says `llm: "mock"`.
 
 The full threat model, with evidence for each mitigation, is in `enclave/THREAT-MODEL.md`.

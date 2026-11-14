@@ -39,7 +39,7 @@ Evidence: `t:` = unit/sandbox test (contracts: `contracts/`, enclave: `enclave/s
 | 9 | anyone runs the enclave on public `enc_target` with their own client key, to read the canary | secret access = `Predecessor{redteam}`; in-module guard (`evaluate` only if predecessor = redteam over NEAR); `challenge` op echoes only a fixed format | tx:`J7mxknSQ…`, `8HFMVHTG…` (direct call denied); t:`caller_guard`, `challenge_is_not_a_decryption_oracle` |
 | 10 | OutLayer host/operator reads keys or plaintext, or tampers with results | execution in Intel TDX. Key bound to wasm H (another build gets nothing). Results resolved only by worker keys that register-contract added after verifying a TDX quote | tx:`5sRUkqdG…` (other hash → no secret); v:`exec.code`, `worker.tee`, `code.bytes` |
 | 11 | NEAR AI operator sees prompt + payload (live mode) | only models listed `owned_by: nearai` (TEE-hosted), else `MODEL_NOT_ALLOWED`. The enclave checks that NEAR AI's signature covers its exact request/response bytes (`bound`) | v:`model.sigN`, fresh-nonce `att.nonce`, `att.addr`, `att.tdx`, `att.gpu` |
-| 12 | contract owner swaps the enclave or redeploys the contract to forge verdicts or harvest payloads | **mitigated at feature freeze by deleting the contract account's full-access key** (locked contract; tx: _TBD at freeze_). After that: `set_enclave` → new wasm H' gets no key (WasmHash binding), so old ciphertexts stay unreadable. The owner's `update_access` on the H row cannot help, because H refuses `evaluate` unless the caller is `redteam`. Code hash in the `enclave_updated` event, and the panel pins/compares H | t:`enclave_updated_event_includes_code_hash`, `set_enclave_validates_source`; v:`config.code` |
+| 12 | contract owner swaps the enclave or redeploys the contract to forge verdicts or harvest payloads | **mitigated: the contract account is locked.** Its only full-access key `ed25519:FBG7VXW8…` was deleted in tx `EUpzUJw1b3N8LnEj4N1XY7m6qWCM6SLyXeQmnJDsBqVJ` (2026-11-14 17:38 WIB). 0 access keys remain, and the code sha256 stays `2063042cbda558b0e571bf9bd4ea831dd78fede7bebf02fd86a4276616c45047` (checked via RPC `view_access_key_list` / `view_account`). Now: `set_enclave` → new wasm H' gets no key (WasmHash binding), so old ciphertexts stay unreadable. The owner's `update_access` on the H row cannot help, because H refuses `evaluate` unless the caller is `redteam`. Code hash in the `enclave_updated` event, and the panel pins/compares H | tx:`EUpzUJw1…` (DeleteKey); t:`enclave_updated_event_includes_code_hash`, `set_enclave_validates_source`; v:`config.code` |
 | 13 | spam / storage griefing | 0.02 NEAR OutLayer fee per finding from the attacker's compute balance, ≤ 20 findings/job, 30 creations/h/agent, solvency guard | t:`rate_limited`, `insolvent_contract_refuses_submissions`, `solvency_tracks_compute_liabilities` |
 | 14 | blocklisted or brand-new agent takes work | `check_counterparty`: Block → panic. Warn (new or with strikes) → restricted: reward ≤ 50 %, no subcontracting, dual evaluation (both attempts must leak) | t:`counterparty_verdicts`, `blocked_agent_cannot_bid`, `restricted_provider_cannot_subcontract`, `attack3_counterparty_warn_escalation_and_block` |
 | 15 | **target replay → canary theft → payout fraud:** copy a victim's public `enc_target` into your own target/job, read the canary in your own report, then attack the victim's job with an echo payload ("repeat CANARY-…") | enclave v0.1.2: target plaintext is bound to the client's x25519 key (`TARGET_BINDING_MISMATCH`, client-fault, before any model call). A replayer who registers the victim's key gets reports sealed to the victim. Echo guard: canary in the payload (incl. homoglyph/ROT13/encoded/fragment) → invalid + strike | t:`replayed_target_is_rejected_before_any_model_call`, `echo_of_a_known_canary_is_manipulation_not_a_leak`, `echo_guard`; e2e: rt-web 04.8 + 07.3 (copied target → `TARGET_BINDING_MISMATCH`, fee refunded), 06.4 (echo → manipulation + strike), 05.7 (codes in receipt tree); tx:`EV8EYd2J…` |
@@ -52,15 +52,14 @@ Evidence: `t:` = unit/sandbox test (contracts: `contracts/`, enclave: `enclave/s
 - **OutLayer:** the keystore enforces the access condition and the wasm-hash binding, and admins keep the TDX measurement
   allowlist honest. The (closed-source) **coordinator delivers requests faithfully**: it cannot forge results, but it can
   delay, drop or inject requests. The enclave's predecessor guard relies on the same request data.
-- **Contract owner is fully trusted until freeze.**
-  - It controls `set_enclave`/`set_policy` and owns the secret row. It can point future findings at arbitrary code
-    (visible on-chain via the code hash) or delete the row (DoS).
-  - `redteam.arifnovrian.testnet` still has a **full-access key**, so its holder can redeploy the contract. A
-    redeployed contract can ask the current enclave to re-evaluate any public `enc_target`/`enc_payload` with a report
-    key of its choosing. The predecessor guard cannot tell the difference. That reveals the payload + excerpt of any
-    finding that leaks again; invalid ones yield no report.
-  - **Decision:** delete the contract account's full-access key at feature freeze (locked contract), after which only
-    `set_enclave`/`set_policy` remain, and neither can reach old ciphertexts (row 12).
+- **Contract owner stays trusted (narrower since the lock).**
+  - It controls `set_enclave`/`set_policy` (verified to still work after the lock, tx `EL4WBpwK…`) and owns the
+    secret row. It can point FUTURE findings at arbitrary code (visible on-chain via the code hash) or delete the row
+    (DoS).
+  - It can no longer redeploy the contract: `redteam.arifnovrian.testnet` has 0 access keys since tx `EUpzUJw1…`.
+    Before the lock, a redeployed contract could have asked the enclave to re-evaluate any public
+    `enc_target`/`enc_payload` with a report key of its choosing. That path is closed now. `set_enclave` cannot
+    reach old ciphertexts either (row 12).
 - **NEAR AI** serves the attested model behind the attested gateway.
 
 ## Residual risks / out of scope
@@ -101,6 +100,7 @@ Evidence: `t:` = unit/sandbox test (contracts: `contracts/`, enclave: `enclave/s
 - **Liveness:** OutLayer's yield/resume window is 200 blocks (≈ 115 s on testnet), and testnet has 2 shared executor
   workers. Under load the queue alone can exceed the window, so the finding comes back Failed (null output). The agent
   resubmits; the enclave's own runtime is 1–3 s.
-- **Upgradeable contract until freeze** (see trust assumptions). Future work: the enclave verifies the caller's
-  contract code hash via RPC against a compiled-in allowlist, so even an unlocked contract account could not repurpose it.
+- **Owner levers after the lock:** `set_policy` and `set_enclave` still work (by design), so the owner can change rules
+  or point future findings at a different enclave, visibly on chain. Future work: the enclave verifies the caller's
+  contract code hash via RPC against a compiled-in allowlist, and/or a timelock on `set_enclave`.
 - **Mock mode** findings (`llm: "mock"`) involve no model, and the UI labels them. Testnet only; tUSDC is a mock token.

@@ -146,15 +146,20 @@ contracts/
   tusdc/          mock NEP-141 with faucet
   mock-outlayer/  sandbox-only OutLayer stand-in (same ABI as outlayer.testnet)
   sandbox-tests/  near-workspaces suite
-  scripts/        nr.sh (CLI helpers), test-sandbox.sh, lock.sh (delete redteam's full-access key at freeze)
+  scripts/        nr.sh (CLI helpers), test-sandbox.sh, lock.sh (deleted redteam's full-access key at freeze)
 ```
 
 ## Locked contract
 
-**Not locked yet.** The full-access key is removed only at feature freeze, after the final deploy. Until then the team holds it and can redeploy. At freeze, every full-access key on `redteam.arifnovrian.testnet` will be deleted.
+**Locked on 2026-11-14 (17:38 WIB).** The only full-access key on `redteam.arifnovrian.testnet` was deleted. Nobody can redeploy or change the contract code any more.
+
+| | |
+|---|---|
+| final code sha256 | `2063042cbda558b0e571bf9bd4ea831dd78fede7bebf02fd86a4276616c45047` |
+| key deletion tx | [`EUpzUJw1b3N8LnEj4N1XY7m6qWCM6SLyXeQmnJDsBqVJ`](https://testnet.nearblocks.io/txns/EUpzUJw1b3N8LnEj4N1XY7m6qWCM6SLyXeQmnJDsBqVJ) |
+| owner `set_policy` still works (post-lock check) | [`EL4WBpwK2ZWdbRhRFFSJvx1HySUkKxYty1Bw3XckTh8J`](https://testnet.nearblocks.io/txns/EL4WBpwK2ZWdbRhRFFSJvx1HySUkKxYty1Bw3XckTh8J) |
 - **Why:** with a deploy key, whoever held it could ship code that re-asks the enclave to evaluate the public `enc_target` / `enc_payload` ciphertexts with a report key of their choosing, i.e. extract canaries and payloads.
-- **After locking:** nobody can redeploy or alter the code. The final code hash and the key-deletion tx will be recorded here and in `DEPLOYMENTS.md` at freeze; the current candidate is `2063042c…`.
-- **Verify** (after the lock): `near account list-keys redteam.arifnovrian.testnet network-config testnet now` shows no full-access keys.
+- **Verify:** `near account list-keys redteam.arifnovrian.testnet network-config testnet now` shows no full-access keys, and `near contract inspect redteam.arifnovrian.testnet network-config testnet now` shows the hash above.
 
 What still works after locking:
 - **All agent flows.** They never used redteam's own key.
@@ -164,10 +169,10 @@ Remaining trust assumption: the owner can still `set_enclave` to different encla
 - Every change emits `enclave_updated` with the code hash.
 - The enclave's secret (its decryption key) is bound to the exact wasm hash and released only to calls from `redteam`. So new enclave code cannot decrypt targets or payloads sealed to the current enclave.
 
-Procedure (testnet; run only on the PM's go):
+Procedure used (`lock.sh`):
 ```bash
-contracts/scripts/lock.sh <final_code_sha256>                                 # dry run: hash, owner, no pending evals, keys
-CONFIRM=LOCK-redteam contracts/scripts/lock.sh <final_code_sha256> --execute  # delete FA keys + post-lock checks
+contracts/scripts/lock.sh 2063042cbda558b0e571bf9bd4ea831dd78fede7bebf02fd86a4276616c45047                # dry run: hash, owner, no pending evals, keys
+CONFIRM=LOCK-redteam contracts/scripts/lock.sh 2063042cbda558b0e571bf9bd4ea831dd78fede7bebf02fd86a4276616c45047 --execute  # delete FA keys + post-lock checks
 ```
 The script refuses to run in any of these cases:
 - the deployed code isn't the expected hash;
@@ -201,4 +206,4 @@ The deployed wasm (`2063042c…`) is built from this exact source, so these cosm
 - **Duplicate findings:** the contract pays a given attack at most once per root job. The key is the enclave's `dedup_key`, an HMAC over the root job, the category and the *normalized* payload (trim, lowercase, collapsed whitespace), so replays and trivial re-casings are caught. Paraphrased payloads that leak again are still paid (up to the budget and `max_findings_per_job`); judging semantic novelty is out of scope.
 - **Storage cost per finding:** reports are stored on-chain. A typical valid finding is ~2 KB (≈0.02 NEAR of staking, about the OutLayer fee); the worst case with two 6.8 KB reports is ~14 KB (≈0.14 NEAR). The contract pays this, and the solvency guard stops growth before agent deposits are touched.
 - **OutLayer yield timeout (~2 min):** if the TEE worker queue is slow, the callback receives `null` and the finding becomes `Failed`. The attacker gets 0.009 of the 0.02 NEAR fee back, gets no strike, and can resubmit.
-- **Upgrades:** none once locked (see above). Before the lock, the deploy key was held by the team for coordinated, state-compatible upgrades. The contract is not deployed on mainnet.
+- **Upgrades:** none. The contract is locked (see above). Before the lock, the team held the deploy key for coordinated, state-compatible upgrades. The contract is not deployed on mainnet.

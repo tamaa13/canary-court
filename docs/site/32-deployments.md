@@ -82,14 +82,20 @@ Your full-access setup key (used once for `storage_deposit`, `mint`, `ft_transfe
 
 ## Locked contract
 
-**Not locked yet.** The contract account still has its full-access key. It is removed only at feature freeze, after the final deploy. Until then, whoever holds that key can redeploy the code. The current candidate for the locked build is `2063042c…`. This page will list the final hash and the key-deletion tx once it's done.
+**Locked on 2026-11-14 (17:38 WIB).** The only full-access key on `redteam.arifnovrian.testnet` was deleted. Nobody can redeploy or change the contract code any more.
 
-The lock will be done by [`contracts/scripts/lock.sh`](../../contracts/scripts/lock.sh). It refuses to run if:
+| | |
+|---|---|
+| final code sha256 | `2063042cbda558b0e571bf9bd4ea831dd78fede7bebf02fd86a4276616c45047` |
+| key deletion tx | [`EUpzUJw1…`](https://testnet.nearblocks.io/txns/EUpzUJw1b3N8LnEj4N1XY7m6qWCM6SLyXeQmnJDsBqVJ) |
+| owner `set_policy` after the lock | [`EL4WBpwK…`](https://testnet.nearblocks.io/txns/EL4WBpwK2ZWdbRhRFFSJvx1HySUkKxYty1Bw3XckTh8J) |
+
+The lock was done by [`contracts/scripts/lock.sh`](../../contracts/scripts/lock.sh). It refuses to run if:
 - the deployed hash is not the expected one,
 - the owner is the contract itself, or
 - an evaluation is in flight.
 
-After locking, it checks that no full-access key is left and that the owner can still call `set_policy`. Owner methods keep working because they are authorized by the owner account, not by a key on `redteam`. So even after the lock the owner stays trusted: it can still change the policy and the enclave, and both changes are visible on-chain.
+After locking, it confirmed that no full-access key is left, that the code hash is unchanged, and that the owner can still call `set_policy`. Owner methods keep working because they are authorized by the owner account, not by a key on `redteam`. So the owner stays trusted: it can still change the policy and the enclave, and both changes are visible on-chain.
 
 ## Verify it yourself
 
@@ -102,10 +108,10 @@ cd contracts/redteam && cargo near build non-reproducible-wasm                 #
 
 Local builds reproduce the deployed hash byte for byte with Rust 1.100 and cargo-near 0.23. This was checked from a clean clone for `68f9fb69…`, and again for the current `2063042c…`. A different toolchain can give a different hash.
 
-**2. Whether it can still be redeployed.** Before the lock, you will see one full-access key. After the lock, there will be none.
+**2. Nobody can redeploy it.** The account has no full-access key.
 
 ```bash
-near account list-keys redteam.arifnovrian.testnet network-config testnet now  # after the lock: no "full access" rows
+near account list-keys redteam.arifnovrian.testnet network-config testnet now  # no "full access" rows
 ```
 
 **3. The configuration is what this page says.**

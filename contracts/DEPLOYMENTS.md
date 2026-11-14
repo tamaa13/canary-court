@@ -136,12 +136,16 @@ rt_call arifnovrian.testnet set_policy '{"policy":{ ...full Policy object from g
     - job 17, target bound to another client: tx `EV8EYd2JvzjSJjQU44qfACf9fqptPQkaeFat8fKTNp4S` → Failed `TARGET_BINDING_MISMATCH`, `client_fault`, fee refunded.
     - job 18, payload sealed for job 16, submitted by throwaway `rtc-sanity.arifnovrian.testnet`: tx `BiHNsms5JUyEUtMLrXAjj9qPfu7n3T86hrctHRr4897h` → Failed `PAYLOAD_BINDING_MISMATCH` + strike, evidence `deb497e517df12adb7fd3df003722ca36d465f672f7295d4b78d28a6c1d8523e` (verified on-chain).
 - 2026-11-14 00:08 WIB: `redteam` code upgrade (state-compatible). **Fix:** the lead margin is paid only when the sub's leg is paid. Before this, an unpaid sub finding (subjob budget exhausted) still paid the lead its margin from the parent escrow. rt-agents found it live on findings 20/22 (policy seq 79-84). Code sha256 `f05e3dc9362b62f5947cd78a11c70c4214c616cc402685525f0ed2fb570ff880`, tx `6caAHEDYcu6EZHEV5FfSHsnDmeRdPzYRt2uH1q6BmJPP`.
-- 2026-11-14 00:31 WIB: `redteam` code upgrade (state-compatible). On a null output or promise failure (OutLayer queue/yield timeout), refund `fee − outlayer_max_charge` to the attacker. That's exactly 0.009 NEAR with the current limits; see `get_config.infra_refund`. Logged `infra_timeout`, not counted in `agent.failed`. Code sha256 `2063042cbda558b0e571bf9bd4ea831dd78fede7bebf02fd86a4276616c45047`, tx `DeZNEin5PNeHVHoAFaaBVog7UtMHVqX9sFj9bkjFCPNm`. **Current lock.sh candidate.**
+- 2026-11-14 00:31 WIB: `redteam` code upgrade (state-compatible). On a null output or promise failure (OutLayer queue/yield timeout), refund `fee − outlayer_max_charge` to the attacker. That's exactly 0.009 NEAR with the current limits; see `get_config.infra_refund`. Logged `infra_timeout`, not counted in `agent.failed`. Code sha256 `2063042cbda558b0e571bf9bd4ea831dd78fede7bebf02fd86a4276616c45047`, tx `DeZNEin5PNeHVHoAFaaBVog7UtMHVqX9sFj9bkjFCPNm`. **This is the final, locked code.**
 - 2026-11-14 02:47 WIB: `set_enclave` → enclave **v0.1.3** (manipulation-heuristic precision fix for treasury payloads; no interface change). WasmUrl `c1b1ac5cd1a270880554a321f2a6736858fdac1b00964763f71c26498f0d0cdf`, pubkey `091e7c1b45f635f3015ce7dff55fdbc0944f52abf7190f7b8dd0e7b572d5e542`, tx `DCoezLFAoJJfAeEiBuy1wiZ1yWx9wxgGtn5GaizEa7S8`.
   - 0 findings were Pending before and after the switch; secrets_ref and limits are unchanged; contract code is still `2063042c…`.
   - Targets must be re-sealed to the new pubkey.
   - Sanity: job 73 / finding 72, tx `5vPYHdcxUdXhS5fwsbJQUBYMdKMHor9QiKJpR5u8R37a`. The attacker was the throwaway `rtc-sanity`, a Warn agent, so the run was restricted with dual eval → Valid/high, paid 50% (1 tUSDC).
 - RPC note: under team load `test.rpc.fastnear.com` (profile `testnet-fastnear`) answered "rate limit exceeded". Helpers and lock.sh now default to profile `testnet` (archival-rpc.testnet.fastnear.com).
+- 2026-11-14 17:38 WIB: **contract locked** with `scripts/lock.sh`.
+  - Prechecks: deployed sha == `2063042c…`, owner `arifnovrian.testnet`, 0 pending across 114 jobs, one full-access key `ed25519:FBG7VXW816sQvSiphDRNzFxWCh8GhG2J5pzWXtXkb4RT`.
+  - Key deleted: tx `EUpzUJw1b3N8LnEj4N1XY7m6qWCM6SLyXeQmnJDsBqVJ`.
+  - Post-lock checks: 0 full-access keys; code hash unchanged; solvent (headroom 2.41 NEAR); owner `set_policy` still works, tx `EL4WBpwK2ZWdbRhRFFSJvx1HySUkKxYty1Bw3XckTh8J`.
 
 ## Tests
 - Unit (86 incl. tusdc, includes a simulated OutLayer callback): `cd contracts && cargo test -p redteam -p tusdc`

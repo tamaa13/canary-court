@@ -60,9 +60,9 @@ Be aware of what sealing does *not* hide:
 - **Intel TDX** and OutLayer's attested workers keep the enclave's memory private from the machine's operator.
 - **NEAR AI** runs live models in TDX + NVIDIA confidential computing. The model sees your system prompt and payload
   inside its TEE.
-- **The contract owner stays trusted.** Until freeze, it can redeploy the contract. An upgraded contract could replay
-  old ciphertexts through the enclave with a report key of its choosing. After freeze (full-access key deleted), it can
-  still change the policy and the enclave, which is visible on chain. See the threat model (`enclave/THREAT-MODEL.md`,
-  row 12).
+- **The contract owner stays trusted, but can no longer redeploy.** The contract account's last full-access key was
+  deleted at feature freeze (tx `EUpzUJw1b3N8LnEj4N1XY7m6qWCM6SLyXeQmnJDsBqVJ`), so the code is fixed at sha256
+  `2063042c…c45047`. The owner can still change the policy and the enclave, which is visible on chain. A new enclave
+  can't read ciphertexts sealed to the old one. See the threat model (`enclave/THREAT-MODEL.md`, row 12).
 
 What each of these trusts means, and how to check it, is in [Attestation](25-attestation.md).
