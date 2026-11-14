@@ -8,3 +8,4 @@ fixtures/local/
 
 # root .gitignore ignores Rust `target/` dirs; our TypeScript target profiles live in src/target
 !src/target/
+dist-keeper/

@@ -24,7 +24,8 @@
     "open-report": "tsx src/cli/open-report.ts",
     "join": "tsx src/cli/join.ts",
     "rt": "tsx src/cli/rt.ts",
-    "keep-open": "tsx src/cli/keep-open.ts"
+    "keep-open": "tsx src/cli/keep-open.ts",
+    "build:keeper": "node scripts/build-keeper.mjs"
   },
   "dependencies": {
     "@noble/ciphers": "^2.4.0",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@types/node": "^26.6.6",
+    "esbuild": "^0.28.2",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vitest": "^5.1.0"
