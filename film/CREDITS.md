@@ -5,7 +5,10 @@ not in the repo (`film/clips/` is gitignored); they are cut from the sources bel
 
 For the video description:
 
-> Short news and keynote clips belong to their owners and appear briefly as commentary. Music made for this film.
+> Short news and keynote clips belong to their owners and appear briefly as commentary. Music and sound made for this film. Piano samples: University of Iowa Electronic Music Studios (Musical Instrument Samples, Lawrence Fritts).
+
+Music and sound effects: an original score and synthesized sound effects made for this film. The piano is the
+University of Iowa MIS pianissimo Steinway (free for any use; credited anyway).
 
 ## With sound and captions (0:04–0:14)
 
