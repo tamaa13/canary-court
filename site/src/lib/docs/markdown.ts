@@ -1,8 +1,9 @@
 // Markdown → HTML for the docs, at build. Headings get ids and a quiet anchor; code blocks become a captioned figure
 // with a copy button (plain mono: the site sets code in one ink, comments muted); tables scroll in their own box;
-// links to other pages' .md files become /docs links; outside links say so.
+// links to other pages' .md files become /docs links, repo paths (../../contracts/…) open on GitHub; outside links say so.
 
 import { Marked, type Tokens } from "marked";
+import { docHref } from "./href";
 
 export interface Heading {
   depth: number;
@@ -63,9 +64,8 @@ export function renderDoc(body: string, title: string): { html: string; headings
       },
       link(this: { parser: { parseInline: (t: Tokens.Link["tokens"]) => string } }, { href, title, tokens }: Tokens.Link) {
         const inner = this.parser.parseInline(tokens);
-        // (another docs page: 03-verdicts.md#x → /docs/verdicts#x)
-        const md = /^(?:\.\/)?(?:\d+-)?([a-z0-9-]+)\.md(#.*)?$/.exec(href);
-        const to = md ? `/docs/${md[1]}${md[2] ?? ""}` : href;
+        // (another docs page → /docs/<slug>; a repo path like ../../contracts/… → its page on GitHub: lib/docs/href.ts)
+        const to = docHref(href);
         const ext = /^https?:\/\//.test(to);
         return `<a href="${esc(to)}"${title ? ` title="${esc(title)}"` : ""}${ext ? ' rel="noreferrer" class="doc-out"' : ""}>${inner}</a>`;
       },

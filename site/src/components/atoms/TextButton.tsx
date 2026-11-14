@@ -1,9 +1,9 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { ComponentProps } from "react";
 import { cx } from "@/lib/cx";
 
 /** A quiet action inside a panel (re-check, new nonce, step): words on a hairline, never a filled pill. `pressed` marks
  *  the chosen option of a switch with a solid ink rule. */
-export function TextButton({ className, pressed, ...rest }: ButtonHTMLAttributes<HTMLButtonElement> & { pressed?: boolean }) {
+export function TextButton({ className, pressed, ...rest }: ComponentProps<"button"> & { pressed?: boolean }) {
   return (
     <button
       type="button"
