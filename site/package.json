@@ -1,0 +1,32 @@
+{
+  "name": "canary-court-site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 3100",
+    "build": "next build",
+    "start": "next start -p 3100",
+    "typecheck": "tsc --noEmit",
+    "snapshot": "tsx scripts/snapshot.ts",
+    "test": "tsx --test src/lib/visits/record.test.ts",
+    "visits": "tsx scripts/visits.ts"
+  },
+  "dependencies": {
+    "marked": "^18.1.0",
+    "next": "16.4.6",
+    "noble-curves-v1": "npm:@noble/curves@1.9.7",
+    "noble-hashes-v1": "npm:@noble/hashes@1.8.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.5",
+    "@types/node": "24",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19",
+    "tailwindcss": "4.3.5",
+    "tsx": "^4.23.15",
+    "typescript": "5.9"
+  }
+}

@@ -1,0 +1,20 @@
+[package]
+name = "tusdc"
+description = "Test USDC (mock NEP-141) with a capped public faucet mint. Testnet only."
+version = "0.1.0"
+edition = "2021"
+repository = "https://github.com/arifnovrian/near-redteam"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+near-sdk = { workspace = true }
+near-contract-standards = { workspace = true }
+
+[dev-dependencies]
+near-sdk = { workspace = true, features = ["unit-testing"] }
+
+[lints.rust.unexpected_cfgs]
+level = "warn"
+check-cfg = ['cfg(near)']

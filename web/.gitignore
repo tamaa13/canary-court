@@ -1,0 +1,6 @@
+node_modules/
+e2e/.keys/
+e2e/.state/
+e2e/reports/*.json
+e2e/reports/20*
+e2e/reports/latest-*

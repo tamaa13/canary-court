@@ -1,0 +1,49 @@
+{
+  "recorded_at": "2026-11-13T16:06:09.723Z",
+  "route": "Intents account → Intents account (bridged Arbitrum USDC → NEAR USDC)",
+  "res": {
+    "quote": {
+      "amountIn": "120000000",
+      "amountInFormatted": "120.0",
+      "amountInUsd": "119.937840000000",
+      "minAmountIn": "120000000",
+      "amountOut": "119984947",
+      "amountOutFormatted": "119.984947",
+      "amountOutUsd": "119.922794797454",
+      "minAmountOut": "118785097",
+      "timeEstimate": 10,
+      "refundFee": "0",
+      "withdrawFee": "0"
+    },
+    "quoteRequest": {
+      "dry": true,
+      "depositMode": "SIMPLE",
+      "swapType": "EXACT_INPUT",
+      "slippageTolerance": 100,
+      "originAsset": "nep141:arb-0xaf88d065e77c8cc2239327c5edb3a432268e5831.omft.near",
+      "depositType": "INTENTS",
+      "destinationAsset": "nep141:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+      "amount": "120000000",
+      "refundTo": "redteam-demo.near",
+      "refundType": "INTENTS",
+      "recipient": "redteam-demo.near",
+      "recipientType": "INTENTS",
+      "deadline": "2026-11-13T17:06:05.604Z",
+      "confidentiality": "public",
+      "quoteWaitingTimeMs": 3000,
+      "insured": false,
+      "appFees": [
+        {
+          "recipient": "5880ad2b362620fadf759cbceb1cd5737ce8c6ed7fb8e9942881e6731f9247dd",
+          "fee": 1
+        }
+      ]
+    },
+    "signature": "ed25519:4Zp8zKfovx2dVhdPiVicHHRqstxB8bpnVsF68YZS2Dn4o6mxevGKoyFM1uA9TZqZbux5UgFdfoFbF7ctAaDuFZNP",
+    "timestamp": "2026-11-13T16:06:06.439Z",
+    "correlationId": "e4106db3-568b-48d5-9e85-0237f21d3c31"
+  },
+  "attempts": [
+    "origin chain → NEAR (deposit on Arbitrum, payout to a NEAR account): 1Click 400: Internal server error (correlationId f1ee2e54-f98f-4064-972f-b1a99a4af8a7)"
+  ]
+}

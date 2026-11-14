@@ -1,0 +1,42 @@
+{
+  "version": "0.1.3",
+  "wasm_sha256": "c1b1ac5cd1a270880554a321f2a6736858fdac1b00964763f71c26498f0d0cdf",
+  "url": "https://test.fastfs.io/arifnovrian.testnet/outlayer.testnet/c1b1ac5cd1a270880554a321f2a6736858fdac1b00964763f71c26498f0d0cdf.wasm",
+  "enclave_pubkey": "091e7c1b45f635f3015ce7dff55fdbc0944f52abf7190f7b8dd0e7b572d5e542",
+  "deployed_at": "2026-11-13T19:46:47+00:00",
+  "txs": {
+    "fastfs_upload": "P9Jw5YChci7v3RhggP5DFdm2toBP1AUX4EuaCTwJBV7",
+    "op_pubkey": "23dyfUhJkssnD7LeT8RKUUFiiehGmxchjje4S65Nv9VY",
+    "lock": "8shiQzam8nLRPkC8T7L7mFpbcqXSU6AWxdN7QtwKnGyk"
+  },
+  "set_enclave": {
+    "code": {
+      "WasmUrl": {
+        "url": "https://test.fastfs.io/arifnovrian.testnet/outlayer.testnet/c1b1ac5cd1a270880554a321f2a6736858fdac1b00964763f71c26498f0d0cdf.wasm",
+        "hash": "c1b1ac5cd1a270880554a321f2a6736858fdac1b00964763f71c26498f0d0cdf",
+        "build_target": "wasm32-wasip2"
+      }
+    },
+    "enclave_pubkey": "091e7c1b45f635f3015ce7dff55fdbc0944f52abf7190f7b8dd0e7b572d5e542",
+    "secrets_ref": {
+      "profile": "enclave",
+      "account_id": "arifnovrian.testnet"
+    },
+    "resource_limits": {
+      "max_instructions": 10000000000,
+      "max_memory_mb": 256,
+      "max_execution_seconds": 90
+    }
+  },
+  "access": {
+    "Predecessor": {
+      "condition": {
+        "Whitelist": {
+          "accounts": [
+            "redteam.arifnovrian.testnet"
+          ]
+        }
+      }
+    }
+  }
+}

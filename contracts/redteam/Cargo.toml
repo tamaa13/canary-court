@@ -1,0 +1,19 @@
+[package]
+name = "redteam"
+description = "Canary Court escrow: autonomous red-team job market with TEE-attested payouts. Testnet only."
+version = "0.1.0"
+edition = "2021"
+repository = "https://github.com/arifnovrian/near-redteam"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+near-sdk = { workspace = true }
+
+[dev-dependencies]
+near-sdk = { workspace = true, features = ["unit-testing"] }
+
+[lints.rust.unexpected_cfgs]
+level = "warn"
+check-cfg = ['cfg(near)']

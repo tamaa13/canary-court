@@ -1,0 +1,2770 @@
+{
+  "run": "fbciwc",
+  "target": "testnet",
+  "startedAt": "2026-11-13T18:31:37.680Z",
+  "finishedAt": "2026-11-13T18:35:54.695Z",
+  "results": [
+    {
+      "id": "01.1",
+      "area": 1,
+      "title": "contract config exposes enclave key and spec policy",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 312,
+      "checks": [
+        {
+          "label": "enclave configured (needed from 01.6 on)",
+          "ok": true,
+          "soft": true,
+          "detail": "enclave_pubkey=\"edcfab71a2cda4b744f60030354b86b3cd6f0db32f85986088fdc23500e83f5c\""
+        },
+        {
+          "label": "token_id = tusdc.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "policy.max_depth = 1",
+          "ok": true
+        },
+        {
+          "label": "policy.max_children = 2",
+          "ok": true
+        },
+        {
+          "label": "policy.strikes_to_block = 2",
+          "ok": true
+        },
+        {
+          "label": "policy.warn_reward_cap_bps = 5000",
+          "ok": true
+        },
+        {
+          "label": "policy.min_deadline_ms ≤ side deadline",
+          "ok": true,
+          "detail": "60000"
+        }
+      ],
+      "txs": [],
+      "notes": [
+        "policy: min_age_blocks=60, outlayer_fee=20000000000000000000000, rate_limit=30/h",
+        "enclave_code: {\"WasmUrl\":{\"build_target\":\"wasm32-wasip2\",\"hash\":\"1ab104255db5223df8352923e02f9cb042e3f546f115ba8d727eab0147c5f28a\",\"url\":\"https://test.fastfs.io/arifnovrian.testnet/outlayer.testnet/1ab104255db5223df8352923e02f9cb042e3f546f115ba8d727eab0147c5f28a.wasm\"}}"
+      ]
+    },
+    {
+      "id": "01.2",
+      "area": 1,
+      "title": "provision fresh per-run agent accounts (FA key for setup, FC key for actions)",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 30840,
+      "checks": [
+        {
+          "label": "efbciwc-client.arifnovrian.testnet does not exist yet",
+          "ok": true
+        },
+        {
+          "label": "create client",
+          "ok": true
+        },
+        {
+          "label": "add FC key client",
+          "ok": true
+        },
+        {
+          "label": "efbciwc-lead.arifnovrian.testnet does not exist yet",
+          "ok": true
+        },
+        {
+          "label": "create lead",
+          "ok": true
+        },
+        {
+          "label": "add FC key lead",
+          "ok": true
+        },
+        {
+          "label": "efbciwc-sub1.arifnovrian.testnet does not exist yet",
+          "ok": true
+        },
+        {
+          "label": "create sub1",
+          "ok": true
+        },
+        {
+          "label": "add FC key sub1",
+          "ok": true
+        },
+        {
+          "label": "efbciwc-sub2.arifnovrian.testnet does not exist yet",
+          "ok": true
+        },
+        {
+          "label": "create sub2",
+          "ok": true
+        },
+        {
+          "label": "add FC key sub2",
+          "ok": true
+        },
+        {
+          "label": "efbciwc-newbie.arifnovrian.testnet does not exist yet",
+          "ok": true
+        },
+        {
+          "label": "create newbie",
+          "ok": true
+        },
+        {
+          "label": "add FC key newbie",
+          "ok": true
+        },
+        {
+          "label": "efbciwc-mallory.arifnovrian.testnet does not exist yet",
+          "ok": true
+        },
+        {
+          "label": "create mallory",
+          "ok": true
+        },
+        {
+          "label": "add FC key mallory",
+          "ok": true
+        },
+        {
+          "label": "efbciwc-thief.arifnovrian.testnet does not exist yet",
+          "ok": true
+        },
+        {
+          "label": "create thief",
+          "ok": true
+        },
+        {
+          "label": "add FC key thief",
+          "ok": true
+        }
+      ],
+      "txs": [
+        {
+          "signer": "arifnovrian.testnet",
+          "receiver": "efbciwc-client.arifnovrian.testnet",
+          "method": "CreateAccount",
+          "hash": "FzYao3v9VpHPU7Pesba9SchhkZ2zZeP48g7E12HBek4L",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "create client"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "efbciwc-client.arifnovrian.testnet",
+          "method": "AddKey",
+          "hash": "Fa5atsM2R7ofiVXLfrpgizkL14yHTU5AMC3CGWMj8xiE",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "fc key client"
+        },
+        {
+          "signer": "arifnovrian.testnet",
+          "receiver": "efbciwc-lead.arifnovrian.testnet",
+          "method": "CreateAccount",
+          "hash": "AbCtssW4goDnA3tkPKpdLavnVdHEHqASawzgXzBsi6qd",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "create lead"
+        },
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "efbciwc-lead.arifnovrian.testnet",
+          "method": "AddKey",
+          "hash": "GkTWFwX7TTuRzRibmLDFLBhzUgENz5kfuvj8u6P18orQ",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "fc key lead"
+        },
+        {
+          "signer": "arifnovrian.testnet",
+          "receiver": "efbciwc-sub1.arifnovrian.testnet",
+          "method": "CreateAccount",
+          "hash": "G7FrLXun25rsTBLjTDqG1g14i9zk2TaBkpmNtcMPsv5p",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "create sub1"
+        },
+        {
+          "signer": "efbciwc-sub1.arifnovrian.testnet",
+          "receiver": "efbciwc-sub1.arifnovrian.testnet",
+          "method": "AddKey",
+          "hash": "Eb6kMJ2PVNQ6zNQ4rSBuk1FbHg2kxtjg83dcAj8cspPB",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "fc key sub1"
+        },
+        {
+          "signer": "arifnovrian.testnet",
+          "receiver": "efbciwc-sub2.arifnovrian.testnet",
+          "method": "CreateAccount",
+          "hash": "1DArHmFHtyYsr4JRNgdMV9Sq4Uqyg7CKJencv2BVCcK",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "create sub2"
+        },
+        {
+          "signer": "efbciwc-sub2.arifnovrian.testnet",
+          "receiver": "efbciwc-sub2.arifnovrian.testnet",
+          "method": "AddKey",
+          "hash": "EBXHB7NPaXWR2BepzVVKTCur4uzhfKEgbqnoN99dGjaD",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "fc key sub2"
+        },
+        {
+          "signer": "arifnovrian.testnet",
+          "receiver": "efbciwc-newbie.arifnovrian.testnet",
+          "method": "CreateAccount",
+          "hash": "6v37sqYbJgus1DB3vvHcvGyAPcnoyRvLLSjadCvPLz4F",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "create newbie"
+        },
+        {
+          "signer": "efbciwc-newbie.arifnovrian.testnet",
+          "receiver": "efbciwc-newbie.arifnovrian.testnet",
+          "method": "AddKey",
+          "hash": "EDHVSLmzd3jaPGKkwheU1g43GVWQEzDuXiBweqYJiJ9b",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "fc key newbie"
+        },
+        {
+          "signer": "arifnovrian.testnet",
+          "receiver": "efbciwc-mallory.arifnovrian.testnet",
+          "method": "CreateAccount",
+          "hash": "BrshRpGCQrriq2YpHRnUFuJepDWuxwdi8kggpGBWuuyd",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "create mallory"
+        },
+        {
+          "signer": "efbciwc-mallory.arifnovrian.testnet",
+          "receiver": "efbciwc-mallory.arifnovrian.testnet",
+          "method": "AddKey",
+          "hash": "2eHoHuQ6Jn1FVXgukDbFscncdkU5aeXrLj2eXHSwtXBu",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "fc key mallory"
+        },
+        {
+          "signer": "arifnovrian.testnet",
+          "receiver": "efbciwc-thief.arifnovrian.testnet",
+          "method": "CreateAccount",
+          "hash": "Cop5bdzZf3cWtaK3b8TkfYBh5d6wJGLHQgtSkSs5H11m",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "create thief"
+        },
+        {
+          "signer": "efbciwc-thief.arifnovrian.testnet",
+          "receiver": "efbciwc-thief.arifnovrian.testnet",
+          "method": "AddKey",
+          "hash": "Hxr3WekRjcgmmdZNdFmm9dnqDPPy9yB2v5h5nTqDqoSx",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [],
+          "label": "fc key thief"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "01.3",
+      "area": 1,
+      "title": "agent keys are function-call keys scoped to redteam",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 1512,
+      "checks": [
+        {
+          "label": "client FC key receiver = redteam.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "client FC key cannot call on_finding_evaluated / ft_transfer",
+          "ok": true
+        },
+        {
+          "label": "lead FC key receiver = redteam.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "lead FC key cannot call on_finding_evaluated / ft_transfer",
+          "ok": true
+        },
+        {
+          "label": "sub1 FC key receiver = redteam.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "sub1 FC key cannot call on_finding_evaluated / ft_transfer",
+          "ok": true
+        },
+        {
+          "label": "sub2 FC key receiver = redteam.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "sub2 FC key cannot call on_finding_evaluated / ft_transfer",
+          "ok": true
+        },
+        {
+          "label": "newbie FC key receiver = redteam.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "newbie FC key cannot call on_finding_evaluated / ft_transfer",
+          "ok": true
+        },
+        {
+          "label": "mallory FC key receiver = redteam.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "mallory FC key cannot call on_finding_evaluated / ft_transfer",
+          "ok": true
+        },
+        {
+          "label": "thief FC key receiver = redteam.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "thief FC key cannot call on_finding_evaluated / ft_transfer",
+          "ok": true
+        }
+      ],
+      "txs": [],
+      "notes": []
+    },
+    {
+      "id": "01.4",
+      "area": 1,
+      "title": "register client, lead, sub1, sub2 (FC key, 0 deposit)",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 20740,
+      "checks": [
+        {
+          "label": "register_agent client succeeds",
+          "ok": true
+        },
+        {
+          "label": "client.role = client",
+          "ok": true
+        },
+        {
+          "label": "client.x25519_pubkey = 78909385715816348df528b6fd36cd57367324a08e5a583ae7ce8dd1e4cb6f4d",
+          "ok": true
+        },
+        {
+          "label": "client starts clean",
+          "ok": true
+        },
+        {
+          "label": "register_agent lead succeeds",
+          "ok": true
+        },
+        {
+          "label": "lead.role = provider",
+          "ok": true
+        },
+        {
+          "label": "lead.x25519_pubkey = 4638f1ef59585417bb7bad360967ca9ad80b2522a0768a40d6a3e485c3820e77",
+          "ok": true
+        },
+        {
+          "label": "lead starts clean",
+          "ok": true
+        },
+        {
+          "label": "register_agent sub1 succeeds",
+          "ok": true
+        },
+        {
+          "label": "sub1.role = provider",
+          "ok": true
+        },
+        {
+          "label": "sub1.x25519_pubkey = afd9198a230a06e8203cad94ae779f72688e9daa6b89de452308fb1ea08afd1a",
+          "ok": true
+        },
+        {
+          "label": "sub1 starts clean",
+          "ok": true
+        },
+        {
+          "label": "register_agent sub2 succeeds",
+          "ok": true
+        },
+        {
+          "label": "sub2.role = provider",
+          "ok": true
+        },
+        {
+          "label": "sub2.x25519_pubkey = ee2ae471aafaf8a6f42a6f67b92b702ccb86a6c2b6e86bbd848b68c55c8aa15e",
+          "ok": true
+        },
+        {
+          "label": "sub2 starts clean",
+          "ok": true
+        },
+        {
+          "label": "register_agent thief succeeds",
+          "ok": true
+        },
+        {
+          "label": "thief.role = client",
+          "ok": true
+        },
+        {
+          "label": "thief.x25519_pubkey = 97665af6422adc3ccba82cac1ed93089ae078a46ac4ce6df5858c188a9de7a03",
+          "ok": true
+        },
+        {
+          "label": "thief starts clean",
+          "ok": true
+        },
+        {
+          "label": "role cannot change on re-register rejected with ERR_ROLE",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_ROLE: role is fixed at first registration"
+        },
+        {
+          "label": "bad x25519 pubkey rejected with ERR_INPUT",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_INPUT: x25519_pubkey must be 32-byte hex"
+        },
+        {
+          "label": "all-zero (low-order) x25519 pubkey rejected with ERR_BAD_KEY",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_BAD_KEY: x25519_pubkey is zero / a small-order point"
+        },
+        {
+          "label": "sub1 key unchanged after rejected re-register = afd9198a230a06e8203cad94ae779f72688e9daa6b89de452308fb1ea08afd1a",
+          "ok": true
+        },
+        {
+          "label": "list_agents includes the run agents",
+          "ok": true
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_agent",
+          "hash": "HBGuJLFPcNzQZyVYoeSxT9AUVEjNdJcZNH3Yby8v7ZcC",
+          "ok": true,
+          "value": {
+            "account_id": "efbciwc-client.arifnovrian.testnet",
+            "role": "client",
+            "x25519_pubkey": "78909385715816348df528b6fd36cd57367324a08e5a583ae7ce8dd1e4cb6f4d",
+            "meta": "{\"e2e\":\"fbciwc\",\"name\":\"client\"}",
+            "registered_ms": 1794594731764,
+            "registered_block": 277547228,
+            "completed": 0,
+            "invalid": 0,
+            "failed": 0,
+            "strikes": [],
+            "blocked": false
+          },
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"agent_registered\",\"data\":[{\"account_id\":\"efbciwc-client.arifnovrian.testnet\",\"role\":\"client\"}]}"
+          ],
+          "label": "register_agent client"
+        },
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_agent",
+          "hash": "ArtTVeu7nL3qBiPc64bw8dBhQcR9rJa3MbCcLUDKLfxB",
+          "ok": true,
+          "value": {
+            "account_id": "efbciwc-lead.arifnovrian.testnet",
+            "role": "provider",
+            "x25519_pubkey": "4638f1ef59585417bb7bad360967ca9ad80b2522a0768a40d6a3e485c3820e77",
+            "meta": "{\"e2e\":\"fbciwc\",\"name\":\"lead\"}",
+            "registered_ms": 1794594734288,
+            "registered_block": 277547232,
+            "completed": 0,
+            "invalid": 0,
+            "failed": 0,
+            "strikes": [],
+            "blocked": false
+          },
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"agent_registered\",\"data\":[{\"account_id\":\"efbciwc-lead.arifnovrian.testnet\",\"role\":\"provider\"}]}"
+          ],
+          "label": "register_agent lead"
+        },
+        {
+          "signer": "efbciwc-sub1.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_agent",
+          "hash": "95zwLgiKWYXGffeZKxwyKBvX4kirQ9iR5uCgjccYmK2z",
+          "ok": true,
+          "value": {
+            "account_id": "efbciwc-sub1.arifnovrian.testnet",
+            "role": "provider",
+            "x25519_pubkey": "afd9198a230a06e8203cad94ae779f72688e9daa6b89de452308fb1ea08afd1a",
+            "meta": "{\"e2e\":\"fbciwc\",\"name\":\"sub1\"}",
+            "registered_ms": 1794594736657,
+            "registered_block": 277547236,
+            "completed": 0,
+            "invalid": 0,
+            "failed": 0,
+            "strikes": [],
+            "blocked": false
+          },
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"agent_registered\",\"data\":[{\"account_id\":\"efbciwc-sub1.arifnovrian.testnet\",\"role\":\"provider\"}]}"
+          ],
+          "label": "register_agent sub1"
+        },
+        {
+          "signer": "efbciwc-sub2.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_agent",
+          "hash": "CTo6CWwhkVSrwaysnxfTjwZUhjYcokpNk9gjQodgpjPV",
+          "ok": true,
+          "value": {
+            "account_id": "efbciwc-sub2.arifnovrian.testnet",
+            "role": "provider",
+            "x25519_pubkey": "ee2ae471aafaf8a6f42a6f67b92b702ccb86a6c2b6e86bbd848b68c55c8aa15e",
+            "meta": "{\"e2e\":\"fbciwc\",\"name\":\"sub2\"}",
+            "registered_ms": 1794594739055,
+            "registered_block": 277547240,
+            "completed": 0,
+            "invalid": 0,
+            "failed": 0,
+            "strikes": [],
+            "blocked": false
+          },
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"agent_registered\",\"data\":[{\"account_id\":\"efbciwc-sub2.arifnovrian.testnet\",\"role\":\"provider\"}]}"
+          ],
+          "label": "register_agent sub2"
+        },
+        {
+          "signer": "efbciwc-thief.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_agent",
+          "hash": "2zNQUxq4JaawDr5Ug8gmcH5ccgSYAY6CQcZ6r1vuym6p",
+          "ok": true,
+          "value": {
+            "account_id": "efbciwc-thief.arifnovrian.testnet",
+            "role": "client",
+            "x25519_pubkey": "97665af6422adc3ccba82cac1ed93089ae078a46ac4ce6df5858c188a9de7a03",
+            "meta": "{\"e2e\":\"fbciwc\",\"name\":\"thief\"}",
+            "registered_ms": 1794594741824,
+            "registered_block": 277547245,
+            "completed": 0,
+            "invalid": 0,
+            "failed": 0,
+            "strikes": [],
+            "blocked": false
+          },
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"agent_registered\",\"data\":[{\"account_id\":\"efbciwc-thief.arifnovrian.testnet\",\"role\":\"client\"}]}"
+          ],
+          "label": "register_agent thief"
+        },
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_agent",
+          "hash": "BtFTyVwdFP4qLkfftUK4AA4dBmy9Fuoy2jFJDquR7SYs",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_ROLE: role is fixed at first registration",
+          "code": "ERR_ROLE",
+          "logs": [],
+          "label": "role cannot change on re-register"
+        },
+        {
+          "signer": "efbciwc-sub1.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_agent",
+          "hash": "HjBikvH3REZbqbWTBCmjyPpuCwqDd8pSCDHCvv5UR8Rx",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_INPUT: x25519_pubkey must be 32-byte hex",
+          "code": "ERR_INPUT",
+          "logs": [],
+          "label": "bad x25519 pubkey"
+        },
+        {
+          "signer": "efbciwc-sub1.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_agent",
+          "hash": "2cxnozC8nM5ctQArE5yHf4K1SihBZrgo5AkNsiXFu47w",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_BAD_KEY: x25519_pubkey is zero / a small-order point",
+          "code": "ERR_BAD_KEY",
+          "logs": [],
+          "label": "all-zero (low-order) x25519 pubkey"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "01.5",
+      "area": 1,
+      "title": "fund: tUSDC mint → ft_transfer_call into escrow; compute deposits (setup FA key)",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 36126,
+      "checks": [
+        {
+          "label": "mint client succeeds",
+          "ok": true
+        },
+        {
+          "label": "mint lead succeeds",
+          "ok": true
+        },
+        {
+          "label": "mint sub1 succeeds",
+          "ok": true
+        },
+        {
+          "label": "mint sub2 succeeds",
+          "ok": true
+        },
+        {
+          "label": "mint newbie succeeds",
+          "ok": true
+        },
+        {
+          "label": "mint mallory succeeds",
+          "ok": true
+        },
+        {
+          "label": "mint thief succeeds",
+          "ok": true
+        },
+        {
+          "label": "thief ft_transfer_call → redteam succeeds",
+          "ok": true
+        },
+        {
+          "label": "client ft_transfer_call → redteam succeeds",
+          "ok": true
+        },
+        {
+          "label": "client internal USDC = 3000000",
+          "ok": true
+        },
+        {
+          "label": "deposit_compute lead succeeds",
+          "ok": true
+        },
+        {
+          "label": "lead compute balance = 100000000000000000000000",
+          "ok": true
+        },
+        {
+          "label": "deposit_compute sub1 succeeds",
+          "ok": true
+        },
+        {
+          "label": "sub1 compute balance = 100000000000000000000000",
+          "ok": true
+        },
+        {
+          "label": "deposit_compute sub2 succeeds",
+          "ok": true
+        },
+        {
+          "label": "sub2 compute balance = 160000000000000000000000",
+          "ok": true
+        },
+        {
+          "label": "deposit_compute newbie succeeds",
+          "ok": true
+        },
+        {
+          "label": "newbie compute balance = 100000000000000000000000",
+          "ok": true
+        },
+        {
+          "label": "deposit_compute mallory succeeds",
+          "ok": true
+        },
+        {
+          "label": "mallory compute balance = 100000000000000000000000",
+          "ok": true
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "tusdc.arifnovrian.testnet",
+          "method": "mint",
+          "hash": "BqHq4i6RwGx6MhJTqtPFNYXQ2DGFMBzYhWRfULu5GHJk",
+          "ok": true,
+          "value": "3000000",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"nep141\",\"version\":\"1.0.0\",\"event\":\"ft_mint\",\"data\":[{\"owner_id\":\"efbciwc-client.arifnovrian.testnet\",\"amount\":\"3000000\",\"memo\":\"faucet\"}]}"
+          ],
+          "label": "mint client"
+        },
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "tusdc.arifnovrian.testnet",
+          "method": "mint",
+          "hash": "DY72Koyug9goQWkrbsSzfvhPEYpk9eX93QqFGxUpEoGU",
+          "ok": true,
+          "value": "1",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"nep141\",\"version\":\"1.0.0\",\"event\":\"ft_mint\",\"data\":[{\"owner_id\":\"efbciwc-lead.arifnovrian.testnet\",\"amount\":\"1\",\"memo\":\"faucet\"}]}"
+          ],
+          "label": "mint lead"
+        },
+        {
+          "signer": "efbciwc-sub1.arifnovrian.testnet",
+          "receiver": "tusdc.arifnovrian.testnet",
+          "method": "mint",
+          "hash": "BHazsiPXET4k65iqsdfEdCmY4tnWEpGX4fYPcnHQnxYp",
+          "ok": true,
+          "value": "1",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"nep141\",\"version\":\"1.0.0\",\"event\":\"ft_mint\",\"data\":[{\"owner_id\":\"efbciwc-sub1.arifnovrian.testnet\",\"amount\":\"1\",\"memo\":\"faucet\"}]}"
+          ],
+          "label": "mint sub1"
+        },
+        {
+          "signer": "efbciwc-sub2.arifnovrian.testnet",
+          "receiver": "tusdc.arifnovrian.testnet",
+          "method": "mint",
+          "hash": "9tfFxgmMsYzUNuXNse8SK2DgiuEDC2MKkXRtvKwW1xr3",
+          "ok": true,
+          "value": "1",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"nep141\",\"version\":\"1.0.0\",\"event\":\"ft_mint\",\"data\":[{\"owner_id\":\"efbciwc-sub2.arifnovrian.testnet\",\"amount\":\"1\",\"memo\":\"faucet\"}]}"
+          ],
+          "label": "mint sub2"
+        },
+        {
+          "signer": "efbciwc-newbie.arifnovrian.testnet",
+          "receiver": "tusdc.arifnovrian.testnet",
+          "method": "mint",
+          "hash": "GpPiqp1L6LQxvhcixbZc8cKvij1zUwnafswXoAmNWbu7",
+          "ok": true,
+          "value": "1",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"nep141\",\"version\":\"1.0.0\",\"event\":\"ft_mint\",\"data\":[{\"owner_id\":\"efbciwc-newbie.arifnovrian.testnet\",\"amount\":\"1\",\"memo\":\"faucet\"}]}"
+          ],
+          "label": "mint newbie"
+        },
+        {
+          "signer": "efbciwc-mallory.arifnovrian.testnet",
+          "receiver": "tusdc.arifnovrian.testnet",
+          "method": "mint",
+          "hash": "2Xe3N576cxj932JAYmGgrFgHFBDv6snaANXt7f3Qt535",
+          "ok": true,
+          "value": "1",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"nep141\",\"version\":\"1.0.0\",\"event\":\"ft_mint\",\"data\":[{\"owner_id\":\"efbciwc-mallory.arifnovrian.testnet\",\"amount\":\"1\",\"memo\":\"faucet\"}]}"
+          ],
+          "label": "mint mallory"
+        },
+        {
+          "signer": "efbciwc-thief.arifnovrian.testnet",
+          "receiver": "tusdc.arifnovrian.testnet",
+          "method": "mint",
+          "hash": "Ft2JXBKyF5nYHi4mDyxhAoyVJ4sYmVx9RanGnUsePgRe",
+          "ok": true,
+          "value": "200000",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"nep141\",\"version\":\"1.0.0\",\"event\":\"ft_mint\",\"data\":[{\"owner_id\":\"efbciwc-thief.arifnovrian.testnet\",\"amount\":\"200000\",\"memo\":\"faucet\"}]}"
+          ],
+          "label": "mint thief"
+        },
+        {
+          "signer": "efbciwc-thief.arifnovrian.testnet",
+          "receiver": "tusdc.arifnovrian.testnet",
+          "method": "ft_transfer_call",
+          "hash": "A6sE2W6vPtMZsoVYFhw4XmBuDGTK4Y9MowbXqkmz3UKH",
+          "ok": true,
+          "value": "200000",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"nep141\",\"version\":\"1.0.0\",\"event\":\"ft_transfer\",\"data\":[{\"old_owner_id\":\"efbciwc-thief.arifnovrian.testnet\",\"new_owner_id\":\"redteam.arifnovrian.testnet\",\"amount\":\"200000\"}]}",
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"deposit_usdc\",\"data\":[{\"account_id\":\"efbciwc-thief.arifnovrian.testnet\",\"amount\":\"200000\"}]}"
+          ],
+          "label": "thief ft_transfer_call → redteam"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "tusdc.arifnovrian.testnet",
+          "method": "ft_transfer_call",
+          "hash": "6sY8xPWsRgUzDknHk9Br23F3HKaVcmVJCWFN4cs4yWPE",
+          "ok": true,
+          "value": "3000000",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"nep141\",\"version\":\"1.0.0\",\"event\":\"ft_transfer\",\"data\":[{\"old_owner_id\":\"efbciwc-client.arifnovrian.testnet\",\"new_owner_id\":\"redteam.arifnovrian.testnet\",\"amount\":\"3000000\"}]}",
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"deposit_usdc\",\"data\":[{\"account_id\":\"efbciwc-client.arifnovrian.testnet\",\"amount\":\"3000000\"}]}"
+          ],
+          "label": "client ft_transfer_call → redteam"
+        },
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "deposit_compute",
+          "hash": "4sDhdrpzwQuF6gaukA52HpPUqKDJ23jWqWK8YxMXSwtK",
+          "ok": true,
+          "value": "100000000000000000000000",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"deposit_compute\",\"data\":[{\"account_id\":\"efbciwc-lead.arifnovrian.testnet\",\"amount\":\"100000000000000000000000\"}]}"
+          ],
+          "label": "deposit_compute lead"
+        },
+        {
+          "signer": "efbciwc-sub1.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "deposit_compute",
+          "hash": "7YgUce4ejQn1emsSrCQQwycFBrHef7UeF9Ut9Vhx1ZM4",
+          "ok": true,
+          "value": "100000000000000000000000",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"deposit_compute\",\"data\":[{\"account_id\":\"efbciwc-sub1.arifnovrian.testnet\",\"amount\":\"100000000000000000000000\"}]}"
+          ],
+          "label": "deposit_compute sub1"
+        },
+        {
+          "signer": "efbciwc-sub2.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "deposit_compute",
+          "hash": "Gb7XMbTUsJBXxnWWrP5r4GFDBCtm6mtDfDCxUf4Cgcmj",
+          "ok": true,
+          "value": "160000000000000000000000",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"deposit_compute\",\"data\":[{\"account_id\":\"efbciwc-sub2.arifnovrian.testnet\",\"amount\":\"160000000000000000000000\"}]}"
+          ],
+          "label": "deposit_compute sub2"
+        },
+        {
+          "signer": "efbciwc-newbie.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "deposit_compute",
+          "hash": "CKKmP8PgS6fHP3FWZwPrbqfGzt5mmfNV5CCUMDbeSXVE",
+          "ok": true,
+          "value": "100000000000000000000000",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"deposit_compute\",\"data\":[{\"account_id\":\"efbciwc-newbie.arifnovrian.testnet\",\"amount\":\"100000000000000000000000\"}]}"
+          ],
+          "label": "deposit_compute newbie"
+        },
+        {
+          "signer": "efbciwc-mallory.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "deposit_compute",
+          "hash": "7RNDAcPAyAYAFXAah44M7tBino83cDPv1i9rWKh5fQ18",
+          "ok": true,
+          "value": "100000000000000000000000",
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"deposit_compute\",\"data\":[{\"account_id\":\"efbciwc-mallory.arifnovrian.testnet\",\"amount\":\"100000000000000000000000\"}]}"
+          ],
+          "label": "deposit_compute mallory"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "01.6",
+      "area": 1,
+      "title": "register target: enc_target is ECIES to the enclave, never plaintext",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 7863,
+      "checks": [
+        {
+          "label": "enclave_pubkey is 32-byte hex (set_enclave done)",
+          "ok": true,
+          "detail": "enclave_pubkey=\"edcfab71a2cda4b744f60030354b86b3cd6f0db32f85986088fdc23500e83f5c\""
+        },
+        {
+          "label": "register_target succeeds",
+          "ok": true
+        },
+        {
+          "label": "target.owner = efbciwc-client.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "enc_target stored as ECIES envelope",
+          "ok": true
+        },
+        {
+          "label": "canary not visible in get_target",
+          "ok": true
+        },
+        {
+          "label": "system prompt not visible in get_target",
+          "ok": true
+        },
+        {
+          "label": "provider cannot register a target rejected with ERR_ROLE",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_ROLE: efbciwc-sub1.arifnovrian.testnet must have role client"
+        },
+        {
+          "label": "owner re-registers its target before any job (update allowed) succeeds",
+          "ok": true
+        },
+        {
+          "label": "target still owned by the client = efbciwc-client.arifnovrian.testnet",
+          "ok": true
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_target",
+          "hash": "EeL6Nj1dGL6L7gyvRRPAZAiTn7QQRZf1cWb72M8zv5K3",
+          "ok": true,
+          "value": {
+            "target_id": "e2e-fbciwc",
+            "owner": "efbciwc-client.arifnovrian.testnet",
+            "enc_target": "AVDIrbnAjPHpnJhJXHJJwKx12v48kCzt6lR2dCx2URQqt6spiHzaU3cFe5KKPRwQ1/BO+c5+56iYX7oUAxLHo2BnGFVyA6DJ5ySgbY0OiXN+lQM3Is4uW7rq7UG6tZ1r0p5+32NidUrE3z1cU1eGg3zq0J59dESF9IkbRz9SJyJeGRKHk4t83on4XWleW+pD6n/De8ftm5sKrFr22JyZ5OgyYuDGrZGJrD43TnTntAewqn6c4CjIgRZ9WicHlKW6bKc47/PWkrfAua8terDS6m1JZE0OcqTAsvt1E2ypCI9F2cSmqalmiyka4EIPCZXCXm6xdakhlYns9WZQ81amR+Tqvc8Mv+xd0QhJZ8/X9zmf3uDPN7mssMoo56bk9cJNcLPB9EC33x9smzOUDs52FCyct4iXJsiWTweelnq0SsMeQnmN6XrxiIHPQ0BbtKbORw8THPnB2EwzYnC74oJl8+ekBcf3GJgNo5oKXF3c+v8aCdijzjLbkRGSFRdi9mVhDQ8Jzet9ymC8c5ePDQveKPEaTtQTE9rT7TeCxvELKr3F4z8S3tRXsvJpTyRs6iQX339h1CnC9RSAwTYLGJF4hT/kDBeWbUWmeuyvACac3G1CJ6z+RWaD3D9Ht2E+lBmYCnp6kOhm20R88PrbvFI=",
+            "categories": [
+              "prompt_injection",
+              "tool_misuse",
+              "jailbreak"
+            ],
+            "created_ms": 1794594788962
+          },
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"target_registered\",\"data\":[{\"target_id\":\"e2e-fbciwc\",\"owner\":\"efbciwc-client.arifnovrian.testnet\",\"categories\":[\"prompt_injection\",\"tool_misuse\",\"jailbreak\"]}]}"
+          ],
+          "label": "register_target"
+        },
+        {
+          "signer": "efbciwc-sub1.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_target",
+          "hash": "8GmWmsFdoUEusHeywuTm8UkZfRD2vQrJvZ5tAbdJZpbj",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_ROLE: efbciwc-sub1.arifnovrian.testnet must have role client",
+          "code": "ERR_ROLE",
+          "logs": [],
+          "label": "provider cannot register a target"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_target",
+          "hash": "2iYL1r3wNDkyL2Qyq1ABe9agA14HzJHd9W13HtDgBGVW",
+          "ok": true,
+          "value": {
+            "target_id": "e2e-fbciwc",
+            "owner": "efbciwc-client.arifnovrian.testnet",
+            "enc_target": "AVDIrbnAjPHpnJhJXHJJwKx12v48kCzt6lR2dCx2URQqt6spiHzaU3cFe5KKPRwQ1/BO+c5+56iYX7oUAxLHo2BnGFVyA6DJ5ySgbY0OiXN+lQM3Is4uW7rq7UG6tZ1r0p5+32NidUrE3z1cU1eGg3zq0J59dESF9IkbRz9SJyJeGRKHk4t83on4XWleW+pD6n/De8ftm5sKrFr22JyZ5OgyYuDGrZGJrD43TnTntAewqn6c4CjIgRZ9WicHlKW6bKc47/PWkrfAua8terDS6m1JZE0OcqTAsvt1E2ypCI9F2cSmqalmiyka4EIPCZXCXm6xdakhlYns9WZQ81amR+Tqvc8Mv+xd0QhJZ8/X9zmf3uDPN7mssMoo56bk9cJNcLPB9EC33x9smzOUDs52FCyct4iXJsiWTweelnq0SsMeQnmN6XrxiIHPQ0BbtKbORw8THPnB2EwzYnC74oJl8+ekBcf3GJgNo5oKXF3c+v8aCdijzjLbkRGSFRdi9mVhDQ8Jzet9ymC8c5ePDQveKPEaTtQTE9rT7TeCxvELKr3F4z8S3tRXsvJpTyRs6iQX339h1CnC9RSAwTYLGJF4hT/kDBeWbUWmeuyvACac3G1CJ6z+RWaD3D9Ht2E+lBmYCnp6kOhm20R88PrbvFI=",
+            "categories": [
+              "prompt_injection",
+              "tool_misuse",
+              "jailbreak"
+            ],
+            "created_ms": 1794594793768
+          },
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"target_registered\",\"data\":[{\"target_id\":\"e2e-fbciwc\",\"owner\":\"efbciwc-client.arifnovrian.testnet\",\"categories\":[\"prompt_injection\",\"tool_misuse\",\"jailbreak\"]}]}"
+          ],
+          "label": "owner re-registers its target before any job (update allowed)"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "02.1",
+      "area": 2,
+      "title": "create_job locks budget from the client balance",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 3550,
+      "checks": [
+        {
+          "label": "create_job J1 succeeds",
+          "ok": true
+        },
+        {
+          "label": "J1.status = Open",
+          "ok": true
+        },
+        {
+          "label": "J1.depth = 0",
+          "ok": true
+        },
+        {
+          "label": "J1.parent_id is null",
+          "ok": true
+        },
+        {
+          "label": "J1.client = efbciwc-client.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "J1.root_client = efbciwc-client.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "J1.remaining = 1000000",
+          "ok": true
+        },
+        {
+          "label": "J1.reward_per_finding = 100000",
+          "ok": true
+        },
+        {
+          "label": "client balance locked = 2000000",
+          "ok": true
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "create_job",
+          "hash": "AKeyGnyedTtSvYuWzXnCeLK8QUkKh1MDYai5mqPhH6xA",
+          "ok": true,
+          "value": 61,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"job_created\",\"data\":[{\"id\":61,\"parent_id\":null,\"depth\":0,\"client\":\"efbciwc-client.arifnovrian.testnet\",\"root_client\":\"efbciwc-client.arifnovrian.testnet\",\"provider\":null,\"target_id\":\"e2e-fbciwc\",\"budget\":\"1000000\",\"remaining\":\"1000000\",\"reward_per_finding\":\"100000\",\"payout_per_finding\":\"100000\",\"categories\":[\"prompt_injection\",\"tool_misuse\"],\"deadline_ms\":1794596233768,\"status\":\"Open\",\"restricted\":false,\"can_subcontract\":false,\"children\":[],\"findings\":[],\"pending\":0,\"created_ms\":1794594796850}]}"
+          ],
+          "label": "create_job J1"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "02.3",
+      "area": 2,
+      "title": "lead bids; client cannot bid on its own job",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 5464,
+      "checks": [
+        {
+          "label": "lead place_bid 0.12 succeeds",
+          "ok": true
+        },
+        {
+          "label": "bid.price_per_finding = 120000",
+          "ok": true
+        },
+        {
+          "label": "bid.status = Open",
+          "ok": true
+        },
+        {
+          "label": "client cannot bid rejected with ERR_ROLE | ERR_SELF_DEAL",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_ROLE: efbciwc-client.arifnovrian.testnet must have role provider"
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "place_bid",
+          "hash": "B7dnKeL3ccJfZiUJVTJoPjEaPDNZFmQetKqyNcWubujD",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_placed\",\"data\":[{\"job_id\":61,\"bidder\":\"efbciwc-lead.arifnovrian.testnet\",\"price_per_finding\":\"120000\"}]}"
+          ],
+          "label": "lead place_bid 0.12"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "place_bid",
+          "hash": "Ev24BsgvuK6gTUGftWYuhjVLkYqDZ6FJHiZn8b6UHvNQ",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_ROLE: efbciwc-client.arifnovrian.testnet must have role provider",
+          "code": "ERR_ROLE",
+          "logs": [],
+          "label": "client cannot bid"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "02.4",
+      "area": 2,
+      "title": "client counters once; only the client may counter",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 7860,
+      "checks": [
+        {
+          "label": "non-client counter rejected with ERR_NOT_CLIENT",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_NOT_CLIENT: only the job client"
+        },
+        {
+          "label": "client counter_bid 0.10 succeeds",
+          "ok": true
+        },
+        {
+          "label": "bid.status = Countered",
+          "ok": true
+        },
+        {
+          "label": "bid.counter_price = 100000",
+          "ok": true
+        },
+        {
+          "label": "second counter on the same bid rejected with ERR_BID",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_BID: bid already countered"
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-sub1.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "counter_bid",
+          "hash": "D9KijWZHGjUJEUqoTXbQ6QeCBZ3Hq7JH3ygb58Yrn5ZJ",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_NOT_CLIENT: only the job client",
+          "code": "ERR_NOT_CLIENT",
+          "logs": [],
+          "label": "non-client counter"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "counter_bid",
+          "hash": "6BArZGkHnShubRFsbuuYTbXPxq4X4ZM9hcLubAJKTWSP",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_countered\",\"data\":[{\"job_id\":61,\"bidder\":\"efbciwc-lead.arifnovrian.testnet\",\"counter_price\":\"100000\"}]}"
+          ],
+          "label": "client counter_bid 0.10"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "counter_bid",
+          "hash": "8yNUrVnTdrudkJ2fu4vPpGdezTte72J5BqqAuUqgKyGX",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_BID: bid already countered",
+          "code": "ERR_BID",
+          "logs": [],
+          "label": "second counter on the same bid"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "02.5",
+      "area": 2,
+      "title": "lead accepts the counter by re-bidding at counter_price",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 2668,
+      "checks": [
+        {
+          "label": "lead re-bid at counter succeeds",
+          "ok": true
+        },
+        {
+          "label": "bid.price_per_finding = 100000",
+          "ok": true
+        },
+        {
+          "label": "bid.status back to Open",
+          "ok": true,
+          "soft": true,
+          "detail": "status=Open"
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "place_bid",
+          "hash": "HrrrQwpT59zCy2UoUfcKt98hK4XCiXe4LT71gRHy4Ymf",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_placed\",\"data\":[{\"job_id\":61,\"bidder\":\"efbciwc-lead.arifnovrian.testnet\",\"price_per_finding\":\"100000\"}]}"
+          ],
+          "label": "lead re-bid at counter"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "02.6",
+      "area": 2,
+      "title": "accept_bid (lead verdict Allow) assigns J1 unrestricted",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 11208,
+      "checks": [
+        {
+          "label": "check_counterparty(lead) reaches Allow (after ~0s)",
+          "ok": true
+        },
+        {
+          "label": "non-client accept rejected with ERR_NOT_CLIENT",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_NOT_CLIENT: only the job client"
+        },
+        {
+          "label": "client accept_bid lead succeeds",
+          "ok": true
+        },
+        {
+          "label": "J1.status = Assigned",
+          "ok": true
+        },
+        {
+          "label": "J1.provider = efbciwc-lead.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "J1.reward_per_finding (= accepted price) = 100000",
+          "ok": true
+        },
+        {
+          "label": "J1.restricted = false",
+          "ok": true
+        },
+        {
+          "label": "J1.can_subcontract = true",
+          "ok": true
+        },
+        {
+          "label": "bid.status = Accepted",
+          "ok": true
+        },
+        {
+          "label": "policy log accept_bid verdict = Allow",
+          "ok": true
+        },
+        {
+          "label": "job no longer biddable rejected with ERR_STATUS",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_STATUS: job is not Open"
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-sub1.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "accept_bid",
+          "hash": "8e6w4DLKcD2NQuGky3GEXLQNv3GvribVQcYc9sBMXZLG",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_NOT_CLIENT: only the job client",
+          "code": "ERR_NOT_CLIENT",
+          "logs": [],
+          "label": "non-client accept"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "accept_bid",
+          "hash": "9GPeHDpykCs743oNaKKUdcorvW5kpAZL39dPNqFKLgWf",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"policy\",\"data\":[{\"seq\":240,\"ts_ms\":1794594819203,\"block_height\":277547381,\"actor\":\"efbciwc-client.arifnovrian.testnet\",\"action\":\"accept_bid\",\"job_id\":61,\"verdict\":{\"level\":\"Allow\",\"reasons\":[\"age 149 blocks, 0 completed, 0 invalid, 0 strikes\"]},\"detail\":\"assigned to efbciwc-lead.arifnovrian.testnet\"}]}",
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_accepted\",\"data\":[{\"job_id\":61,\"provider\":\"efbciwc-lead.arifnovrian.testnet\",\"reward_per_finding\":\"100000\",\"payout_per_finding\":\"100000\",\"restricted\":false,\"can_subcontract\":true}]}"
+          ],
+          "label": "client accept_bid lead"
+        },
+        {
+          "signer": "efbciwc-sub1.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "place_bid",
+          "hash": "CrmhY4FxwN2YugcunKZUB663G9uGCpt1NAs3xHTnnS13",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_STATUS: job is not Open",
+          "code": "ERR_STATUS",
+          "logs": [],
+          "label": "job no longer biddable"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "03.1",
+      "area": 3,
+      "title": "check_counterparty: aged, clean agents → Allow; unregistered → Block",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 1512,
+      "checks": [
+        {
+          "label": "check_counterparty(lead) reaches Allow (after ~0s)",
+          "ok": true
+        },
+        {
+          "label": "lead Allow carries reasons",
+          "ok": true
+        },
+        {
+          "label": "check_counterparty(sub1) reaches Allow (after ~0s)",
+          "ok": true
+        },
+        {
+          "label": "sub1 Allow carries reasons",
+          "ok": true
+        },
+        {
+          "label": "check_counterparty(sub2) reaches Allow (after ~0s)",
+          "ok": true
+        },
+        {
+          "label": "sub2 Allow carries reasons",
+          "ok": true
+        },
+        {
+          "label": "unregistered verdict = Block",
+          "ok": true
+        }
+      ],
+      "txs": [],
+      "notes": []
+    },
+    {
+      "id": "04.1",
+      "area": 4,
+      "title": "create_subjob S1 carves budget from J1",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 5351,
+      "checks": [
+        {
+          "label": "lead create_subjob S1 succeeds",
+          "ok": true
+        },
+        {
+          "label": "S1.depth = 1",
+          "ok": true
+        },
+        {
+          "label": "S1.parent_id = 61",
+          "ok": true
+        },
+        {
+          "label": "S1.client (= lead) = efbciwc-lead.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "S1.root_client = efbciwc-client.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "S1.status = Open",
+          "ok": true
+        },
+        {
+          "label": "J1.remaining = 700000",
+          "ok": true
+        },
+        {
+          "label": "J1.children = [62]",
+          "ok": true
+        },
+        {
+          "label": "policy log create_subjob entry",
+          "ok": true,
+          "soft": true
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "create_subjob",
+          "hash": "CFn8dSKsa2q9u83dHUDbabFMvoPFsEKFnsa48HW2oLXX",
+          "ok": true,
+          "value": 62,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"subjob_created\",\"data\":[{\"id\":62,\"parent_id\":61,\"depth\":1,\"client\":\"efbciwc-lead.arifnovrian.testnet\",\"root_client\":\"efbciwc-client.arifnovrian.testnet\",\"provider\":null,\"target_id\":\"e2e-fbciwc\",\"budget\":\"300000\",\"remaining\":\"300000\",\"reward_per_finding\":\"70000\",\"payout_per_finding\":\"70000\",\"categories\":[\"prompt_injection\"],\"deadline_ms\":1794596203768,\"status\":\"Open\",\"restricted\":false,\"can_subcontract\":false,\"children\":[],\"findings\":[],\"pending\":0,\"created_ms\":1794594828955}]}",
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"policy\",\"data\":[{\"seq\":241,\"ts_ms\":1794594828955,\"block_height\":277547397,\"actor\":\"efbciwc-lead.arifnovrian.testnet\",\"action\":\"create_subjob\",\"job_id\":62,\"verdict\":{\"level\":\"Allow\",\"reasons\":[\"age 165 blocks, 0 completed, 0 invalid, 0 strikes\"]},\"detail\":\"carved 300000 from job 61 (lead margin 30000/finding)\"}]}"
+          ],
+          "label": "lead create_subjob S1"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "04.3",
+      "area": 4,
+      "title": "create_subjob S2; third subjob → ERR_MAX_CHILDREN",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 6187,
+      "checks": [
+        {
+          "label": "lead create_subjob S2 succeeds",
+          "ok": true
+        },
+        {
+          "label": "J1.remaining = 460000",
+          "ok": true
+        },
+        {
+          "label": "J1.children = [62,63]",
+          "ok": true
+        },
+        {
+          "label": "third subjob rejected with ERR_MAX_CHILDREN",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_MAX_CHILDREN: max 2 subjobs per job"
+        },
+        {
+          "label": "J1.remaining unchanged = 460000",
+          "ok": true
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "create_subjob",
+          "hash": "Agms9DSzaHM52JY6cQMNr8eYvFZu9H9t9SJJ7bN3XLKD",
+          "ok": true,
+          "value": 63,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"subjob_created\",\"data\":[{\"id\":63,\"parent_id\":61,\"depth\":1,\"client\":\"efbciwc-lead.arifnovrian.testnet\",\"root_client\":\"efbciwc-client.arifnovrian.testnet\",\"provider\":null,\"target_id\":\"e2e-fbciwc\",\"budget\":\"240000\",\"remaining\":\"240000\",\"reward_per_finding\":\"60000\",\"payout_per_finding\":\"60000\",\"categories\":[\"tool_misuse\"],\"deadline_ms\":1794596203768,\"status\":\"Open\",\"restricted\":false,\"can_subcontract\":false,\"children\":[],\"findings\":[],\"pending\":0,\"created_ms\":1794594834496}]}",
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"policy\",\"data\":[{\"seq\":242,\"ts_ms\":1794594834496,\"block_height\":277547406,\"actor\":\"efbciwc-lead.arifnovrian.testnet\",\"action\":\"create_subjob\",\"job_id\":63,\"verdict\":{\"level\":\"Allow\",\"reasons\":[\"age 174 blocks, 0 completed, 0 invalid, 0 strikes\"]},\"detail\":\"carved 240000 from job 61 (lead margin 40000/finding)\"}]}"
+          ],
+          "label": "lead create_subjob S2"
+        },
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "create_subjob",
+          "hash": "GR3watFwidtpLn64d9g9XRAB5pbHofsdLZWDKzRMTBPy",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_MAX_CHILDREN: max 2 subjobs per job",
+          "code": "ERR_MAX_CHILDREN",
+          "logs": [],
+          "label": "third subjob"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "04.4",
+      "area": 4,
+      "title": "subs bid on subjobs; lead (as client of the subjob) accepts",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 15268,
+      "checks": [
+        {
+          "label": "sub1 bid S1 succeeds",
+          "ok": true
+        },
+        {
+          "label": "sub2 bid S2 succeeds",
+          "ok": true
+        },
+        {
+          "label": "lead cannot bid on its own subjob rejected with ERR_SELF_DEAL",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_SELF_DEAL: cannot bid on your own job"
+        },
+        {
+          "label": "root client cannot accept on a subjob rejected with ERR_NOT_CLIENT",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_NOT_CLIENT: only the job client"
+        },
+        {
+          "label": "lead accept sub1 succeeds",
+          "ok": true
+        },
+        {
+          "label": "lead accept sub2 succeeds",
+          "ok": true
+        },
+        {
+          "label": "S1.status = Assigned",
+          "ok": true
+        },
+        {
+          "label": "S1.provider = efbciwc-sub1.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "S1.restricted = false",
+          "ok": true
+        },
+        {
+          "label": "S1.can_subcontract (depth 1) = false",
+          "ok": true
+        },
+        {
+          "label": "S2.status = Assigned",
+          "ok": true
+        },
+        {
+          "label": "S2.provider = efbciwc-sub2.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "S2.restricted = false",
+          "ok": true
+        },
+        {
+          "label": "S2.can_subcontract (depth 1) = false",
+          "ok": true
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-sub1.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "place_bid",
+          "hash": "4pHJ5GkSDyr6jB67uRTfyecffVsvNCBbtaFoMs5nqauW",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_placed\",\"data\":[{\"job_id\":62,\"bidder\":\"efbciwc-sub1.arifnovrian.testnet\",\"price_per_finding\":\"70000\"}]}"
+          ],
+          "label": "sub1 bid S1"
+        },
+        {
+          "signer": "efbciwc-sub2.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "place_bid",
+          "hash": "EbGsgFcegTkFB3c6RX19ogA8hgRNMfwtvGTKwyrt5vtX",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_placed\",\"data\":[{\"job_id\":63,\"bidder\":\"efbciwc-sub2.arifnovrian.testnet\",\"price_per_finding\":\"60000\"}]}"
+          ],
+          "label": "sub2 bid S2"
+        },
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "place_bid",
+          "hash": "BeVkze9ZHZc2uXEZkfwQNngYRJWKZfEd2GPbqAdV1Bpz",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_SELF_DEAL: cannot bid on your own job",
+          "code": "ERR_SELF_DEAL",
+          "logs": [],
+          "label": "lead cannot bid on its own subjob"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "accept_bid",
+          "hash": "v8w4bxHFsNydWYGf5kV5k6t7dGfoiBE8WzavcyqdcDL",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_NOT_CLIENT: only the job client",
+          "code": "ERR_NOT_CLIENT",
+          "logs": [],
+          "label": "root client cannot accept on a subjob"
+        },
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "accept_bid",
+          "hash": "63xErbBN6owbuhcChKVboLaTi6SQG5vpmJoBG1HdzHrG",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"policy\",\"data\":[{\"seq\":243,\"ts_ms\":1794594850116,\"block_height\":277547432,\"actor\":\"efbciwc-lead.arifnovrian.testnet\",\"action\":\"accept_bid\",\"job_id\":62,\"verdict\":{\"level\":\"Allow\",\"reasons\":[\"age 196 blocks, 0 completed, 0 invalid, 0 strikes\"]},\"detail\":\"assigned to efbciwc-sub1.arifnovrian.testnet\"}]}",
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_accepted\",\"data\":[{\"job_id\":62,\"provider\":\"efbciwc-sub1.arifnovrian.testnet\",\"reward_per_finding\":\"70000\",\"payout_per_finding\":\"70000\",\"restricted\":false,\"can_subcontract\":false}]}"
+          ],
+          "label": "lead accept sub1"
+        },
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "accept_bid",
+          "hash": "7dGyfNB8HSjpfsRcnZxjsyHDm1A5NHbJsS5rr18HxFHp",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"policy\",\"data\":[{\"seq\":244,\"ts_ms\":1794594852444,\"block_height\":277547436,\"actor\":\"efbciwc-lead.arifnovrian.testnet\",\"action\":\"accept_bid\",\"job_id\":63,\"verdict\":{\"level\":\"Allow\",\"reasons\":[\"age 196 blocks, 0 completed, 0 invalid, 0 strikes\"]},\"detail\":\"assigned to efbciwc-sub2.arifnovrian.testnet\"}]}",
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_accepted\",\"data\":[{\"job_id\":63,\"provider\":\"efbciwc-sub2.arifnovrian.testnet\",\"reward_per_finding\":\"60000\",\"payout_per_finding\":\"60000\",\"restricted\":false,\"can_subcontract\":false}]}"
+          ],
+          "label": "lead accept sub2"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "04.7",
+      "area": 4,
+      "title": "setup for client fault: a job on a broken target (canary too short → BAD_TARGET)",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 10321,
+      "checks": [
+        {
+          "label": "register broken target succeeds",
+          "ok": true
+        },
+        {
+          "label": "create_job JX on the broken target succeeds",
+          "ok": true
+        },
+        {
+          "label": "sub2 bids JX succeeds",
+          "ok": true
+        },
+        {
+          "label": "client accepts sub2 on JX succeeds",
+          "ok": true
+        },
+        {
+          "label": "JX.status = Assigned",
+          "ok": true
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_target",
+          "hash": "5ANcXJfqMZRwFNbWzEHLk8xoizsCsQ5brqRzBHWcYnYT",
+          "ok": true,
+          "value": {
+            "target_id": "e2e-fbciwc-bad",
+            "owner": "efbciwc-client.arifnovrian.testnet",
+            "enc_target": "AbZj8mkLKgJ+asnQPWpbQtenmFJkm+Ig+i4qDKjdp1AMsU9A3EnhLIdN7i7A/XUXM8ML74TkfUKLl8sXvMQoYil7zuCrsYuIEc+kDzLU/2JAkEfyqVaWLfRWEunfWAOBRBKcBtUb2e/+RNWauhl99yGcfV6MOyEY7lMh1In8qzrUgzHqQF90SQM8fZq+HY+Lkv28zNwdJEfO9eWPMU7x0bSXGeoU7Jz5U3w9eOzUAjMZX7+Ri37JwoJINL7NigMJdmgHFy8f9NDKj9cI+0fG7zqmUHRYBZwLfk9ZVbTczu+9lmF/qTk=",
+            "categories": [
+              "tool_misuse"
+            ],
+            "created_ms": 1794594855539
+          },
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"target_registered\",\"data\":[{\"target_id\":\"e2e-fbciwc-bad\",\"owner\":\"efbciwc-client.arifnovrian.testnet\",\"categories\":[\"tool_misuse\"]}]}"
+          ],
+          "label": "register broken target"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "create_job",
+          "hash": "BZsiAXNvtuC5QzaXALGpNzZpqTUP69PLv3DafNPGzHWj",
+          "ok": true,
+          "value": 64,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"job_created\",\"data\":[{\"id\":64,\"parent_id\":null,\"depth\":0,\"client\":\"efbciwc-client.arifnovrian.testnet\",\"root_client\":\"efbciwc-client.arifnovrian.testnet\",\"provider\":null,\"target_id\":\"e2e-fbciwc-bad\",\"budget\":\"100000\",\"remaining\":\"100000\",\"reward_per_finding\":\"50000\",\"payout_per_finding\":\"50000\",\"categories\":[\"tool_misuse\"],\"deadline_ms\":1794596235539,\"status\":\"Open\",\"restricted\":false,\"can_subcontract\":false,\"children\":[],\"findings\":[],\"pending\":0,\"created_ms\":1794594857957}]}"
+          ],
+          "label": "create_job JX on the broken target"
+        },
+        {
+          "signer": "efbciwc-sub2.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "place_bid",
+          "hash": "95XG6fHVmunoKhyQFLhrKHusRinz4x4tM94C3AwgNrHJ",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_placed\",\"data\":[{\"job_id\":64,\"bidder\":\"efbciwc-sub2.arifnovrian.testnet\",\"price_per_finding\":\"50000\"}]}"
+          ],
+          "label": "sub2 bids JX"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "accept_bid",
+          "hash": "GjYgVPr2Z2PQrge4EYKRBgJy6FrL5oC7uwyE8BkRUGki",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"policy\",\"data\":[{\"seq\":245,\"ts_ms\":1794594862833,\"block_height\":277547453,\"actor\":\"efbciwc-client.arifnovrian.testnet\",\"action\":\"accept_bid\",\"job_id\":64,\"verdict\":{\"level\":\"Allow\",\"reasons\":[\"age 213 blocks, 0 completed, 0 invalid, 0 strikes\"]},\"detail\":\"assigned to efbciwc-sub2.arifnovrian.testnet\"}]}",
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_accepted\",\"data\":[{\"job_id\":64,\"provider\":\"efbciwc-sub2.arifnovrian.testnet\",\"reward_per_finding\":\"50000\",\"payout_per_finding\":\"50000\",\"restricted\":false,\"can_subcontract\":true}]}"
+          ],
+          "label": "client accepts sub2 on JX"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "03.2",
+      "area": 3,
+      "title": "young agents get Warn → assignment auto-restricted (cap 50%, no subcontract, dual eval)",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 22303,
+      "checks": [
+        {
+          "label": "register_agent newbie succeeds",
+          "ok": true
+        },
+        {
+          "label": "register_agent mallory succeeds",
+          "ok": true
+        },
+        {
+          "label": "create_job JW succeeds",
+          "ok": true
+        },
+        {
+          "label": "create_job JM succeeds",
+          "ok": true
+        },
+        {
+          "label": "newbie bid JW succeeds",
+          "ok": true
+        },
+        {
+          "label": "mallory bid JM succeeds",
+          "ok": true
+        },
+        {
+          "label": "newbie verdict (registered < min_age_blocks ago) = Warn",
+          "ok": true
+        },
+        {
+          "label": "newbie Warn reason mentions age",
+          "ok": true,
+          "soft": true,
+          "detail": "new agent: registered 20 blocks ago (< 60)"
+        },
+        {
+          "label": "mallory verdict (registered < min_age_blocks ago) = Warn",
+          "ok": true
+        },
+        {
+          "label": "mallory Warn reason mentions age",
+          "ok": true,
+          "soft": true,
+          "detail": "new agent: registered 16 blocks ago (< 60)"
+        },
+        {
+          "label": "client accept newbie (Warn) succeeds",
+          "ok": true
+        },
+        {
+          "label": "client accept mallory (Warn) succeeds",
+          "ok": true
+        },
+        {
+          "label": "JW.restricted = true",
+          "ok": true
+        },
+        {
+          "label": "JW.can_subcontract = false",
+          "ok": true
+        },
+        {
+          "label": "JW.payout_per_finding (capped) = 100000",
+          "ok": true
+        },
+        {
+          "label": "policy log JW verdict = Warn",
+          "ok": true
+        },
+        {
+          "label": "policy log JW marks auto-escalation",
+          "ok": true,
+          "soft": true,
+          "detail": "assigned to efbciwc-newbie.arifnovrian.testnet RESTRICTED (auto-escalation): reward capped at 5000 bps, no subcontracting, dual evaluation"
+        },
+        {
+          "label": "JM.restricted = true",
+          "ok": true
+        },
+        {
+          "label": "JM.can_subcontract = false",
+          "ok": true
+        },
+        {
+          "label": "JM.payout_per_finding (capped) = 50000",
+          "ok": true
+        },
+        {
+          "label": "policy log JM verdict = Warn",
+          "ok": true
+        },
+        {
+          "label": "policy log JM marks auto-escalation",
+          "ok": true,
+          "soft": true,
+          "detail": "assigned to efbciwc-mallory.arifnovrian.testnet RESTRICTED (auto-escalation): reward capped at 5000 bps, no subcontracting, dual evaluation"
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-newbie.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_agent",
+          "hash": "7Di7enmcm9MoLCiHS7JerLh67G4aF8EEfLBLHrJH5PY3",
+          "ok": true,
+          "value": {
+            "account_id": "efbciwc-newbie.arifnovrian.testnet",
+            "role": "provider",
+            "x25519_pubkey": "a29328fd47c5c023d0dc7ad99fea664b1c2fdd37e5e0dd1b1afcb87df05abc2d",
+            "meta": "{\"e2e\":\"fbciwc\",\"name\":\"newbie\"}",
+            "registered_ms": 1794594865822,
+            "registered_block": 277547458,
+            "completed": 0,
+            "invalid": 0,
+            "failed": 0,
+            "strikes": [],
+            "blocked": false
+          },
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"agent_registered\",\"data\":[{\"account_id\":\"efbciwc-newbie.arifnovrian.testnet\",\"role\":\"provider\"}]}"
+          ],
+          "label": "register_agent newbie"
+        },
+        {
+          "signer": "efbciwc-mallory.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "register_agent",
+          "hash": "23zG3iqRiVS1Rz5V1nTXAYem5jyUnGzEzc9aRddzNLPz",
+          "ok": true,
+          "value": {
+            "account_id": "efbciwc-mallory.arifnovrian.testnet",
+            "role": "provider",
+            "x25519_pubkey": "50649e92c5c8f56287d1cae577021668d978ff21cdec74f550060eace2d8b756",
+            "meta": "{\"e2e\":\"fbciwc\",\"name\":\"mallory\"}",
+            "registered_ms": 1794594868234,
+            "registered_block": 277547462,
+            "completed": 0,
+            "invalid": 0,
+            "failed": 0,
+            "strikes": [],
+            "blocked": false
+          },
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"agent_registered\",\"data\":[{\"account_id\":\"efbciwc-mallory.arifnovrian.testnet\",\"role\":\"provider\"}]}"
+          ],
+          "label": "register_agent mallory"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "create_job",
+          "hash": "CwDJHZTFDwNFQSawhBsgt83eysETG6eLHEDDmERj3RA7",
+          "ok": true,
+          "value": 65,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"job_created\",\"data\":[{\"id\":65,\"parent_id\":null,\"depth\":0,\"client\":\"efbciwc-client.arifnovrian.testnet\",\"root_client\":\"efbciwc-client.arifnovrian.testnet\",\"provider\":null,\"target_id\":\"e2e-fbciwc\",\"budget\":\"400000\",\"remaining\":\"400000\",\"reward_per_finding\":\"200000\",\"payout_per_finding\":\"200000\",\"categories\":[\"jailbreak\"],\"deadline_ms\":1794596248234,\"status\":\"Open\",\"restricted\":false,\"can_subcontract\":false,\"children\":[],\"findings\":[],\"pending\":0,\"created_ms\":1794594870734}]}"
+          ],
+          "label": "create_job JW"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "create_job",
+          "hash": "74TXQ7qserhvg9nSe2H7STrXvaKjtomGZhPcGRF69ktF",
+          "ok": true,
+          "value": 66,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"job_created\",\"data\":[{\"id\":66,\"parent_id\":null,\"depth\":0,\"client\":\"efbciwc-client.arifnovrian.testnet\",\"root_client\":\"efbciwc-client.arifnovrian.testnet\",\"provider\":null,\"target_id\":\"e2e-fbciwc\",\"budget\":\"300000\",\"remaining\":\"300000\",\"reward_per_finding\":\"100000\",\"payout_per_finding\":\"100000\",\"categories\":[\"jailbreak\"],\"deadline_ms\":1794596248234,\"status\":\"Open\",\"restricted\":false,\"can_subcontract\":false,\"children\":[],\"findings\":[],\"pending\":0,\"created_ms\":1794594873123}]}"
+          ],
+          "label": "create_job JM"
+        },
+        {
+          "signer": "efbciwc-newbie.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "place_bid",
+          "hash": "GNs89UYysc53ZAym8N1qJQwdnL9GQKmYzw11CH2FmYct",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_placed\",\"data\":[{\"job_id\":65,\"bidder\":\"efbciwc-newbie.arifnovrian.testnet\",\"price_per_finding\":\"200000\"}]}"
+          ],
+          "label": "newbie bid JW"
+        },
+        {
+          "signer": "efbciwc-mallory.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "place_bid",
+          "hash": "DnzwXGJhXeo6mspzSx8GMVMWjpvhbTszgcGwSTkccB3J",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_placed\",\"data\":[{\"job_id\":66,\"bidder\":\"efbciwc-mallory.arifnovrian.testnet\",\"price_per_finding\":\"100000\"}]}"
+          ],
+          "label": "mallory bid JM"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "accept_bid",
+          "hash": "BvagcKeCqHHjY1nzQANqLwAryXf1WkgzceWMsmL5si3o",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"policy\",\"data\":[{\"seq\":246,\"ts_ms\":1794594880889,\"block_height\":277547483,\"actor\":\"efbciwc-client.arifnovrian.testnet\",\"action\":\"accept_bid\",\"job_id\":65,\"verdict\":{\"level\":\"Warn\",\"reasons\":[\"new agent: registered 25 blocks ago (< 60)\"]},\"detail\":\"assigned to efbciwc-newbie.arifnovrian.testnet RESTRICTED (auto-escalation): reward capped at 5000 bps, no subcontracting, dual evaluation\"}]}",
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_accepted\",\"data\":[{\"job_id\":65,\"provider\":\"efbciwc-newbie.arifnovrian.testnet\",\"reward_per_finding\":\"200000\",\"payout_per_finding\":\"100000\",\"restricted\":true,\"can_subcontract\":false}]}"
+          ],
+          "label": "client accept newbie (Warn)"
+        },
+        {
+          "signer": "efbciwc-client.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "accept_bid",
+          "hash": "8RU9JjZtLGmFjLkwu8FS55MZygMjnXqcpx1uRvZMiGVp",
+          "ok": true,
+          "value": null,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"policy\",\"data\":[{\"seq\":247,\"ts_ms\":1794594883524,\"block_height\":277547488,\"actor\":\"efbciwc-client.arifnovrian.testnet\",\"action\":\"accept_bid\",\"job_id\":66,\"verdict\":{\"level\":\"Warn\",\"reasons\":[\"new agent: registered 26 blocks ago (< 60)\"]},\"detail\":\"assigned to efbciwc-mallory.arifnovrian.testnet RESTRICTED (auto-escalation): reward capped at 5000 bps, no subcontracting, dual evaluation\"}]}",
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"bid_accepted\",\"data\":[{\"job_id\":66,\"provider\":\"efbciwc-mallory.arifnovrian.testnet\",\"reward_per_finding\":\"100000\",\"payout_per_finding\":\"50000\",\"restricted\":true,\"can_subcontract\":false}]}"
+          ],
+          "label": "client accept mallory (Warn)"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "05.1",
+      "area": 5,
+      "title": "submit findings: payloads ECIES-encrypted to the enclave; fee charged from compute",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 45961,
+      "checks": [
+        {
+          "label": "sub2 → S2 (malformed ciphertext) succeeds",
+          "ok": true
+        },
+        {
+          "label": "sub2 → S2 (malformed ciphertext): finding.attacker = efbciwc-sub2.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "sub2 → JX (broken client target) succeeds",
+          "ok": true
+        },
+        {
+          "label": "sub2 → JX (broken client target): finding.attacker = efbciwc-sub2.arifnovrian.testnet",
+          "ok": true
+        },
+        {
+          "label": "wave 1: sub2Malformed, sub2ClientFault evaluated (after ~0s)",
+          "ok": true
+        },
+        {
+          "label": "lead compute = deposit − fees (refunds applied) = 100000000000000000000000",
+          "ok": true
+        },
+        {
+          "label": "sub1 compute = deposit − fees (refunds applied) = 100000000000000000000000",
+          "ok": true
+        },
+        {
+          "label": "sub2 compute = deposit − fees (refunds applied) = 140000000000000000000000",
+          "ok": true
+        },
+        {
+          "label": "newbie compute = deposit − fees (refunds applied) = 100000000000000000000000",
+          "ok": true
+        },
+        {
+          "label": "mallory compute = deposit − fees (refunds applied) = 100000000000000000000000",
+          "ok": true
+        },
+        {
+          "label": "submit to a job you do not hold rejected with ERR_NOT_PROVIDER",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_NOT_PROVIDER: only the job's provider"
+        },
+        {
+          "label": "category outside the job rejected with ERR_CATEGORY",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: ERR_CATEGORY: category 'jailbreak' not in job categories"
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-sub2.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "submit_finding",
+          "hash": "EzJxo1cazpVAL58FzDsGdCGYMws4SduJawM2M4CEuCJZ",
+          "ok": true,
+          "value": 58,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"finding_submitted\",\"data\":[{\"job_id\":63,\"finding_id\":58,\"attacker\":\"efbciwc-sub2.arifnovrian.testnet\",\"category\":\"tool_misuse\",\"dual\":false,\"fee\":\"20000000000000000000000\"}]}",
+            "EVENT_JSON:{\"standard\":\"near-outlayer\",\"version\":\"1.0.0\",\"event\":\"execution_requested\",\"data\":[{\"request_data\":\"{\\\"request_id\\\":40090,\\\"sender_id\\\":\\\"efbciwc-sub2.arifnovrian.testnet\\\",\\\"predecessor_id\\\":\\\"redteam.arifnovrian.testnet\\\",\\\"code_source\\\":{\\\"WasmUrl\\\":{\\\"url\\\":\\\"https://test.fastfs.io/arifnovrian.testnet/outlayer.testnet/1ab104255db5223df8352923e02f9cb042e3f546f115ba8d727eab0147c5f28a.wasm\\\",\\\"hash\\\":\\\"1ab104255db5223df8352923e02f9cb042e3f546f115ba8d727eab0147c5f28a\\\",\\\"build_target\\\":\\\"wasm32-wasip2\\\"}},\\\"resource_limits\\\":{\\\"max_instructions\\\":10000000000,\\\"max_memory_mb\\\":256,\\\"max_execution_seconds\\\":90},\\\"input_data\\\":\\\"{\\\\\\\"op\\\\\\\":\\\\\\\"evaluate\\\\\\\",\\\\\\\"job_id\\\\\\\":63,\\\\\\\"root_job_id\\\\\\\":61,\\\\\\\"finding_id\\\\\\\":58,\\\\\\\"category\\\\\\\":\\\\\\\"tool_misuse\\\\\\\",\\\\\\\"enc_target\\\\\\\":\\\\\\\"AVDIrbnAjPHpnJhJXHJJwKx12v48kCzt6lR2dCx2URQqt6spiHzaU3cFe5KKPRwQ1/BO+c5+56iYX7oUAxLHo2BnGFVyA6DJ5ySgbY0OiXN+lQM3Is4uW7rq7UG6tZ1r0p5+32NidUrE3z1cU1eGg3zq0J59dESF9IkbRz9SJyJeGRKHk4t83on4XWleW+pD6n/De8ftm5sKrFr22JyZ5OgyYuDGrZGJrD43TnTntAewqn6c4CjIgRZ9WicHlKW6bKc47/PWkrfAua8terDS6m1JZE0OcqTAsvt1E2ypCI9F2cSmqalmiyka4EIPCZXCXm6xdakhlYns9WZQ81amR+Tqvc8Mv+xd0QhJZ8/X9zmf3uDPN7mssMoo56bk9cJNcLPB9EC33x9smzOUDs52FCyct4iXJsiWTweelnq0SsMeQnmN6XrxiIHPQ0BbtKbORw8THPnB2EwzYnC74oJl8+ekBcf3GJgNo5oKXF3c+v8aCdijzjLbkRGSFRdi9mVhDQ8Jzet9ymC8c5ePDQveKPEaTtQTE9rT7TeCxvELKr3F4z8S3tRXsvJpTyRs6iQX339h1CnC9RSAwTYLGJF4hT/kDBeWbUWmeuyvACac3G1CJ6z+RWaD3D9Ht2E+lBmYCnp6kOhm20R88PrbvFI=\\\\\\\",\\\\\\\"enc_payload\\\\\\\":\\\\\\\"AfEkv4TbI5BUTUHQjyS/EkXxX8jcDzxlDF+5u9XoeSBNZ+crAFTuirGitILzX+KfzWds8kiraVUM+UXOzpSY0VHO6jlQVHMtTkPCmvUEzUnJLgxiH0LT9rFKL58ovZwXaQ==\\\\\\\",\\\\\\\"client_pubkey\\\\\\\":\\\\\\\"78909385715816348df528b6fd36cd57367324a08e5a583ae7ce8dd1e4cb6f4d\\\\\\\",\\\\\\\"lead_pubkey\\\\\\\":\\\\\\\"4638f1ef59585417bb7bad360967ca9ad80b2522a0768a40d6a3e485c3820e77\\\\\\\",\\\\\\\"dual\\\\\\\":false}\\\",\\\"input_data_in_state\\\":false,\\\"secrets_ref\\\":{\\\"profile\\\":\\\"enclave\\\",\\\"account_id\\\":\\\"arifnovrian.testnet\\\"},\\\"response_format\\\":\\\"Json\\\",\\\"payment\\\":\\\"20000000000000000000000\\\",\\\"attached_usd\\\":\\\"0\\\",\\\"timestamp\\\":1794594888414292133,\\\"compile_only\\\":false,\\\"force_rebuild\\\":false,\\\"store_on_fastfs\\\":false,\\\"use_bound_identity\\\":false,\\\"project_uuid\\\":null,\\\"project_id\\\":null}\",\"data_id\":[132,221,111,148,101,92,226,17,68,232,41,113,41,41,227,232,104,111,134,198,156,17,63,50,164,253,27,221,148,132,251,243],\"timestamp\":1794594888414292133}]}",
+            "[[yNEAR charged: \"1138500500000000000000\"]]",
+            "EVENT_JSON:{\"standard\":\"near-outlayer\",\"version\":\"1.0.0\",\"event\":\"execution_completed\",\"data\":[{\"sender_id\":\"efbciwc-sub2.arifnovrian.testnet\",\"code_source\":{\"WasmUrl\":{\"url\":\"https://test.fastfs.io/arifnovrian.testnet/outlayer.testnet/1ab104255db5223df8352923e02f9cb042e3f546f115ba8d727eab0147c5f28a.wasm\",\"hash\":\"1ab104255db5223df8352923e02f9cb042e3f546f115ba8d727eab0147c5f28a\",\"build_target\":\"wasm32-wasip2\"}},\"resources_used\":{\"instructions\":5840511,\"time_ms\":1385,\"compile_time_ms\":null},\"success\":true,\"error_message\":null,\"payment_charged\":\"1138500500000000000000\",\"payment_refunded\":\"18861499500000000000000\",\"compilation_note\":\"Cached WASM from 2026-11-13T16:55:13.188383+00:00\",\"timestamp\":1794594894215203450}]}",
+            "Execution completed successfully. Output: Json(259 bytes), Resources: { instructions: 5840511, time_ms: 1385 }, Cost: 1138500500000000000000 yoctoNEAR, Refund: 18861499500000000000000 yoctoNEAR, Cached WASM from 2026-11-13T16:55:13.188383+00:00",
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"finding_evaluated\",\"data\":[{\"job_id\":63,\"finding_id\":58,\"status\":\"Failed\",\"error\":\"enclave: DECRYPT_FAILED\"}]}"
+          ],
+          "label": "sub2 → S2 (malformed ciphertext)"
+        },
+        {
+          "signer": "efbciwc-sub2.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "submit_finding",
+          "hash": "GJbuBmH9cjyFiuWRVcbUaipozwM5FQD2Zy5x2bepKrzK",
+          "ok": true,
+          "value": 59,
+          "error": null,
+          "code": null,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"finding_submitted\",\"data\":[{\"job_id\":64,\"finding_id\":59,\"attacker\":\"efbciwc-sub2.arifnovrian.testnet\",\"category\":\"tool_misuse\",\"dual\":false,\"fee\":\"20000000000000000000000\"}]}",
+            "EVENT_JSON:{\"standard\":\"near-outlayer\",\"version\":\"1.0.0\",\"event\":\"execution_requested\",\"data\":[{\"request_data\":\"{\\\"request_id\\\":40094,\\\"sender_id\\\":\\\"efbciwc-sub2.arifnovrian.testnet\\\",\\\"predecessor_id\\\":\\\"redteam.arifnovrian.testnet\\\",\\\"code_source\\\":{\\\"WasmUrl\\\":{\\\"url\\\":\\\"https://test.fastfs.io/arifnovrian.testnet/outlayer.testnet/1ab104255db5223df8352923e02f9cb042e3f546f115ba8d727eab0147c5f28a.wasm\\\",\\\"hash\\\":\\\"1ab104255db5223df8352923e02f9cb042e3f546f115ba8d727eab0147c5f28a\\\",\\\"build_target\\\":\\\"wasm32-wasip2\\\"}},\\\"resource_limits\\\":{\\\"max_instructions\\\":10000000000,\\\"max_memory_mb\\\":256,\\\"max_execution_seconds\\\":90},\\\"input_data\\\":\\\"{\\\\\\\"op\\\\\\\":\\\\\\\"evaluate\\\\\\\",\\\\\\\"job_id\\\\\\\":64,\\\\\\\"root_job_id\\\\\\\":64,\\\\\\\"finding_id\\\\\\\":59,\\\\\\\"category\\\\\\\":\\\\\\\"tool_misuse\\\\\\\",\\\\\\\"enc_target\\\\\\\":\\\\\\\"AbZj8mkLKgJ+asnQPWpbQtenmFJkm+Ig+i4qDKjdp1AMsU9A3EnhLIdN7i7A/XUXM8ML74TkfUKLl8sXvMQoYil7zuCrsYuIEc+kDzLU/2JAkEfyqVaWLfRWEunfWAOBRBKcBtUb2e/+RNWauhl99yGcfV6MOyEY7lMh1In8qzrUgzHqQF90SQM8fZq+HY+Lkv28zNwdJEfO9eWPMU7x0bSXGeoU7Jz5U3w9eOzUAjMZX7+Ri37JwoJINL7NigMJdmgHFy8f9NDKj9cI+0fG7zqmUHRYBZwLfk9ZVbTczu+9lmF/qTk=\\\\\\\",\\\\\\\"enc_payload\\\\\\\":\\\\\\\"AWdeW20oY1t6oLCePC6OKyIQUtSHyWRjl8mM1fuBZ7Efp1YgYIHE+NN6LfjjQuISfSHCpVJMaFFGgGrxvNxpOzqH+A1jRRx9zy/24QqPuKYwFHyC4l+KMjPQsS4zyzv4f38AgBOPuVOFNaA/CgvPqiajqmbi1NYMB5LTipdVdI2tNxRV96maifamuTTE4mUv4mnU2mVq+R4=\\\\\\\",\\\\\\\"client_pubkey\\\\\\\":\\\\\\\"78909385715816348df528b6fd36cd57367324a08e5a583ae7ce8dd1e4cb6f4d\\\\\\\",\\\\\\\"lead_pubkey\\\\\\\":null,\\\\\\\"dual\\\\\\\":false}\\\",\\\"input_data_in_state\\\":false,\\\"secrets_ref\\\":{\\\"profile\\\":\\\"enclave\\\",\\\"account_id\\\":\\\"arifnovrian.testnet\\\"},\\\"response_format\\\":\\\"Json\\\",\\\"payment\\\":\\\"20000000000000000000000\\\",\\\"attached_usd\\\":\\\"0\\\",\\\"timestamp\\\":1794594899058941952,\\\"compile_only\\\":false,\\\"force_rebuild\\\":false,\\\"store_on_fastfs\\\":false,\\\"use_bound_identity\\\":false,\\\"project_uuid\\\":null,\\\"project_id\\\":null}\",\"data_id\":[49,34,233,247,33,172,172,83,89,16,108,249,131,185,68,161,126,216,216,63,208,82,213,191,31,91,237,176,242,6,39,38],\"timestamp\":1794594899058941952}]}",
+            "[[yNEAR charged: \"1092200500000000000000\"]]",
+            "EVENT_JSON:{\"standard\":\"near-outlayer\",\"version\":\"1.0.0\",\"event\":\"execution_completed\",\"data\":[{\"sender_id\":\"efbciwc-sub2.arifnovrian.testnet\",\"code_source\":{\"WasmUrl\":{\"url\":\"https://test.fastfs.io/arifnovrian.testnet/outlayer.testnet/1ab104255db5223df8352923e02f9cb042e3f546f115ba8d727eab0147c5f28a.wasm\",\"hash\":\"1ab104255db5223df8352923e02f9cb042e3f546f115ba8d727eab0147c5f28a\",\"build_target\":\"wasm32-wasip2\"}},\"resources_used\":{\"instructions\":5810484,\"time_ms\":922,\"compile_time_ms\":null},\"success\":true,\"error_message\":null,\"payment_charged\":\"1092200500000000000000\",\"payment_refunded\":\"18907799500000000000000\",\"compilation_note\":\"Cached WASM from 2026-11-13T16:55:13.188383+00:00\",\"timestamp\":1794594910635225353}]}",
+            "Execution completed successfully. Output: Json(255 bytes), Resources: { instructions: 5810484, time_ms: 922 }, Cost: 1092200500000000000000 yoctoNEAR, Refund: 18907799500000000000000 yoctoNEAR, Cached WASM from 2026-11-13T16:55:13.188383+00:00",
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"policy\",\"data\":[{\"seq\":248,\"ts_ms\":1794594911221,\"block_height\":277547535,\"actor\":\"efbciwc-client.arifnovrian.testnet\",\"action\":\"client_fault\",\"job_id\":64,\"verdict\":null,\"detail\":\"finding 59 failed with BAD_TARGET (client fault); fee 20000000000000000000000 refunded to efbciwc-sub2.arifnovrian.testnet\"}]}",
+            "EVENT_JSON:{\"standard\":\"redteam\",\"version\":\"1.0.0\",\"event\":\"finding_evaluated\",\"data\":[{\"job_id\":64,\"finding_id\":59,\"status\":\"Failed\",\"error\":\"enclave: BAD_TARGET\"}]}"
+          ],
+          "label": "sub2 → JX (broken client target)"
+        },
+        {
+          "signer": "efbciwc-sub1.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "submit_finding",
+          "hash": "FoNc3kv57URuHqzHnmtKLNNchGfDypaepwRs1LqBow63",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_NOT_PROVIDER: only the job's provider",
+          "code": "ERR_NOT_PROVIDER",
+          "logs": [],
+          "label": "submit to a job you do not hold"
+        },
+        {
+          "signer": "efbciwc-sub1.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "submit_finding",
+          "hash": "BXhkECBDvVgMp85VQm16hLj2ryacDcHxuQ9vbFEV8h3o",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: ERR_CATEGORY: category 'jailbreak' not in job categories",
+          "code": "ERR_CATEGORY",
+          "logs": [],
+          "label": "category outside the job"
+        }
+      ],
+      "notes": [
+        "E2E_ONLY_FINDINGS: submitting only sub2Malformed, sub2ClientFault",
+        "sub2 → S2 (malformed ciphertext): status right after submit = Failed (on testnet the tx returns once the yielded callback has run)",
+        "sub2 → JX (broken client target): status right after submit = Failed (on testnet the tx returns once the yielded callback has run)",
+        "compute before 05.1: lead=100000000000000000000000, sub1=100000000000000000000000, sub2=160000000000000000000000, newbie=100000000000000000000000, mallory=100000000000000000000000"
+      ]
+    },
+    {
+      "id": "05.2",
+      "area": 5,
+      "title": "all evaluations land; money is conserved at every observed block (atomic payouts)",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 3550,
+      "checks": [
+        {
+          "label": "2 evaluations resolved (after ~0s)",
+          "ok": true
+        },
+        {
+          "label": "conservation held in all 2 pinned-block samples",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "label": "contract solvent (get_solvency headroom ≥ 0) in all 2 samples",
+          "ok": true,
+          "detail": ""
+        }
+      ],
+      "txs": [],
+      "notes": [
+        "min solvency headroom seen: 3202938647479946699999985 yoctoNEAR"
+      ]
+    },
+    {
+      "id": "07.1",
+      "area": 7,
+      "title": "malformed ciphertext → enclave error → Failed (fee kept, no strike, not invalid)",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 3371,
+      "checks": [
+        {
+          "label": "status = Failed",
+          "ok": true
+        },
+        {
+          "label": "paid_attacker = 0",
+          "ok": true
+        },
+        {
+          "label": "no report on failure",
+          "ok": true
+        },
+        {
+          "label": "sub2 strikes = 0",
+          "ok": true
+        },
+        {
+          "label": "sub2.invalid counts only Invalid findings (the Failed one is not counted) = 0",
+          "ok": true
+        },
+        {
+          "label": "sub2.failed counts the malformed finding",
+          "ok": true,
+          "detail": "failed=2"
+        },
+        {
+          "label": "enclave error code = DECRYPT_FAILED",
+          "ok": true
+        },
+        {
+          "label": "sub2 compute: attacker-fault fee kept, client-fault fees refunded = 140000000000000000000000",
+          "ok": true
+        }
+      ],
+      "txs": [],
+      "notes": []
+    },
+    {
+      "id": "07.2",
+      "area": 7,
+      "title": "client fault (broken target) → Failed, attacker's fee refunded, policy log client_fault",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 2658,
+      "checks": [
+        {
+          "label": "status = Failed",
+          "ok": true
+        },
+        {
+          "label": "paid_attacker = 0",
+          "ok": true
+        },
+        {
+          "label": "enclave error code = BAD_TARGET",
+          "ok": true
+        },
+        {
+          "label": "policy log client_fault entry for this finding",
+          "ok": true,
+          "detail": "copycat.arifnovrian.testnet job 32: finding 30 failed with TARGET_BINDING_MISMATCH (client fault); fee 20000000000000000000000 refunded to mallory2.arifnovrian.testnet | ef9jqla-thief.arifnovrian.testnet job 55: finding 49 failed with TARGET_BINDING_MISMATCH (client fault); fee 20000000000000000000000 refunded to ef9jqla-sub2.arifnovrian.testnet | efbciwc-client.arifnovrian.testnet job 64: finding 59 failed with BAD_TARGET (client fault); fee 20000000000000000000000 refunded to efbciwc-sub2.arifnovrian.testnet"
+        },
+        {
+          "label": "client_fault actor = root client",
+          "ok": true,
+          "soft": true,
+          "detail": "efbciwc-client.arifnovrian.testnet"
+        },
+        {
+          "label": "sub2 strikes = 0",
+          "ok": true
+        }
+      ],
+      "txs": [],
+      "notes": []
+    },
+    {
+      "id": "10.1",
+      "area": 10,
+      "title": "scenario 1 live: prompt-injected agent tries to move funds — key scope stops it",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 3341,
+      "checks": [
+        {
+          "label": "FC key → tusdc.ft_transfer to attacker rejected with /InvalidAccessKey|ReceiverMismatch|DepositWithFunctionCall|receiver|not allowed|permission/i",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Deposit is not allowed with function call"
+        },
+        {
+          "label": "rejected before inclusion (no tx hash)",
+          "ok": true
+        },
+        {
+          "label": "FC key → deposit-carrying call rejected with /InvalidAccessKey|Deposit|not allowed|permission|MethodNameMismatch/i",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Deposit is not allowed with function call"
+        },
+        {
+          "label": "forged evaluation callback (FA key, contract level) rejected with /private|Method.*not found|MethodNotFound/i",
+          "ok": true,
+          "nonBlocking": true,
+          "detail": "Smart contract panicked: Method on_finding_evaluated is private"
+        }
+      ],
+      "txs": [
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "tusdc.arifnovrian.testnet",
+          "method": "ft_transfer",
+          "hash": null,
+          "ok": false,
+          "value": null,
+          "error": "Deposit is not allowed with function call",
+          "code": null,
+          "logs": [],
+          "label": "FC key → tusdc.ft_transfer to attacker"
+        },
+        {
+          "signer": "efbciwc-lead.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "deposit_compute",
+          "hash": null,
+          "ok": false,
+          "value": null,
+          "error": "Deposit is not allowed with function call",
+          "code": null,
+          "logs": [],
+          "label": "FC key → deposit-carrying call"
+        },
+        {
+          "signer": "efbciwc-sub2.arifnovrian.testnet",
+          "receiver": "redteam.arifnovrian.testnet",
+          "method": "on_finding_evaluated",
+          "hash": "BnBDMhh1fh4YN3ZmjekBrygTHhof9PWtkKYcsCWpm3GP",
+          "ok": false,
+          "value": null,
+          "error": "Smart contract panicked: Method on_finding_evaluated is private",
+          "code": null,
+          "logs": [],
+          "label": "forged evaluation callback (FA key, contract level)"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "10.2",
+      "area": 10,
+      "title": "attack receipts (agents/fixtures/attack-receipts.json) re-verified on chain",
+      "blocking": false,
+      "status": "pass",
+      "warnings": 0,
+      "ms": 9045,
+      "checks": [
+        {
+          "label": "receipts is a non-empty array",
+          "ok": true
+        },
+        {
+          "label": "scenario 1 covered",
+          "ok": true
+        },
+        {
+          "label": "scenario 2 covered",
+          "ok": true
+        },
+        {
+          "label": "scenario 3 covered",
+          "ok": true
+        },
+        {
+          "label": "scenario 4 covered",
+          "ok": true
+        },
+        {
+          "label": "receipts come from a live run (not --dry-run)",
+          "ok": true,
+          "soft": true,
+          "detail": "0/21 entries flagged mock:true"
+        },
+        {
+          "label": "s4-budget-over-remaining: shape",
+          "ok": true
+        },
+        {
+          "label": "s4-budget-over-remaining: runner marked ok",
+          "ok": true,
+          "detail": "ERR_BUDGET_CAP: budget exceeds parent remaining 40000000"
+        },
+        {
+          "label": "s4-budget-over-remaining: on-chain panic ∈ ERR_BUDGET_CAP",
+          "ok": true,
+          "detail": "Smart contract panicked: ERR_BUDGET_CAP: budget exceeds parent remaining 40000000"
+        },
+        {
+          "label": "s4-reward-over-parent: shape",
+          "ok": true
+        },
+        {
+          "label": "s4-reward-over-parent: runner marked ok",
+          "ok": true,
+          "detail": "ERR_REWARD: subjob reward exceeds parent reward_per_finding"
+        },
+        {
+          "label": "s4-reward-over-parent: on-chain panic ∈ ERR_REWARD",
+          "ok": true,
+          "detail": "Smart contract panicked: ERR_REWARD: subjob reward exceeds parent reward_per_finding"
+        },
+        {
+          "label": "s4-two-subjobs-allowed: shape",
+          "ok": true
+        },
+        {
+          "label": "s4-two-subjobs-allowed: runner marked ok",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "label": "s4-two-subjobs-allowed: on-chain tx succeeded (no error expected)",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "label": "s4-third-subjob: shape",
+          "ok": true
+        },
+        {
+          "label": "s4-third-subjob: runner marked ok",
+          "ok": true,
+          "detail": "ERR_MAX_CHILDREN: max 2 subjobs per job"
+        },
+        {
+          "label": "s4-third-subjob: on-chain panic ∈ ERR_MAX_CHILDREN",
+          "ok": true,
+          "detail": "Smart contract panicked: ERR_MAX_CHILDREN: max 2 subjobs per job"
+        },
+        {
+          "label": "s4-client-over-max-budget: shape",
+          "ok": true
+        },
+        {
+          "label": "s4-client-over-max-budget: runner marked ok",
+          "ok": true,
+          "detail": "ERR_BUDGET_CAP: budget exceeds policy max 1000000000"
+        },
+        {
+          "label": "s4-client-over-max-budget: on-chain panic ∈ ERR_BUDGET_CAP|ERR_BALANCE",
+          "ok": true,
+          "detail": "Smart contract panicked: ERR_BUDGET_CAP: budget exceeds policy max 1000000000"
+        },
+        {
+          "label": "s4-depth-2: shape",
+          "ok": true
+        },
+        {
+          "label": "s4-depth-2: runner marked ok",
+          "ok": true,
+          "detail": "ERR_DEPTH: max depth 1 reached"
+        },
+        {
+          "label": "s4-depth-2: on-chain panic ∈ ERR_DEPTH|ERR_NO_SUBCONTRACT",
+          "ok": true,
+          "detail": "Smart contract panicked: ERR_DEPTH: max depth 1 reached"
+        },
+        {
+          "label": "s3-warn-escalation: shape",
+          "ok": true
+        },
+        {
+          "label": "s3-warn-escalation: runner marked ok",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "label": "s3-warn-escalation: on-chain tx succeeded (no error expected)",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "label": "s3-restricted-subcontract: shape",
+          "ok": true
+        },
+        {
+          "label": "s3-restricted-subcontract: runner marked ok",
+          "ok": true,
+          "detail": "ERR_NO_SUBCONTRACT: provider is restricted on this job (can_subcontract=false)"
+        },
+        {
+          "label": "s3-restricted-subcontract: on-chain panic ∈ ERR_NO_SUBCONTRACT",
+          "ok": true,
+          "detail": "Smart contract panicked: ERR_NO_SUBCONTRACT: provider is restricted on this job (can_subcontract=false)"
+        },
+        {
+          "label": "s1-ft-transfer: shape",
+          "ok": true
+        },
+        {
+          "label": "s1-ft-transfer: runner marked ok",
+          "ok": true,
+          "detail": "AccessKeyDepositWithFunctionCallActionError: Deposit is not allowed with function call"
+        },
+        {
+          "label": "s1-ft-transfer: rejected with ReceiverMismatch|DepositWithFunctionCall",
+          "ok": true,
+          "detail": "AccessKeyDepositWithFunctionCallActionError: Deposit is not allowed with function call"
+        },
+        {
+          "label": "s1-near-transfer: shape",
+          "ok": true
+        },
+        {
+          "label": "s1-near-transfer: runner marked ok",
+          "ok": true,
+          "detail": "AccessKeyRequiresFullAccessActionError: Access key requires full access"
+        },
+        {
+          "label": "s1-near-transfer: rejected with RequiresFullAccess|ReceiverMismatch",
+          "ok": true,
+          "detail": "AccessKeyRequiresFullAccessActionError: Access key requires full access"
+        },
+        {
+          "label": "s1-add-key: shape",
+          "ok": true
+        },
+        {
+          "label": "s1-add-key: runner marked ok",
+          "ok": true,
+          "detail": "AccessKeyRequiresFullAccessActionError: Access key requires full access"
+        },
+        {
+          "label": "s1-add-key: rejected with RequiresFullAccess|ReceiverMismatch",
+          "ok": true,
+          "detail": "AccessKeyRequiresFullAccessActionError: Access key requires full access"
+        },
+        {
+          "label": "s1-forge-deposit: shape",
+          "ok": true
+        },
+        {
+          "label": "s1-forge-deposit: runner marked ok",
+          "ok": true,
+          "detail": "AccessKeyMethodNameMismatchActionError: Access key does not allow method ft_on_transfer"
+        },
+        {
+          "label": "s1-forge-deposit: rejected with MethodNameMismatch",
+          "ok": true,
+          "detail": "AccessKeyMethodNameMismatchActionError: Access key does not allow method ft_on_transfer"
+        },
+        {
+          "label": "s1-withdraw-deposit: shape",
+          "ok": true
+        },
+        {
+          "label": "s1-withdraw-deposit: runner marked ok",
+          "ok": true,
+          "detail": "AccessKeyDepositWithFunctionCallActionError: Deposit is not allowed with function call"
+        },
+        {
+          "label": "s1-withdraw-deposit: rejected with DepositWithFunctionCall",
+          "ok": true,
+          "detail": "AccessKeyDepositWithFunctionCallActionError: Deposit is not allowed with function call"
+        },
+        {
+          "label": "s1-spend-client-escrow: shape",
+          "ok": true
+        },
+        {
+          "label": "s1-spend-client-escrow: runner marked ok",
+          "ok": true,
+          "detail": "ERR_NOT_CLIENT: only the job client"
+        },
+        {
+          "label": "s1-spend-client-escrow: on-chain panic ∈ ERR_NOT_CLIENT|ERR_STATUS",
+          "ok": true,
+          "detail": "Smart contract panicked: ERR_NOT_CLIENT: only the job client"
+        },
+        {
+          "label": "s1-honest-hire-ignores-injection: shape",
+          "ok": true
+        },
+        {
+          "label": "s1-honest-hire-ignores-injection: runner marked ok",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "label": "s5-target-replay: shape",
+          "ok": true
+        },
+        {
+          "label": "s5-target-replay: runner marked ok",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "label": "s5-target-replay: on-chain tx succeeded (no error expected)",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "label": "s5-target-replay: enclave output error = TARGET_BINDING_MISMATCH",
+          "ok": true,
+          "detail": "[\"TARGET_BINDING_MISMATCH\"]"
+        },
+        {
+          "label": "s5-payload-replay: shape",
+          "ok": true
+        },
+        {
+          "label": "s5-payload-replay: runner marked ok",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "label": "s5-payload-replay: on-chain tx succeeded (no error expected)",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "label": "s5-payload-replay: enclave output error = PAYLOAD_BINDING_MISMATCH",
+          "ok": true,
+          "detail": "[\"PAYLOAD_BINDING_MISMATCH\"]"
+        },
+        {
+          "label": "s2-manipulation-1: shape",
+          "ok": true
+        },
+        {
+          "label": "s2-manipulation-1: runner marked ok",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "label": "s2-manipulation-1: on-chain tx succeeded (no error expected)",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "label": "s2-manipulation-1: enclave flagged manipulation",
+          "ok": true,
+          "detail": "[true]"
+        },
+        {
+          "label": "s2-blocklisted: shape",
+          "ok": true
+        },
+        {
+          "label": "s2-blocklisted: runner marked ok",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "label": "s3-block-bid: shape",
+          "ok": true
+        },
+        {
+          "label": "s3-block-bid: runner marked ok",
+          "ok": true,
+          "detail": "ERR_COUNTERPARTY_BLOCK: mallory2.arifnovrian.testnet: blocklisted: 2 manipulation strikes (evidence: 1100efb247c7b19983253a191d0dc19c640f4d736f0d590f51be5c1ff8bfcf5a,0b4b8ae9b1f54ec2c611f932f2b3f1b5eb9260cc83ab69ba3b8a8fcc7dee3db1)"
+        },
+        {
+          "label": "s3-block-bid: on-chain panic ∈ ERR_COUNTERPARTY_BLOCK",
+          "ok": true,
+          "detail": "Smart contract panicked: ERR_COUNTERPARTY_BLOCK: mallory2.arifnovrian.testnet: blocklisted: 2 manipulation strikes (evidence: 1100efb247c7b19983253a191d0dc19c640f4d736f0d590f51be5c1ff8bfcf5a,0b4b8ae9b1f54ec2c611f932f2b3f1b5eb9260cc83ab69ba3b8a8fcc7dee3db1)"
+        },
+        {
+          "label": "s3-block-submit: shape",
+          "ok": true
+        },
+        {
+          "label": "s3-block-submit: runner marked ok",
+          "ok": true,
+          "detail": "ERR_COUNTERPARTY_BLOCK: mallory2.arifnovrian.testnet: blocklisted: 2 manipulation strikes (evidence: 1100efb247c7b19983253a191d0dc19c640f4d736f0d590f51be5c1ff8bfcf5a,0b4b8ae9b1f54ec2c611f932f2b3f1b5eb9260cc83ab69ba3b8a8fcc7dee3db1)"
+        },
+        {
+          "label": "s3-block-submit: on-chain panic ∈ ERR_COUNTERPARTY_BLOCK",
+          "ok": true,
+          "detail": "Smart contract panicked: ERR_COUNTERPARTY_BLOCK: mallory2.arifnovrian.testnet: blocklisted: 2 manipulation strikes (evidence: 1100efb247c7b19983253a191d0dc19c640f4d736f0d590f51be5c1ff8bfcf5a,0b4b8ae9b1f54ec2c611f932f2b3f1b5eb9260cc83ab69ba3b8a8fcc7dee3db1)"
+        }
+      ],
+      "txs": [],
+      "notes": [
+        "scenario 5 (replay attacks) present",
+        "s4-budget-over-remaining: https://testnet.nearblocks.io/txns/813fgxfJ53ERs5tXZ5h4RyTg3ZFUdAjnuv4ePVK2PUtj",
+        "s4-reward-over-parent: https://testnet.nearblocks.io/txns/2jfPn7NUPiHYu3Zi9c4BKdvSukSqx3tUsLc9qhJ9pM6y",
+        "s4-two-subjobs-allowed: https://testnet.nearblocks.io/txns/37rZ8VvVwMpyTKRC86uUYxaKeYzwy4pGKZePqCUFYVus",
+        "s4-third-subjob: https://testnet.nearblocks.io/txns/BMPtuaKye34gRqqea9w13TFE8859xEBrVHGPwfU1uWjX",
+        "s4-client-over-max-budget: https://testnet.nearblocks.io/txns/57K9PnEU1ZQHz6UHdyuVGgdgJnVi1yzUH5eGK5Lx7ieE",
+        "s4-depth-2: https://testnet.nearblocks.io/txns/EMSCSM29cj4ntEU19NmqDWLDszJpV3YrG5X1mHaQJt2r",
+        "s3-warn-escalation: https://testnet.nearblocks.io/txns/HvTg34t5zyMcRm8mYPM1r6G5s26hg6mtKq2B6RWDducm",
+        "s3-restricted-subcontract: https://testnet.nearblocks.io/txns/JBX4x7aogCsTXdofmFwDkwo9Kg7yfptsqKFz6nTRLxwj",
+        "s1-spend-client-escrow: https://testnet.nearblocks.io/txns/Edcy1MPZ2WqrNAn8j178XzddWufiSXLJVCqr9MHj8DQY",
+        "s5-target-replay: https://testnet.nearblocks.io/txns/XccUa2uNkRswMhsoRCXYatnDRK2byUzrJosUZR7F4Mb",
+        "s5-payload-replay: https://testnet.nearblocks.io/txns/G3sKj6tUUFPoBRdoNc8evGroxFeJKa36NF8YnP6UQgcV",
+        "s2-manipulation-1: https://testnet.nearblocks.io/txns/YFMiWmu1nxQdtiugfV8yWRzsDCqWTuRiwcUDk1rW2uT",
+        "s3-block-bid: https://testnet.nearblocks.io/txns/8euY3JSwa2czt9GRPrBbG9pRjdDfAXGwHRwNSVz3xit1",
+        "s3-block-submit: https://testnet.nearblocks.io/txns/DMe7HXGgyhLGrqtv7NRK6rxPPtva9XzSWEvP6NCzBZir"
+      ]
+    }
+  ]
+}

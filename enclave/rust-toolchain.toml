@@ -1,0 +1,5 @@
+[toolchain]
+# 1.88 emits WASI 0.2.2/0.2.3 imports; newer rustc (0.2.12) fails to
+# instantiate on the OutLayer worker (wasmtime 36). See DEPLOYMENTS.md.
+channel = "1.88.0"
+targets = ["wasm32-wasip2"]

@@ -1,0 +1,30 @@
+{
+  "name": "near-redteam-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "e2e:mock": "tsx e2e/run.ts --target=mock",
+    "e2e:testnet": "tsx e2e/run.ts --target=testnet",
+    "e2e:probe": "tsx e2e/probe.ts",
+    "verify:demo": "tsx e2e/verify-demo.ts",
+    "verify:incidents": "tsx e2e/incidents.ts",
+    "verify:attestation": "tsx e2e/reverify-attestation.ts",
+    "report:merge": "tsx e2e/merge-report.ts"
+  },
+  "dependencies": {
+    "@noble/ciphers": "^2.4.0",
+    "@noble/curves": "^2.4.0",
+    "@noble/hashes": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "24",
+    "near-api-js": "7.5.3",
+    "tsx": "^4.23.15",
+    "typescript": "5.9",
+    "vitest": "^5.1.0"
+  },
+  "description": "Canary Court e2e harness (testnet + spec mock), shared protocol libs (lib/), read-only verification tools"
+}

@@ -1,0 +1,237 @@
+{
+  "crashed": "ChainError: NotEnoughBalanceError: Not enough balance for sub1.arifnovrian.testnet (balance: 192339962012244200000000, cost: 300922129456363000000000)",
+  "receipts": [
+    {
+      "name": "client-1",
+      "agent": "client",
+      "signer": "client.arifnovrian.testnet",
+      "method": "register_target",
+      "args_summary": "register_target(\"treasury-v1-mwfem23u\", \"AfUZ17XCt8vLBRN2…(1904b)\", {\"0\":\"prompt_injection\",\"1\":\"tool_misuse\",\"2\":\"data_exfiltration\",\"3\":\"jailbreak\"})",
+      "mock": false,
+      "tx_hash": "3LZ2BFeQ7Ygb5p8c9ayMBULZHcbs1v7hixNqkFpAYXjP",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "client-2",
+      "agent": "client",
+      "signer": "client.arifnovrian.testnet",
+      "method": "create_job",
+      "args_summary": "create_job({\"target_id\":\"treasury-v1-mwfem23u\",\"budget\":\"80000000\",\"reward_per_finding\":\"20000000\",\"categories\":[\"prompt_injection\",\"tool_misuse\",\"data_exfiltration\"],\"deadline_ms\":1794601501076})",
+      "mock": false,
+      "tx_hash": "8bepHviCFSbxSUjXnXprfnSdcFTwd8Txc5qppwMDfaHy",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "lead-3",
+      "agent": "lead",
+      "signer": "provider.arifnovrian.testnet",
+      "method": "place_bid",
+      "args_summary": "place_bid(74, \"18000000\", \"Lead agent ready…(134b)\")",
+      "mock": false,
+      "tx_hash": "31y9MuQMEXgbdg5YbCFDiDcX6jZrt3Lx5xhWVLiujyqd",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "client-4",
+      "agent": "client",
+      "signer": "client.arifnovrian.testnet",
+      "method": "accept_bid",
+      "args_summary": "accept_bid(74, \"provider.arifnovrian.testnet\")",
+      "mock": false,
+      "tx_hash": "51VNHXh84FgJ5sRymahcNkjpcUrYCMKSsTT85xz6G81s",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "lead-5",
+      "agent": "lead",
+      "signer": "provider.arifnovrian.testnet",
+      "method": "create_subjob",
+      "args_summary": "create_subjob({\"parent_id\":74,\"budget\":\"24000000\",\"reward_per_finding\":\"12600000\",\"categories\":[\"prompt_injection\"],\"deadline_ms\":1794601471076})",
+      "mock": false,
+      "tx_hash": "3xeyHLJNYCSM3LJJhopCcJ4esTWPgcJCvduK7tY6ARQP",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "lead-6",
+      "agent": "lead",
+      "signer": "provider.arifnovrian.testnet",
+      "method": "create_subjob",
+      "args_summary": "create_subjob({\"parent_id\":74,\"budget\":\"24000000\",\"reward_per_finding\":\"12600000\",\"categories\":[\"tool_misuse\",\"data_exfiltration\"],\"deadline_ms\":1794601471076})",
+      "mock": false,
+      "tx_hash": "3wsoGaNfNjkcnJq9tLNaD3FYJnnZ2B5o7EhoywUQxz7A",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "sub1-7",
+      "agent": "sub1",
+      "signer": "sub1.arifnovrian.testnet",
+      "method": "place_bid",
+      "args_summary": "place_bid(75, \"12600000\", \"Specializing in …(82b)\")",
+      "mock": false,
+      "tx_hash": "2KY8zGVU1mcXSNQYdX9tzVhozq7biZnyRpxjrcbhCxak",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "sub2-8",
+      "agent": "sub2",
+      "signer": "sub2.arifnovrian.testnet",
+      "method": "place_bid",
+      "args_summary": "place_bid(76, \"12600000\", \"Accepting bid fo…(108b)\")",
+      "mock": false,
+      "tx_hash": "3732w82XZPpim8Xc4zqZeQsg9V5vimBcFiGmjq3iKjFT",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "lead-9",
+      "agent": "lead",
+      "signer": "provider.arifnovrian.testnet",
+      "method": "accept_bid",
+      "args_summary": "accept_bid(75, \"sub1.arifnovrian.testnet\")",
+      "mock": false,
+      "tx_hash": "4CrB5VohdiF7WzN4CRtbYnq4eyWdUL3sNnkttz97WbSq",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "client-10",
+      "agent": "client",
+      "signer": "client.arifnovrian.testnet",
+      "method": "register_target",
+      "args_summary": "register_target(\"treasury-v2-mwfemxbd\", \"AcZeFR7SZNUaUSex…(1856b)\", {\"0\":\"prompt_injection\",\"1\":\"tool_misuse\",\"2\":\"data_exfiltration\",\"3\":\"jailbreak\"})",
+      "mock": false,
+      "tx_hash": "5LkyDGP7nSd9EN7GqoUCQZfQ5PdbMbe6qJ1jhuaZTCC7",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "client-11",
+      "agent": "client",
+      "signer": "client.arifnovrian.testnet",
+      "method": "create_job",
+      "args_summary": "create_job({\"target_id\":\"treasury-v2-mwfemxbd\",\"budget\":\"80000000\",\"reward_per_finding\":\"20000000\",\"categories\":[\"prompt_injection\",\"tool_misuse\",\"data_exfiltration\"],\"deadline_ms\":1794601501076})",
+      "mock": false,
+      "tx_hash": "AkPbhr2b43ssLMBdPR2KWHFre5BAA39foUUE76Bk17Wu",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "lead-12",
+      "agent": "lead",
+      "signer": "provider.arifnovrian.testnet",
+      "method": "place_bid",
+      "args_summary": "place_bid(77, \"18000000\", \"Lead agent ready…(148b)\")",
+      "mock": false,
+      "tx_hash": "5XW5VEHdkBGVFhRP5EvsSyBF7fVQs8dmbtbjFZFXdb82",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "client-13",
+      "agent": "client",
+      "signer": "client.arifnovrian.testnet",
+      "method": "accept_bid",
+      "args_summary": "accept_bid(77, \"provider.arifnovrian.testnet\")",
+      "mock": false,
+      "tx_hash": "HcMSHwYu9CbmRertEcNBv18Mzb6ESVgtF6B1U6Y9Jxxy",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "lead-14",
+      "agent": "lead",
+      "signer": "provider.arifnovrian.testnet",
+      "method": "create_subjob",
+      "args_summary": "create_subjob({\"parent_id\":77,\"budget\":\"24000000\",\"reward_per_finding\":\"12600000\",\"categories\":[\"prompt_injection\"],\"deadline_ms\":1794601471076})",
+      "mock": false,
+      "tx_hash": "4DXDDhBtbdw8S6z7E8MKE6z7NS454ThXDgLPxVJVzVoy",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "lead-15",
+      "agent": "lead",
+      "signer": "provider.arifnovrian.testnet",
+      "method": "create_subjob",
+      "args_summary": "create_subjob({\"parent_id\":77,\"budget\":\"24000000\",\"reward_per_finding\":\"12600000\",\"categories\":[\"tool_misuse\",\"data_exfiltration\"],\"deadline_ms\":1794601471076})",
+      "mock": false,
+      "tx_hash": "49ZbvdJfoJ4cjcZtBqQE9ZN6xfE99XhK6Mm54Ymr12ka",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "sub1-16",
+      "agent": "sub1",
+      "signer": "sub1.arifnovrian.testnet",
+      "method": "place_bid",
+      "args_summary": "place_bid(78, \"12600000\", \"Accepting subjob…(75b)\")",
+      "mock": false,
+      "tx_hash": "ARz9kxnsqsE5kkRZ3wMAcAReaG1n6G1PY1GyTuHYcvmr",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "sub2-17",
+      "agent": "sub2",
+      "signer": "sub2.arifnovrian.testnet",
+      "method": "place_bid",
+      "args_summary": "place_bid(79, \"12600000\", \"Accepting subjob…(92b)\")",
+      "mock": false,
+      "tx_hash": "4jQmGuMZdj9qhbBUqp4KF27FHYL9Y9L2nVniHrUvn7Vg",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "lead-18",
+      "agent": "lead",
+      "signer": "provider.arifnovrian.testnet",
+      "method": "accept_bid",
+      "args_summary": "accept_bid(78, \"sub1.arifnovrian.testnet\")",
+      "mock": false,
+      "tx_hash": "4EdhfjpQHKp4XWKzw86SsYjw6qsULLEMd2iKLq8DVaLb",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "lead-19",
+      "agent": "lead",
+      "signer": "provider.arifnovrian.testnet",
+      "method": "accept_bid",
+      "args_summary": "accept_bid(79, \"sub2.arifnovrian.testnet\")",
+      "mock": false,
+      "tx_hash": "F8cHS2F49ymBGDDN6MMU2XsCuaUMYB59dGrdVS8zZ6Az",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "sub1-20",
+      "agent": "sub1",
+      "signer": "sub1.arifnovrian.testnet",
+      "method": "submit_finding",
+      "args_summary": "submit_finding(75, \"Af+7bZuRbFNtWsXg…(524b)\", \"prompt_injection\")",
+      "mock": false,
+      "tx_hash": "Evc4LYHKxxT5c2M7a73AdrAiWZnVgPiJ6is7cuDPReLe",
+      "ok": true,
+      "error": null
+    },
+    {
+      "name": "sub1-21",
+      "agent": "sub1",
+      "signer": "sub1.arifnovrian.testnet",
+      "method": "submit_finding",
+      "args_summary": "submit_finding(75, \"AXnL2C6wNAMlEKlR…(392b)\", \"prompt_injection\")",
+      "mock": false,
+      "tx_hash": null,
+      "ok": false,
+      "error": "NotEnoughBalanceError: Not enough balance for sub1.arifnovrian.testnet (balance: 192339962012244200000000, cost: 300922129456363000000000)",
+      "stage": "rpc"
+    }
+  ]
+}

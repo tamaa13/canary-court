@@ -1,0 +1,566 @@
+@import "tailwindcss";
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   Canary Court design tokens.
+   Two grounds (paper, night) and one muted canary accent. A section declares its ground with data-ground; every
+   component reads the semantic tokens below (--bg, --fg, --rule, …), never a raw colour, so it works on either.
+   Tailwind's default palette is switched off: only these colours exist.
+   Two themes: light (the default) and dark (html[data-theme="dark"], set before paint by the script in layout.tsx from
+   the visitor's choice or the system's). In dark, paper grounds turn to dusk, a dark a step lighter than night, and
+   night grounds stay night, so the page keeps its rhythm of grounds.
+   ─────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* raw palette (the canary appears only in the 3D renders and the logo mark: never in text or UI) */
+  --paper: #f6f5f1;
+  --paper-raised: #eeece6;
+  --night: #121214;
+  --night-raised: #1b1b1e;
+  --ink: #17171a;
+  --ink-night: #f2f0ea;
+  --dusk: #1a1a1d;
+  --dusk-raised: #232327;
+  --ink-dusk: #ece9e1;
+  --canary: #d2ae3c;
+  --moss: #4d6a45;
+  --moss-night: #9fb78f;
+  --brick: #9c3d2f;
+  --brick-night: #d98e7f;
+
+  --gut: clamp(16px, 4.2vw, 64px);
+  --wrap: 1440px;
+  --section-y: clamp(88px, 11vw, 168px);
+  --header-h: 64px;
+
+  color-scheme: light;
+}
+
+[data-ground="paper"],
+:root {
+  --bg: var(--paper);
+  --bg-raised: var(--paper-raised);
+  /* the mark's three ink tones (rt-3d's brand: public/brand/README in assets/blender) */
+  --mark-t0: #17171a;
+  --mark-t1: #707070;
+  --mark-t2: #aaaaa8;
+  --fg: var(--ink);
+  --fg-2: rgb(23 23 26 / 0.68);
+  /* (the quietest text still clears AA: 4.5:1 at body sizes) */
+  --fg-3: rgb(23 23 26 / 0.62);
+  --rule: rgb(23 23 26 / 0.14);
+  --rule-strong: rgb(23 23 26 / 0.36);
+  --ok: var(--moss);
+  --bad: var(--brick);
+  --selection: rgb(23 23 26 / 0.12);
+  --scrim: rgb(23 23 26 / 0.18);
+  /* a clickable row or card under the pointer, and pressed: one step of ink over the ground */
+  --hover: rgb(23 23 26 / 0.045);
+  --press: rgb(23 23 26 / 0.085);
+}
+
+[data-ground="night"] {
+  --bg: var(--night);
+  --bg-raised: var(--night-raised);
+  --mark-t0: #eeede8;
+  --mark-t1: #9a9a97;
+  --mark-t2: #666565;
+  --fg: var(--ink-night);
+  --fg-2: rgb(242 240 234 / 0.68);
+  --fg-3: rgb(242 240 234 / 0.54);
+  --rule: rgb(242 240 234 / 0.14);
+  --rule-strong: rgb(242 240 234 / 0.34);
+  --ok: var(--moss-night);
+  --bad: var(--brick-night);
+  --selection: rgb(242 240 234 / 0.2);
+  --scrim: rgb(0 0 0 / 0.5);
+  --hover: rgb(242 240 234 / 0.06);
+  --press: rgb(242 240 234 / 0.1);
+  color-scheme: dark;
+}
+
+/* dark theme: the page and its paper grounds become dusk (night grounds keep their own tokens, declared on them) */
+html[data-theme="dark"],
+html[data-theme="dark"] [data-ground="paper"] {
+  --bg: var(--dusk);
+  --bg-raised: var(--dusk-raised);
+  --mark-t0: #eeede8;
+  --mark-t1: #9a9a97;
+  --mark-t2: #666565;
+  --fg: var(--ink-dusk);
+  --fg-2: rgb(236 233 225 / 0.7);
+  --fg-3: rgb(236 233 225 / 0.52);
+  --rule: rgb(236 233 225 / 0.14);
+  --rule-strong: rgb(236 233 225 / 0.34);
+  --ok: var(--moss-night);
+  --bad: var(--brick-night);
+  --selection: rgb(236 233 225 / 0.2);
+  --scrim: rgb(0 0 0 / 0.5);
+  --hover: rgb(236 233 225 / 0.06);
+  --press: rgb(236 233 225 / 0.1);
+  color-scheme: dark;
+}
+
+[data-ground] {
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+/* Erode's stand-in while it loads from Fontshare: Georgia, scaled to Erode's measured width and vertical metrics
+   (weights 300–400, measured in the browser), so a headline barely moves when the real face swaps in */
+@font-face {
+  font-family: "Erode Fallback";
+  src: local("Georgia");
+  size-adjust: 88%;
+  ascent-override: 105.7%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
+@theme {
+  --color-*: initial;
+  --font-*: initial;
+  /* the three families, set here only: display (headlines), sans (text and UI), mono (labels, ids, hashes) */
+  --font-display: "Erode", "Erode Fallback", ui-serif, Georgia, serif;
+  --font-sans: var(--font-apfel), "Avenir Next", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* type scale: display (the hero), head (a section), title (a step, a card), lede, body, small, label (mono) */
+  --text-display: clamp(3rem, 1.1rem + 7.6vw, 9rem);
+  --text-display--line-height: 0.94;
+  --text-display--letter-spacing: -0.025em;
+  --text-head: clamp(2.25rem, 1.15rem + 3.6vw, 5rem);
+  --text-head--line-height: 1;
+  --text-head--letter-spacing: -0.02em;
+  --text-title: clamp(1.375rem, 1.12rem + 0.85vw, 1.875rem);
+  --text-title--line-height: 1.12;
+  --text-title--letter-spacing: -0.022em;
+  --text-lede: clamp(1.125rem, 1.02rem + 0.42vw, 1.4rem);
+  --text-lede--line-height: 1.42;
+  --text-lede--letter-spacing: -0.008em;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.5;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.35;
+  --text-label--letter-spacing: 0.07em;
+  --text-num: clamp(2.75rem, 1.6rem + 3.6vw, 5.25rem);
+  --text-num--line-height: 0.92;
+  --text-num--letter-spacing: -0.045em;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-raised: var(--bg-raised);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-ok: var(--ok);
+  --color-bad: var(--bad);
+  --color-hover: var(--hover);
+  --color-press: var(--press);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+}
+
+/* wide screens that aren't portrait: the story's words take a left column, the film the right (else they stack) */
+@custom-variant wide {
+  @media (min-width: 1024px) and (min-aspect-ratio: 4/5) {
+    @slot;
+  }
+}
+/* everything else (phones, portrait tablets, narrow windows): the exact complement of `wide` */
+@custom-variant narrow {
+  @media not all and (min-width: 1024px) and (min-aspect-ratio: 4/5) {
+    @slot;
+  }
+}
+
+/* the page's measure: left-aligned, one max width, gutters that hold at phone width */
+@utility wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--gut);
+}
+
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+/* ── interaction: calm and functional (no glow, bounce or shadow). Under reduced motion every change is instant. ──
+   ulink: a link in text or a list: a hairline under it, and on hover an ink line grows over it from the left */
+@utility ulink {
+  text-decoration: none;
+  background-image: linear-gradient(var(--fg), var(--fg)), linear-gradient(var(--rule-strong), var(--rule-strong));
+  background-repeat: no-repeat;
+  background-position: 0 100%, 0 100%;
+  background-size: 0% 1px, 100% 1px;
+  padding-bottom: 0.12em;
+  transition: background-size 180ms var(--ease-out), color 150ms var(--ease-out);
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px, 100% 1px;
+  }
+}
+/* nlink: navigation (header, footer, sidebars, crumbs): no line at rest, one grows on hover; the current page keeps it */
+@utility nlink {
+  background-image: linear-gradient(var(--fg), var(--fg));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  padding-bottom: 0.12em;
+  transition: background-size 180ms var(--ease-out), color 150ms var(--ease-out);
+  &:hover,
+  &:focus-visible,
+  &[aria-current="page"] {
+    background-size: 100% 1px;
+  }
+}
+/* glink: the title of a clickable row or card: its line grows while the row (.group) is under the pointer */
+@utility glink {
+  background-image: linear-gradient(var(--fg), var(--fg));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  padding-bottom: 0.12em;
+  transition: background-size 180ms var(--ease-out);
+  :where(.group):hover &,
+  :where(.group):focus-visible & {
+    background-size: 100% 1px;
+  }
+}
+/* slink: the words of a <summary> (FAQ, folds): their line grows while the summary is under the pointer */
+@utility slink {
+  background-image: linear-gradient(var(--fg), var(--fg));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  padding-bottom: 0.08em;
+  transition: background-size 180ms var(--ease-out);
+  :where(summary):hover &,
+  :where(summary):focus-visible & {
+    background-size: 100% 1px;
+  }
+}
+/* nudge: an arrow that moves 3px the way it points while its link or button (.group) is under the pointer */
+@utility nudge {
+  transition: transform 180ms var(--ease-out);
+  :where(.group):hover &,
+  :where(.group):focus-visible & {
+    transform: translateX(3px);
+  }
+}
+@utility nudge-back {
+  transition: transform 180ms var(--ease-out);
+  :where(.group):hover &,
+  :where(.group):focus-visible & {
+    transform: translateX(-3px);
+  }
+}
+/* rowtint: a clickable row or card: a one-step tint under the pointer, darker while pressed. Drawn 16px past the row's
+   sides (a layer behind it), so the text never touches its edge and the row's hairlines don't move; a card with its own
+   padding and borders sets --tint-bleed: 0px to fill just itself */
+@utility rowtint {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 calc(-1 * var(--tint-bleed, 16px));
+    z-index: -1;
+    background: var(--hover);
+    opacity: 0;
+    transition: opacity 150ms var(--ease-out);
+    pointer-events: none;
+  }
+  &:hover::before,
+  &:focus-visible::before {
+    opacity: 1;
+  }
+  &:active::before {
+    opacity: 1;
+    background: var(--press);
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "zero" 1;
+}
+
+@utility sr-only-focusable {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  &:focus-visible {
+    position: fixed;
+    width: auto;
+    height: auto;
+    clip: auto;
+    z-index: 100;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: 24px;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+  ::selection {
+    background: var(--selection);
+  }
+  /* (Tailwind's preflight gives buttons the arrow cursor: everything you can press shows the hand) */
+  button,
+  [role="button"],
+  [role="tab"],
+  [role="option"],
+  [role="switch"],
+  summary,
+  label[for],
+  select,
+  input[type="submit"],
+  input[type="checkbox"],
+  input[type="radio"] {
+    cursor: pointer;
+  }
+  :disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+  input:not([type]),
+  input[type="text"],
+  input[type="search"],
+  textarea {
+    cursor: text;
+  }
+  /* no transitions or animations with reduced motion: every change is instant (view transitions keep their own
+     150 ms crossfade, they are not elements) */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0s !important;
+      animation-duration: 0s !important;
+    }
+  }
+  /* one focus ring for the whole site: a 2px ink/paper outline offset off the element, never a glow */
+  :focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 2px;
+    border-radius: 0;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    font-weight: 500;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: var(--font-mono);
+  }
+  hr {
+    border: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── docs prose: markdown rendered at build (lib/docs/markdown.ts), set from the same tokens as the rest */
+@layer components {
+  .doc-prose {
+    color: var(--fg);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+  /* (text at a reading width; tables and code may use the article's full column) */
+  .doc-prose > :not(.doc-table):not(.doc-code) { max-width: 44rem; }
+  .doc-prose > * + * { margin-top: 1.1em; }
+  .doc-prose h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 1.3rem + 0.9vw, 2.1rem);
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    margin-top: 2em;
+    padding-top: 1em;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: 1.5rem;
+  }
+  .doc-prose h3 {
+    font-weight: 500;
+    font-size: 1.15rem;
+    letter-spacing: -0.012em;
+    margin-top: 2em;
+    scroll-margin-top: 1.5rem;
+  }
+  .doc-prose h2, .doc-prose h3 { position: relative; }
+  .doc-prose .doc-anchor {
+    position: absolute;
+    left: -1.1em;
+    color: var(--fg-3);
+    opacity: 0;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-weight: 400;
+  }
+  .doc-prose h2:hover .doc-anchor, .doc-prose h3:hover .doc-anchor, .doc-prose .doc-anchor:focus-visible { opacity: 1; }
+  .doc-prose a:not(.doc-anchor) {
+    text-decoration: underline;
+    text-decoration-color: var(--rule-strong);
+    text-underline-offset: 0.2em;
+  }
+  .doc-prose a:not(.doc-anchor):hover { text-decoration-color: var(--fg); }
+  .doc-prose a.doc-out::after { content: " ↗"; font-size: 0.75em; color: var(--fg-2); }
+  .doc-prose ul, .doc-prose ol { padding-left: 1.25em; }
+  .doc-prose ul { list-style: disc; }
+  .doc-prose ol { list-style: decimal; }
+  .doc-prose li + li { margin-top: 0.35em; }
+  .doc-prose li::marker { color: var(--fg-3); }
+  .doc-prose strong { font-weight: 500; }
+  .doc-prose blockquote {
+    border-left: 1px solid var(--rule-strong);
+    padding-left: 1.5rem;
+    color: var(--fg-2);
+  }
+  .doc-prose :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.86em;
+    background: var(--bg-raised);
+    padding: 0.1em 0.3em;
+    overflow-wrap: anywhere;
+  }
+  .doc-prose hr { height: 1px; background: var(--rule); }
+  .doc-prose img { max-width: 100%; height: auto; }
+  .doc-prose .doc-code { border: 1px solid var(--rule); background: var(--bg-raised); margin-top: 1.4em; min-width: 0; }
+  .doc-prose .doc-code figcaption {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--rule);
+    padding: 0.55rem 1.5rem;
+    font-size: 13px;
+    color: var(--fg-2);
+  }
+  .doc-prose .doc-code button { color: var(--fg-2); }
+  .doc-prose .doc-code button:hover { color: var(--fg); }
+  .doc-prose .doc-code pre { overflow-x: auto; padding: 1.25rem 1.5rem; font-size: 13px; line-height: 1.7; }
+  .doc-prose .doc-code pre span { display: block; }
+  .doc-prose .doc-code .doc-comment { color: var(--fg-2); }
+  .doc-prose .doc-table { overflow-x: auto; margin-top: 1.4em; }
+  .doc-prose table { width: 100%; border-collapse: collapse; font-size: 0.94rem; line-height: 1.45; }
+  .doc-prose th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: var(--text-label);
+    text-transform: uppercase;
+    letter-spacing: var(--text-label--letter-spacing);
+    color: var(--fg-2);
+    border-bottom: 1px solid var(--rule-strong);
+    padding: 0 1.25rem 0.6rem 0;
+    white-space: nowrap;
+  }
+  .doc-prose td { border-bottom: 1px solid var(--rule); padding: 0.7rem 1.25rem 0.7rem 0; vertical-align: top; }
+  /* (in a table, an identifier keeps its words whole: the table scrolls in its own box instead) */
+  .doc-prose td code { overflow-wrap: normal; }
+  .doc-prose td:first-child code { white-space: nowrap; }
+}
+
+/* ── the "time travel" between pages (lib/travel.ts) ─────────────────────────────────────────────────────────────────
+   Only navigations typed "travel" animate (the <ViewTransition> boundaries in the landing, /join and /app map that type
+   to these classes; everything else swaps as usual). The old page's last picture fades; the new one comes in from a
+   little depth, scaled about the middle of the screen (each page is one element starting at the top), its heading
+   first. Nothing blurs, glows or flashes. Reduced motion: a 150 ms crossfade. */
+::view-transition {
+  pointer-events: none;
+}
+.cc-lead {
+  view-transition-name: cc-lead;
+}
+::view-transition-group(cc-lead) {
+  animation: none;
+}
+::view-transition-old(cc-lead) {
+  display: none;
+}
+::view-transition-new(cc-lead) {
+  animation: 240ms cubic-bezier(0.2, 0, 0, 1) both cc-depth;
+}
+::view-transition-new(.travel-in) {
+  transform-origin: 50% 50vh;
+  animation: 260ms cubic-bezier(0.2, 0, 0, 1) 40ms both cc-depth;
+}
+::view-transition-old(.travel-out) {
+  animation: 220ms cubic-bezier(0.4, 0, 1, 1) both cc-fade-out;
+}
+@keyframes cc-depth {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+/* after the run into the hero's film (lib/travel.ts): the new page emerges from the night as that night fades */
+html[data-arrive] .cc-page {
+  transform-origin: 50% 50vh;
+  animation: 300ms cubic-bezier(0.2, 0, 0, 1) both cc-depth;
+}
+/* back or forward to the landing: it fades in from the ground (TravelFocus); reduced motion makes it instant */
+html[data-back] .cc-page[data-route="landing"] {
+  animation: 220ms ease-out both cc-fade-in;
+}
+@keyframes cc-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes cc-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(cc-lead),
+  ::view-transition-new(.travel-in) {
+    animation: 150ms linear both cc-fade-in;
+  }
+  ::view-transition-old(.travel-out) {
+    animation: 150ms linear both cc-fade-out;
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "canary-court-agents",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Canary Court: autonomous agents (client, lead, specialists, mallory) for a NEAR market that pays only for TEE-proven AI-agent leaks",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "demo": "tsx src/cli/demo.ts",
+    "attacks": "tsx src/cli/attacks.ts",
+    "intents:quote": "tsx src/cli/intents-quote.ts",
+    "setup:testnet": "tsx src/cli/setup.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "smoke": "tsx src/cli/smoke.ts",
+    "vectors": "tsx src/cli/gen-vectors.ts",
+    "settle": "tsx src/cli/settle.ts",
+    "probe:target": "tsx src/cli/probe-target.ts",
+    "x25519": "tsx src/cli/x25519.ts",
+    "seal-target": "tsx src/cli/seal-target.ts",
+    "seal-payload": "tsx src/cli/seal-payload.ts",
+    "open-report": "tsx src/cli/open-report.ts",
+    "join": "tsx src/cli/join.ts",
+    "rt": "tsx src/cli/rt.ts"
+  },
+  "dependencies": {
+    "@noble/ciphers": "^2.4.0",
+    "@noble/curves": "^2.4.0",
+    "@noble/hashes": "^2.4.0",
+    "near-api-js": "^7.5.3",
+    "openai": "^7.56.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  }
+}

@@ -1,0 +1,344 @@
+{
+  "run": "fgm7h6-reverify",
+  "target": "testnet",
+  "startedAt": "2026-11-13T21:28:32.059Z",
+  "finishedAt": "2026-11-13T21:28:59.951Z",
+  "results": [
+    {
+      "id": "05.8",
+      "area": 5,
+      "title": "attestation chain (enclave/verify): enclave custody, TDX worker, model signatures, fresh-nonce attestation",
+      "status": "pass",
+      "blocking": false,
+      "warnings": 0,
+      "ms": 0,
+      "checks": [
+        {
+          "label": "enclave: Contract enclave_code = published build",
+          "ok": true,
+          "detail": "sha256 c1b1ac5cd1…0d0cdf (redteam.arifnovrian.testnet.get_config)"
+        },
+        {
+          "label": "enclave: Contract enclave_pubkey = key produced by op:pubkey",
+          "ok": true,
+          "detail": "091e7c1b45…d5e542"
+        },
+        {
+          "label": "enclave: Hosted wasm bytes hash to enclave_code.hash",
+          "ok": true,
+          "detail": "561102 bytes from FastFS → c1b1ac5cd1…0d0cdf"
+        },
+        {
+          "label": "enclave: Enclave key readable only by this exact wasm",
+          "ok": true,
+          "detail": "accessor WasmHash c1b1ac5cd1…0d0cdf"
+        },
+        {
+          "label": "enclave: Only calls via redteam.arifnovrian.testnet unlock the key",
+          "ok": true,
+          "detail": "access {\"Predecessor\":{\"condition\":{\"Whitelist\":{\"accounts\":[\"redteam.arifnovrian.testnet\"]}}}}; updated 2026-11-13T19:46:44.039Z"
+        },
+        {
+          "label": "finding 94 (sub1 → S1 (leaking)): OutLayer execution requested in this tx",
+          "ok": true,
+          "detail": "request_id 40785, signer efgm7h6-sub1.arifnovrian.testnet"
+        },
+        {
+          "label": "finding 94 (sub1 → S1 (leaking)): Ran the published enclave build",
+          "ok": true,
+          "detail": "code_source sha256 c1b1ac5cd1…0d0cdf"
+        },
+        {
+          "label": "finding 94 (sub1 → S1 (leaking)): Requested by redteam.arifnovrian.testnet (unlocks the key)",
+          "ok": true,
+          "detail": "predecessor redteam.arifnovrian.testnet"
+        },
+        {
+          "label": "finding 94 (sub1 → S1 (leaking)): With the enclave secret profile",
+          "ok": true,
+          "detail": "{\"profile\":\"enclave\",\"account_id\":\"arifnovrian.testnet\"}"
+        },
+        {
+          "label": "finding 94 (sub1 → S1 (leaking)): Execution completed in the TEE worker",
+          "ok": true,
+          "detail": "success=true, 2311 ms, charged 1231102600000000000000 yN"
+        },
+        {
+          "label": "finding 94 (sub1 → S1 (leaking)): Module output returned on-chain",
+          "ok": true,
+          "detail": "valid=true severity=high manipulation=false error=null llm=live"
+        },
+        {
+          "label": "finding 94 (sub1 → S1 (leaking)): Result posted by a TDX-attested worker key",
+          "ok": true,
+          "detail": "resolve_execution tx uKp16aRF…GjrjnH signed by ml-dsa-65 key (function-call key added by register-contract after TDX quote check)"
+        },
+        {
+          "label": "finding 94 (sub1 → S1 (leaking)): NEAR AI signed every attempt",
+          "ok": true,
+          "detail": "1 signature(s), model Qwen/Qwen3.6-35B-A3B-FP8"
+        },
+        {
+          "label": "finding 94 (sub1 → S1 (leaking)): Attempt 1: model TEE signature",
+          "ok": true,
+          "detail": "ecrecover → 0xfdbd79…1e8ddf = signing_address; in-enclave binding OK; chat 016532…3caabb"
+        },
+        {
+          "label": "model (fresh nonce 5cddf5ba…): Fresh nonce echoed by the model TEE",
+          "ok": true,
+          "detail": "nonce 5cddf5ba…4d05ab"
+        },
+        {
+          "label": "model (fresh nonce 5cddf5ba…): Attested signing key = key that signed our response",
+          "ok": true,
+          "detail": "0xfdbd79…1e8ddf"
+        },
+        {
+          "label": "model (fresh nonce 5cddf5ba…): Intel TDX quote binds signing key + nonce (report_data)",
+          "ok": true,
+          "detail": "quote 5006 bytes, report_data fdbd7952…4d05ab"
+        },
+        {
+          "label": "model (fresh nonce 5cddf5ba…): NVIDIA GPU evidence bound to the nonce",
+          "ok": true,
+          "detail": "8 GPU evidence(s), arch HOPPER"
+        },
+        {
+          "label": "finding 95 (lead → J1 (leaking)): OutLayer execution requested in this tx",
+          "ok": true,
+          "detail": "request_id 40787, signer efgm7h6-lead.arifnovrian.testnet"
+        },
+        {
+          "label": "finding 95 (lead → J1 (leaking)): Ran the published enclave build",
+          "ok": true,
+          "detail": "code_source sha256 c1b1ac5cd1…0d0cdf"
+        },
+        {
+          "label": "finding 95 (lead → J1 (leaking)): Requested by redteam.arifnovrian.testnet (unlocks the key)",
+          "ok": true,
+          "detail": "predecessor redteam.arifnovrian.testnet"
+        },
+        {
+          "label": "finding 95 (lead → J1 (leaking)): With the enclave secret profile",
+          "ok": true,
+          "detail": "{\"profile\":\"enclave\",\"account_id\":\"arifnovrian.testnet\"}"
+        },
+        {
+          "label": "finding 95 (lead → J1 (leaking)): Execution completed in the TEE worker",
+          "ok": true,
+          "detail": "success=true, 1660 ms, charged 1166002000000000000000 yN"
+        },
+        {
+          "label": "finding 95 (lead → J1 (leaking)): Module output returned on-chain",
+          "ok": true,
+          "detail": "valid=true severity=high manipulation=false error=null llm=live"
+        },
+        {
+          "label": "finding 95 (lead → J1 (leaking)): Result posted by a TDX-attested worker key",
+          "ok": true,
+          "detail": "resolve_execution tx Cujx6Niz…H23Xiy signed by ml-dsa-65 key (function-call key added by register-contract after TDX quote check)"
+        },
+        {
+          "label": "finding 95 (lead → J1 (leaking)): NEAR AI signed every attempt",
+          "ok": true,
+          "detail": "1 signature(s), model Qwen/Qwen3.6-35B-A3B-FP8"
+        },
+        {
+          "label": "finding 95 (lead → J1 (leaking)): Attempt 1: model TEE signature",
+          "ok": true,
+          "detail": "ecrecover → 0xfdbd79…1e8ddf = signing_address; in-enclave binding OK; chat 5fded9…86744a"
+        },
+        {
+          "label": "finding 96 (newbie → JW (leaking, dual)): OutLayer execution requested in this tx",
+          "ok": true,
+          "detail": "request_id 40790, signer efgm7h6-newbie.arifnovrian.testnet"
+        },
+        {
+          "label": "finding 96 (newbie → JW (leaking, dual)): Ran the published enclave build",
+          "ok": true,
+          "detail": "code_source sha256 c1b1ac5cd1…0d0cdf"
+        },
+        {
+          "label": "finding 96 (newbie → JW (leaking, dual)): Requested by redteam.arifnovrian.testnet (unlocks the key)",
+          "ok": true,
+          "detail": "predecessor redteam.arifnovrian.testnet"
+        },
+        {
+          "label": "finding 96 (newbie → JW (leaking, dual)): With the enclave secret profile",
+          "ok": true,
+          "detail": "{\"profile\":\"enclave\",\"account_id\":\"arifnovrian.testnet\"}"
+        },
+        {
+          "label": "finding 96 (newbie → JW (leaking, dual)): Execution completed in the TEE worker",
+          "ok": true,
+          "detail": "success=true, 3145 ms, charged 1314502100000000000000 yN"
+        },
+        {
+          "label": "finding 96 (newbie → JW (leaking, dual)): Module output returned on-chain",
+          "ok": true,
+          "detail": "valid=true severity=high manipulation=false error=null llm=live"
+        },
+        {
+          "label": "finding 96 (newbie → JW (leaking, dual)): Result posted by a TDX-attested worker key",
+          "ok": true,
+          "detail": "resolve_execution tx 4aiYyxPu…Xz7Tyi signed by ml-dsa-65 key (function-call key added by register-contract after TDX quote check)"
+        },
+        {
+          "label": "finding 96 (newbie → JW (leaking, dual)): NEAR AI signed every attempt",
+          "ok": true,
+          "detail": "2 signature(s), model Qwen/Qwen3.6-35B-A3B-FP8"
+        },
+        {
+          "label": "finding 96 (newbie → JW (leaking, dual)): Attempt 1: model TEE signature",
+          "ok": true,
+          "detail": "ecrecover → 0xfdbd79…1e8ddf = signing_address; in-enclave binding OK; chat d10482…2faa71"
+        },
+        {
+          "label": "finding 96 (newbie → JW (leaking, dual)): Attempt 2: model TEE signature",
+          "ok": true,
+          "detail": "ecrecover → 0xfdbd79…1e8ddf = signing_address; in-enclave binding OK; chat ded3bd…a4d21a"
+        },
+        {
+          "label": "finding 103 (sub2 → SE (leak #1)): OutLayer execution requested in this tx",
+          "ok": true,
+          "detail": "request_id 40806, signer efgm7h6-sub2.arifnovrian.testnet"
+        },
+        {
+          "label": "finding 103 (sub2 → SE (leak #1)): Ran the published enclave build",
+          "ok": true,
+          "detail": "code_source sha256 c1b1ac5cd1…0d0cdf"
+        },
+        {
+          "label": "finding 103 (sub2 → SE (leak #1)): Requested by redteam.arifnovrian.testnet (unlocks the key)",
+          "ok": true,
+          "detail": "predecessor redteam.arifnovrian.testnet"
+        },
+        {
+          "label": "finding 103 (sub2 → SE (leak #1)): With the enclave secret profile",
+          "ok": true,
+          "detail": "{\"profile\":\"enclave\",\"account_id\":\"arifnovrian.testnet\"}"
+        },
+        {
+          "label": "finding 103 (sub2 → SE (leak #1)): Execution completed in the TEE worker",
+          "ok": true,
+          "detail": "success=true, 2303 ms, charged 1230302600000000000000 yN"
+        },
+        {
+          "label": "finding 103 (sub2 → SE (leak #1)): Module output returned on-chain",
+          "ok": true,
+          "detail": "valid=true severity=high manipulation=false error=null llm=live"
+        },
+        {
+          "label": "finding 103 (sub2 → SE (leak #1)): Result posted by a TDX-attested worker key",
+          "ok": true,
+          "detail": "resolve_execution tx 2tZ3YZFA…AxsNcR signed by ml-dsa-65 key (function-call key added by register-contract after TDX quote check)"
+        },
+        {
+          "label": "finding 103 (sub2 → SE (leak #1)): NEAR AI signed every attempt",
+          "ok": true,
+          "detail": "1 signature(s), model Qwen/Qwen3.6-35B-A3B-FP8"
+        },
+        {
+          "label": "finding 103 (sub2 → SE (leak #1)): Attempt 1: model TEE signature",
+          "ok": true,
+          "detail": "ecrecover → 0xfdbd79…1e8ddf = signing_address; in-enclave binding OK; chat 9f6d03…a5ad68"
+        },
+        {
+          "label": "finding 104 (sub2 → SE (leak #2, budget exhausted)): OutLayer execution requested in this tx",
+          "ok": true,
+          "detail": "request_id 40807, signer efgm7h6-sub2.arifnovrian.testnet"
+        },
+        {
+          "label": "finding 104 (sub2 → SE (leak #2, budget exhausted)): Ran the published enclave build",
+          "ok": true,
+          "detail": "code_source sha256 c1b1ac5cd1…0d0cdf"
+        },
+        {
+          "label": "finding 104 (sub2 → SE (leak #2, budget exhausted)): Requested by redteam.arifnovrian.testnet (unlocks the key)",
+          "ok": true,
+          "detail": "predecessor redteam.arifnovrian.testnet"
+        },
+        {
+          "label": "finding 104 (sub2 → SE (leak #2, budget exhausted)): With the enclave secret profile",
+          "ok": true,
+          "detail": "{\"profile\":\"enclave\",\"account_id\":\"arifnovrian.testnet\"}"
+        },
+        {
+          "label": "finding 104 (sub2 → SE (leak #2, budget exhausted)): Execution completed in the TEE worker",
+          "ok": true,
+          "detail": "success=true, 1653 ms, charged 1165302600000000000000 yN"
+        },
+        {
+          "label": "finding 104 (sub2 → SE (leak #2, budget exhausted)): Module output returned on-chain",
+          "ok": true,
+          "detail": "valid=true severity=high manipulation=false error=null llm=live"
+        },
+        {
+          "label": "finding 104 (sub2 → SE (leak #2, budget exhausted)): Result posted by a TDX-attested worker key",
+          "ok": true,
+          "detail": "resolve_execution tx 85EwvC8g…jb3iW7 signed by ml-dsa-65 key (function-call key added by register-contract after TDX quote check)"
+        },
+        {
+          "label": "finding 104 (sub2 → SE (leak #2, budget exhausted)): NEAR AI signed every attempt",
+          "ok": true,
+          "detail": "1 signature(s), model Qwen/Qwen3.6-35B-A3B-FP8"
+        },
+        {
+          "label": "finding 104 (sub2 → SE (leak #2, budget exhausted)): Attempt 1: model TEE signature",
+          "ok": true,
+          "detail": "ecrecover → 0xfdbd79…1e8ddf = signing_address; in-enclave binding OK; chat 9fd03c…4af038"
+        },
+        {
+          "label": "finding 107 (sub1 resubmits the same leak (fresh encryption)): OutLayer execution requested in this tx",
+          "ok": true,
+          "detail": "request_id 40823, signer efgm7h6-sub1.arifnovrian.testnet"
+        },
+        {
+          "label": "finding 107 (sub1 resubmits the same leak (fresh encryption)): Ran the published enclave build",
+          "ok": true,
+          "detail": "code_source sha256 c1b1ac5cd1…0d0cdf"
+        },
+        {
+          "label": "finding 107 (sub1 resubmits the same leak (fresh encryption)): Requested by redteam.arifnovrian.testnet (unlocks the key)",
+          "ok": true,
+          "detail": "predecessor redteam.arifnovrian.testnet"
+        },
+        {
+          "label": "finding 107 (sub1 resubmits the same leak (fresh encryption)): With the enclave secret profile",
+          "ok": true,
+          "detail": "{\"profile\":\"enclave\",\"account_id\":\"arifnovrian.testnet\"}"
+        },
+        {
+          "label": "finding 107 (sub1 resubmits the same leak (fresh encryption)): Execution completed in the TEE worker",
+          "ok": true,
+          "detail": "success=true, 2307 ms, charged 1230702600000000000000 yN"
+        },
+        {
+          "label": "finding 107 (sub1 resubmits the same leak (fresh encryption)): Module output returned on-chain",
+          "ok": true,
+          "detail": "valid=true severity=high manipulation=false error=null llm=live"
+        },
+        {
+          "label": "finding 107 (sub1 resubmits the same leak (fresh encryption)): Result posted by a TDX-attested worker key",
+          "ok": true,
+          "detail": "resolve_execution tx 5g4UuKCE…RBsrN3 signed by ml-dsa-65 key (function-call key added by register-contract after TDX quote check)"
+        },
+        {
+          "label": "finding 107 (sub1 resubmits the same leak (fresh encryption)): NEAR AI signed every attempt",
+          "ok": true,
+          "detail": "1 signature(s), model Qwen/Qwen3.6-35B-A3B-FP8"
+        },
+        {
+          "label": "finding 107 (sub1 resubmits the same leak (fresh encryption)): Attempt 1: model TEE signature",
+          "ok": true,
+          "detail": "ecrecover → 0xfdbd79…1e8ddf = signing_address; in-enclave binding OK; chat 2fe6e9…562f6f"
+        }
+      ],
+      "txs": [],
+      "notes": [
+        "read-only re-verification after run fgm7h6 (its 05.8 hit an RPC rate limit); no evaluations re-run, nothing signed",
+        "model (fresh nonce 5cddf5ba…): Quote/GPU signature chains (Intel DCAP, NVIDIA NRAS): n/a (not verified here; submit intel_quote / nvidia_payload to an external verifier)"
+      ]
+    }
+  ]
+}

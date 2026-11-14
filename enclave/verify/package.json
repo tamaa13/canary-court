@@ -1,0 +1,14 @@
+{
+  "name": "@near-redteam/enclave-verify",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Verified-panel checks for the near-redteam OutLayer enclave (code hash, key custody, TEE worker, NEAR AI model signature + fresh-nonce attestation)",
+  "type": "module",
+  "main": "verify.mjs",
+  "bin": { "enclave-verify": "verify.mjs" },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@noble/curves": "1.9.7",
+    "@noble/hashes": "1.8.0"
+  }
+}

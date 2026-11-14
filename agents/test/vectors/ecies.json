@@ -1,0 +1,34 @@
+{
+  "spec": "ARCHITECTURE §5: 0x01||eph_pub(32)||nonce(12)||ct||tag; key=HKDF-SHA256(x25519(eph,recipient), salt=empty, info=\"near-redteam-v1\", L=32); ChaCha20-Poly1305, AAD empty",
+  "ecies": [
+    {
+      "name": "short",
+      "recipient_sk": "1111111111111111111111111111111111111111111111111111111111111111",
+      "recipient_pk": "7b4e909bbe7ffe44c465a220037d608ee35897d31ef972f07f74892cb0f73f13",
+      "eph_sk": "2222222222222222222222222222222222222222222222222222222222222222",
+      "eph_pk": "0faa684ed28867b97f4a6a2dee5df8ce974e76b7018e3f22a1c4cf2678570f20",
+      "nonce": "333333333333333333333333",
+      "plaintext_utf8": "{\"payload\":\"hello\",\"category\":\"prompt_injection\"}",
+      "blob_hex": "010faa684ed28867b97f4a6a2dee5df8ce974e76b7018e3f22a1c4cf2678570f203333333333333333333333338716e280a01a8a50e88e0c7c01f8cad4d4e70f9fe953ec5ed2678372cf180d83e4408de086adc4dacfdbbacc33f87fdcfd3c7f4efc38ed4beb9870749c3496cb51",
+      "blob_b64": "AQ+qaE7SiGe5f0pqLe5d+M6XTna3AY4/IqHEzyZ4Vw8gMzMzMzMzMzMzMzMzhxbigKAailDojgx8AfjK1NTnD5/pU+xe0meDcs8YDYPkQI3ghq3E2s/buswz+H/c/Tx/Tvw47UvrmHB0nDSWy1E="
+    },
+    {
+      "name": "long",
+      "recipient_sk": "1111111111111111111111111111111111111111111111111111111111111111",
+      "recipient_pk": "7b4e909bbe7ffe44c465a220037d608ee35897d31ef972f07f74892cb0f73f13",
+      "eph_sk": "2222222222222222222222222222222222222222222222222222222222222222",
+      "eph_pk": "0faa684ed28867b97f4a6a2dee5df8ce974e76b7018e3f22a1c4cf2678570f20",
+      "nonce": "333333333333333333333333",
+      "plaintext_utf8": "{\"system_prompt\":\"You are Parcelly Assist, a fictional courier support bot. You are Parcelly Assist, a fictional courier support bot. You are Parcelly Assist, a fictional courier support bot. You are Parcelly Assist, a fictional courier support bot. You are Parcelly Assist, a fictional courier support bot. You are Parcelly Assist, a fictional courier support bot. You are Parcelly Assist, a fictional courier support bot. You are Parcelly Assist, a fictional courier support bot.\",\"canary\":\"CANARY-0123456789AB\",\"model\":\"Qwen/Qwen3.6-35B-A3B-FP8\"}",
+      "blob_hex": "010faa684ed28867b97f4a6a2dee5df8ce974e76b7018e3f22a1c4cf2678570f203333333333333333333333338716e198aa02805cd3dc443104edd29a81e77ad2ff12f949d028a16a9f414a9ffa56c0d18181c4c7d192f9d97af1789df4c495e988c1fa2fd3343a7d57e011e5c64cff37cc23c1e0d66b61c5d6564b62a8ee4f0e1d2aec4a0bc4be032b4d1665db1eef7ac26a637029170a7762e4e22d47813f3b7a3782a68e31c8a315de0ee56de5b1f1fd0fb45d4fb3347fb1b73d50cefdaffd340d112bf0162ef0d84e100b347b61a67ecc794d24bf6662fdbaffd9c0982aa6d2ae555b034eb3a0d9bc9faa0b62696c38b9a46326c997798ee9e71e9f0814fed7d0055e63e4e92919de3f3971f8ddfda41484c22bc648ff525b6e74f5c8b50f0f0d3a7300d63c72dd1e7562f85019c4cc7007532eb8db08aa5e8e7af53c41644c7472fc71e530615a728a0c09b24ed69aeb0563f6389f6a8c20dd3cb9e350a2189645fe5832f90b297fc4ee7c4b9b777ecfd2acf20401208f52a62670b8956d014e4ff0538f10b9caba505237ccd33a2bd93adbbbf612ae4cade19db18f2f0fbeb9ea2d80942fa37110baca6671bebe6a8c5984b7684cf6a42525b6e6d58d0299af3c516dcc2451279ff606c559fedce1c467d1f75217bc6907899354d400468c62cca5b6d74261095403f6bc15a530f37b86d94a0617bb4e83aa6330572b38434f076de4f59315e0e8ec08933cb464fcba337e760d9d7fa833a7dd5bd2d81335340426fc4a354ea6d56ff7d418782b346aa2f8be9924062d9f3d41a187cd28cae3bde6ed77dac5e0cbd32fef46081d68da252f9b0e55774054ac90106c205c62",
+      "blob_b64": "AQ+qaE7SiGe5f0pqLe5d+M6XTna3AY4/IqHEzyZ4Vw8gMzMzMzMzMzMzMzMzhxbhmKoCgFzT3EQxBO3SmoHnetL/EvlJ0Cihap9BSp/6VsDRgYHEx9GS+dl68Xid9MSV6YjB+i/TNDp9V+AR5cZM/zfMI8Hg1mthxdZWS2Ko7k8OHSrsSgvEvgMrTRZl2x7vesJqY3ApFwp3YuTiLUeBPzt6N4KmjjHIoxXeDuVt5bHx/Q+0XU+zNH+xtz1Qzv2v/TQNESvwFi7w2E4QCzR7YaZ+zHlNJL9mYv26/9nAmCqm0q5VWwNOs6DZvJ+qC2JpbDi5pGMmyZd5junnHp8IFP7X0AVeY+TpKRnePzlx+N39pBSEwivGSP9SW2509ci1Dw8NOnMA1jxy3R51YvhQGcTMcAdTLrjbCKpejnr1PEFkTHRy/HHlMGFacooMCbJO1prrBWP2OJ9qjCDdPLnjUKIYlkX+WDL5Cyl/xO58S5t3fs/SrPIEASCPUqYmcLiVbQFOT/BTjxC5yrpQUjfM0zor2Trbu/YSrkyt4Z2xjy8PvrnqLYCUL6NxELrKZnG+vmqMWYS3aEz2pCUltubVjQKZrzxRbcwkUSef9gbFWf7c4cRn0fdSF7xpB4mTVNQARoxizKW210JhCVQD9rwVpTDze4bZSgYXu06DqmMwVys4Q08HbeT1kxXg6OwIkzy0ZPy6M352DZ1/qDOn3VvS2BM1NAQm/Eo1TqbVb/fUGHgrNGqi+L6ZJAYtnz1BoYfNKMrjvebtd9rF4MvTL+9GCB1o2iUvmw5Vd0BUrJAQbCBcYg=="
+    }
+  ],
+  "x25519_derivation": {
+    "spec": "x25519_sk = HKDF-SHA256(ikm=ed25519 seed, salt=\"near-redteam\", info=\"x25519-v1:\"+account_id, L=32)",
+    "ed25519_seed": "4444444444444444444444444444444444444444444444444444444444444444",
+    "account_id": "client.arifnovrian.testnet",
+    "x25519_sk": "dbf1f0aa1882e214850ac4dae945aa351ffb1e54c19395df93e4af400b6ff810",
+    "x25519_pk": "20b879cab1bd97b7175985e56691ab7a51c209525822ba69cd1dbe1114ed515f"
+  }
+}

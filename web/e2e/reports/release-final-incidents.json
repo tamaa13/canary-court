@@ -1,0 +1,57 @@
+[
+  {
+    "run": "f9jqla",
+    "finding": 43,
+    "job": 58,
+    "attacker": "ef9jqla-newbie.arifnovrian.testnet",
+    "kind": "llm_error",
+    "error": "enclave: LLM_UNAVAILABLE",
+    "policy_seq": null,
+    "resolved": true,
+    "resolution": "resubmitted in-run as #54 → Valid"
+  },
+  {
+    "run": "f9jqla",
+    "finding": 45,
+    "job": 59,
+    "attacker": "ef9jqla-mallory.arifnovrian.testnet",
+    "kind": "infra_timeout",
+    "error": "outlayer: run failed or produced no output",
+    "policy_seq": 186,
+    "resolved": true,
+    "resolution": "resubmitted in-run as #55 → Invalid (manipulation)"
+  },
+  {
+    "run": "f9jqla",
+    "finding": 46,
+    "job": 59,
+    "attacker": "ef9jqla-mallory.arifnovrian.testnet",
+    "kind": "infra_timeout",
+    "error": "outlayer: run failed or produced no output",
+    "policy_seq": 187,
+    "resolved": true,
+    "resolution": "resubmitted in-run as #56 → Invalid (manipulation)"
+  },
+  {
+    "run": "f9jqla",
+    "finding": 47,
+    "job": 53,
+    "attacker": "ef9jqla-sub2.arifnovrian.testnet",
+    "kind": "infra_timeout",
+    "error": "outlayer: run failed or produced no output",
+    "policy_seq": 188,
+    "resolved": false,
+    "resolution": "not resubmitted in this run"
+  },
+  {
+    "run": "f9jqla",
+    "finding": 48,
+    "job": 54,
+    "attacker": "ef9jqla-sub2.arifnovrian.testnet",
+    "kind": "infra_timeout",
+    "error": "outlayer: run failed or produced no output",
+    "policy_seq": 189,
+    "resolved": false,
+    "resolution": "not resubmitted in this run"
+  }
+]
