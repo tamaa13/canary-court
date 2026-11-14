@@ -228,3 +228,7 @@ More: [`docs/site/41-limits-stated.md`](docs/site/41-limits-stated.md) and the "
 - The concept is inspired by the escrow / evaluator pattern of **ERC-8183** (agentic commerce). This is a fresh, NEAR-native build: no EVM code, and no bridging of that design.
 - Built on NEAR Protocol, OutLayer (TEE execution), NEAR AI Cloud (TEE inference), NEAR Intents 1Click (quote), FastNear RPC and NearBlocks.
 - Film credits: [`film/CREDITS.md`](film/CREDITS.md).
+
+## License
+
+MIT, see [LICENSE](LICENSE). Fonts and the film's clips and samples keep their own licenses ([film/CREDITS.md](film/CREDITS.md)).
