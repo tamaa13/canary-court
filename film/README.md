@@ -1,7 +1,7 @@
 # Demo film v4 (playback page)
 
 The film is a web page, not a video yet: one timeline drives text cards, news clips, the logo and the real site in a
-floating card, synced to rt-3d's score. Review it in the browser; render to video only once the cut is final.
+floating card, synced to the score in `audio/`. Review it in the browser; render to video only once the cut is final.
 
 ```bash
 # the site, offline (no RPC calls): it must be running on :3100
@@ -33,8 +33,8 @@ Every timing is at the top of `film.js`:
   (mp4/webm/jpg/png, shown in black and white) and the caption `words`.
 - `CONFIG.host`: the public address, shown in /join's sentence and on the end card. A placeholder until the real domain is known at deploy.
 
-The music follows the same seconds (rt-3d's `score.py` CUES: 0 · 14 · 22 · 38 · 42 · 70 · 76 · 85). If a section moves,
-send rt-3d the new times. `audio/score.mp3` is rt-3d's file; it is not committed here (copy it from their `film/audio/`).
+The music follows the same seconds (`audio/score.py` CUES: 0 · 14 · 22 · 38 · 42 · 70 · 76 · 85). If a section moves,
+re-time the score in `audio/score.py` and regenerate it.
 
 ## Capture (for the final render)
 

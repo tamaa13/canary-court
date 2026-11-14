@@ -28,7 +28,7 @@ Exit code is 0 only when no step failed or was skipped. Steps whose dependency f
 - `~/.near-credentials/testnet/arifnovrian.testnet.json` (the funder's full-access key). Each run moves ~2.75 NEAR out and returns it at teardown, except gas and the OutLayer fees (0.02 NEAR per finding).
 - `redteam` has `set_enclave` done, meaning `get_config().enclave_pubkey` is non-empty. Until then, steps 01.6 and later fail; `--only=01,99` still works.
 - To re-verify attack receipts on chain, run `pnpm attacks` in `agents/` first.
-- Tell the PM before a live run; the funder balance is shared.
+- Live runs spend from a shared funder account; avoid running two at once.
 - Env overrides: `ROOT_ACCOUNT`, `REDTEAM_CONTRACT`, `TUSDC_CONTRACT`, `NEAR_RPC_URL`, `E2E_TARGET_MODEL`, and the timing knobs in PLAN.md.
 
 ## Layout
