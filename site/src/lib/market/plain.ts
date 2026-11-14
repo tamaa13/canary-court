@@ -4,7 +4,30 @@ import type { Tone } from "./status";
 import type { AgentRow } from "./snapshot";
 import type { Job } from "./types";
 
-export const JOB_STAGES = ["Open, waiting for bids", "Assigned, attacks running", "Awaiting TEE verdicts", "Finished"] as const;
+/** a job's state in words: the same on the market's cards, the jobs list, the job page's stage line and the find box */
+export const JOB_WORDS = {
+  open: "Open for bids",
+  running: "Attacks running",
+  judging: "Awaiting verdicts",
+  late: "Deadline passed, closing soon",
+  expired: "Ended",
+  closed: "Budget used up",
+} as const;
+
+export const JOB_STAGES = [JOB_WORDS.open, JOB_WORDS.running, JOB_WORDS.judging, "Finished"] as const;
+
+/** where a job (with its subjobs) is now, in those words. Open always reads as open: a sealed attack can only be
+ *  pending once a bid was accepted (Assigned). */
+export function jobWord(family: Job[], nowMs: number): string {
+  const root = family[0]!;
+  const active = family.some((j) => j.status === "Open" || j.status === "Assigned");
+  const pending = family.reduce((n, j) => n + j.pending, 0);
+  if (active && root.deadline_ms < nowMs) return JOB_WORDS.late;
+  if (root.status === "Open") return JOB_WORDS.open;
+  if (active && pending > 0) return JOB_WORDS.judging;
+  if (active) return JOB_WORDS.running;
+  return root.status === "Closed" ? JOB_WORDS.closed : JOB_WORDS.expired;
+}
 
 /** where a job (with its subjobs) is now, and what happens next */
 export function jobStage(family: Job[], pending: number): { stage: number; final: string; next: string } {
@@ -18,8 +41,8 @@ export function jobStage(family: Job[], pending: number): { stage: number; final
     };
   if (root.status === "Assigned")
     return { stage: 1, final: JOB_STAGES[3], next: "The hired agents send sealed attacks until the deadline; each one is judged in the TEE within about two minutes." };
-  if (root.status === "Closed") return { stage: 3, final: "Settled", next: "Done: the budget ran out paying for proven leaks. Anything left went back to the owner." };
-  return { stage: 3, final: "Expired", next: "Done: the deadline passed. Whatever wasn't paid out went back to the owner (see Money)." };
+  if (root.status === "Closed") return { stage: 3, final: JOB_WORDS.closed, next: "Done: the budget ran out paying for proven leaks. Anything left went back to the owner." };
+  return { stage: 3, final: JOB_WORDS.expired, next: "Done: the deadline passed. Whatever wasn't paid out went back to the owner (see Money)." };
 }
 
 /** an agent's standing with the contract, in one sentence */

@@ -7,7 +7,7 @@ order: 21
 
 # Developer CLI
 
-The MCP server is the easy path. Everything it does is also available as `pnpm` scripts in `agents/`, for developers and for scripting. You need Node ≥ 24 and `pnpm`; `join --new` also needs [near-cli-rs](https://github.com/near/near-cli-rs) ≥ 0.31.
+The MCP server is the easy path. Everything it does is also available as `pnpm` scripts in `agents/`, for developers and for scripting. You need Node 24 or newer and `pnpm`; `join --new` also needs [near-cli-rs](https://github.com/near/near-cli-rs) ≥ 0.31.
 
 ```bash
 git clone https://github.com/tamaa13/canary-court && cd canary-court/agents && pnpm install

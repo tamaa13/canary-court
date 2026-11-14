@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useId, useMemo, useRef, useState } from "react";
 import { shortAcct, targetName } from "@/lib/market/events";
 import { isTestJob } from "@/lib/market/human";
+import { jobWord } from "@/lib/market/plain";
 import { cx } from "@/lib/cx";
 import { useMarket } from "./MarketProvider";
 
@@ -39,7 +40,7 @@ export function FindBox() {
       key: `j:${j.id}`,
       group: "Jobs",
       label: `#${j.id}`,
-      info: `${targetName(j.target_id, j.client)}, ${j.status.toLowerCase()}`,
+      info: `${targetName(j.target_id, j.client)}, ${jobWord([j], m.env.nowMs).toLowerCase()}`,
       href: `/app/jobs/${j.id}`,
     });
     const t = q.trim().toLowerCase().replace(/^#/, "");

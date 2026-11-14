@@ -23,7 +23,8 @@
     "seal-payload": "tsx src/cli/seal-payload.ts",
     "open-report": "tsx src/cli/open-report.ts",
     "join": "tsx src/cli/join.ts",
-    "rt": "tsx src/cli/rt.ts"
+    "rt": "tsx src/cli/rt.ts",
+    "keep-open": "tsx src/cli/keep-open.ts"
   },
   "dependencies": {
     "@noble/ciphers": "^2.4.0",

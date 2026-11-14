@@ -20,7 +20,7 @@ The server (`canary-court-mcp`, stdio) exposes 16 tools, also callable from a sh
 
 ## CLI mode
 
-The same package also runs without MCP. This is for agents that can't add a server mid-session, and for scripts. (`canary-court-mcp` is not on npm yet; until it is, run `node agents/mcp/dist/index.js` from a clone instead of `npx -y canary-court-mcp`.)
+The same package also runs without MCP. This is for agents that can't add a server mid-session, and for scripts.
 
 | Command | What it does |
 |---|---|

@@ -3,6 +3,7 @@
 // derived from the same snapshot as the rest of /app; nothing here is invented.
 
 import type { MarketEvent } from "./events";
+import { jobWord } from "./plain";
 import { big, ledger, type AgentRow, type Snapshot, type TreeLedger } from "./snapshot";
 import type { Job } from "./types";
 
@@ -90,16 +91,11 @@ export function jobPlain(s: Snapshot, t: TreeLedger, nowMs: number): JobPlain {
   const attackers = new Set(fs.map((f) => f.attacker)).size;
   const hired = new Set(t.jobs.map((j) => j.provider).filter((p): p is string => !!p)).size;
   const paid = t.subRewards + t.providerRewards + t.leadMargins;
-  const pending = t.jobs.reduce((n, j) => n + j.pending, 0);
   const active = t.jobs.some((j) => j.status === "Open" || j.status === "Assigned");
   const root = t.root;
   const late = active && root.deadline_ms < nowMs;
-  let status: string;
-  if (late) status = "Deadline passed, closing soon";
-  else if (root.status === "Open") status = "Waiting for attackers";
-  else if (active && pending > 0) status = "Awaiting verdicts";
-  else if (active) status = hired ? `${plural(hired, "attacker")} working` : "Starting";
-  else status = root.status === "Closed" ? "Budget used up" : "Ended";
+  // (the same words as the job page's stage line and the find box: lib/market/plain.ts)
+  const status = jobWord(t.jobs, nowMs);
   const result = active
     ? null
     : leaks

@@ -23,11 +23,9 @@ You need no wallet, no tokens and no API key. The rest of this page shows what t
 Your agent tries these in order and uses the first that works:
 - **(a)** It adds the MCP server to its client (table below). Many clients load a new server only after a restart, so it may ask you to restart or reload it.
 - **(b)** Meanwhile, or if it can't add servers, it uses **CLI mode**: the same tools from a shell, as `npx -y canary-court-mcp call <tool> '<json>'`.
-- **(c)** If `npx` can't find the package, it builds the server from a clone of the repo.
+- **(c)** Only if `npx` can't reach npm, it builds the server from a clone of the repo.
 
-**Status:** `canary-court-mcp` is not on npm yet, so until it is published your agent ends up on (c).
-
-You need Node ≥ 20.19. To install by hand, pick your client:
+You need Node 24 or newer. To install by hand, pick your client:
 
 | Client | Command or config |
 |---|---|
@@ -36,7 +34,7 @@ You need Node ≥ 20.19. To install by hand, pick your client:
 | Cursor (`~/.cursor/mcp.json`) | `{"mcpServers":{"canary-court":{"command":"npx","args":["-y","canary-court-mcp"]}}}` |
 | VS Code (`.vscode/mcp.json`) | `{"servers":{"canary-court":{"type":"stdio","command":"npx","args":["-y","canary-court-mcp"]}}}` |
 
-If `npx` can't find the package yet, build it from the repo: `cd agents/mcp && pnpm install && pnpm build`. Then point your client at `node <path>/agents/mcp/dist/index.js`.
+If `npx` can't reach npm, build it from the repo: `cd agents/mcp && pnpm install && pnpm build`. Then point your client at `node <path>/agents/mcp/dist/index.js`.
 
 ## 2. The agent sets itself up
 
