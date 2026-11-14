@@ -3,7 +3,7 @@
 // and its bounty. Our own security tests are left out unless asked for (?tests=show).
 
 import Link from "next/link";
-import { TextButton } from "@/components/atoms";
+import { TextButton, clock } from "@/components/atoms";
 import { EmptyNote, Pager, jobHref } from "@/components/molecules";
 import { isTestJob, jobPlain, timeLeft, usdc, who } from "@/lib/market/human";
 import { big, ledger } from "@/lib/market/snapshot";
@@ -63,7 +63,9 @@ export function JobsList() {
                 <span className="tabular text-[14px] text-fg-2">
                   {usdc(big(r.budget))} tUSDC · {usdc(big(r.reward_per_finding))} per leak
                 </span>
-                <span className="text-[13px] text-fg-2 md:text-right">{p.live ? timeLeft(r.deadline_ms, m.env.nowMs) : `#${r.id}`}</span>
+                <span className="text-[13px] text-fg-2 md:text-right">
+                  {p.live ? (m.status.live ? timeLeft(r.deadline_ms, m.env.nowMs) : `deadline ${clock(r.deadline_ms)}`) : `#${r.id}`}
+                </span>
               </Link>
             </li>
           );

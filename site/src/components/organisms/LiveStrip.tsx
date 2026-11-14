@@ -12,7 +12,7 @@ import { Limiter, Rpc, TESTNET_RPCS, readCounts, type Counts } from "@/lib/near"
 
 export type StripData = Counts & { block: number; live: boolean };
 
-const rpc = typeof window === "undefined" ? null : new Rpc(TESTNET_RPCS, 8000, new Limiter(2));
+const rpc = typeof window === "undefined" ? null : new Rpc(TESTNET_RPCS, 4000, new Limiter(2));
 
 export function LiveStrip({ initial }: { initial: StripData }) {
   const [d, setD] = useState(initial);

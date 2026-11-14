@@ -8,7 +8,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import type { Env } from "@/components/atoms";
+import { SnapshotTime, type Env } from "@/components/atoms";
 import { offline } from "@/content/facts";
 import { deriveEvents, type MarketEvent } from "@/lib/market/events";
 import { filterE2e } from "@/lib/market/filter";
@@ -102,5 +102,10 @@ export function MarketProvider({ children }: { children: ReactNode }) {
       missingHistory: live.snapshot?.missingHistory ?? 0,
     },
   };
-  return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
+  // (while a snapshot is on screen, times show as clock times: "26 min left" from a snapshot hours old reads as wrong)
+  return (
+    <Ctx.Provider value={value}>
+      <SnapshotTime.Provider value={!freshRead}>{children}</SnapshotTime.Provider>
+    </Ctx.Provider>
+  );
 }

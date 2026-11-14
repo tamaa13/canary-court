@@ -96,7 +96,7 @@ export function useLive(enabled: boolean, contractId: string, rpcUrl: string | n
     if (!enabled) return;
     let stop = false;
     let timer: ReturnType<typeof setTimeout> | undefined;
-    const rpc = new Rpc(rpcUrl ? [rpcUrl] : TESTNET_RPCS, 15_000, limiter.current);
+    const rpc = new Rpc(rpcUrl ? [rpcUrl] : TESTNET_RPCS, 4500, limiter.current);
     const cache = seedCache(contractId);
     const skipAccount = showE2e ? undefined : isE2eAccount;
     // show the last snapshot from a previous visit right away (labelled as cached) while the first fresh poll runs
@@ -131,7 +131,7 @@ export function useLive(enabled: boolean, contractId: string, rpcUrl: string | n
   useEffect(() => {
     if (!enabled || !haveSnapshot) return;
     let stop = false;
-    const archival = new Rpc(archivalUrl ? [archivalUrl] : rpcUrl ? [rpcUrl] : [...TESTNET_ARCHIVAL_RPCS, ...TESTNET_RPCS], 30_000, limiter.current);
+    const archival = new Rpc(archivalUrl ? [archivalUrl] : rpcUrl ? [rpcUrl] : [...TESTNET_ARCHIVAL_RPCS, ...TESTNET_RPCS], 8000, limiter.current);
     (async () => {
       const done = readCache();
       for (const r of BUNDLED_RECEIPTS) {

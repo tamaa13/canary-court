@@ -6,7 +6,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { Arrow, Rel } from "@/components/atoms";
+import { Arrow, Rel, clock } from "@/components/atoms";
 import { EmptyNote, EventSentence, Figure } from "@/components/molecules";
 import { agentStats } from "@/lib/market/events";
 import { agentSentence, isTestJob, jobPlain, marketNumbers, recentResults, roleText, timeLeft, usdc, who, type ResultPart } from "@/lib/market/human";
@@ -191,11 +191,14 @@ function LiveNow() {
     .filter((p) => p.live)
     .sort((a, b) => b.t.root.id - a.t.root.id);
   const shown = live.slice(0, 6);
+  // (a snapshot: what was open at that read, with its deadlines as clock times, never "26 min left" from an old read)
+  const fresh = m.status.live;
+  const left = (deadline: number) => (fresh ? timeLeft(deadline, m.env.nowMs) : `deadline ${clock(deadline)}`);
   return (
     <section aria-labelledby="live-title" className="mt-16">
       <div className="flex items-baseline justify-between gap-6 border-b border-rule-strong pb-3">
         <h2 id="live-title" className={h2}>
-          Live now <span className="tabular font-normal text-fg-2">{live.length}</span>
+          {fresh ? "Live now" : `Open at the last read (${clock(s.timeMs)})`} <span className="tabular font-normal text-fg-2">{live.length}</span>
         </h2>
         <Link href="/app/jobs" className="group inline-flex items-center gap-1.5 text-[13px] text-fg-2 transition-colors duration-150 ease-out hover:text-fg">
           All jobs <Arrow className="nudge inline-block size-[9px]" />
@@ -210,7 +213,7 @@ function LiveNow() {
           {shown.map((p, i) => {
             const r = p.t.root;
             const bounty = `${usdc(big(r.budget))} tUSDC · ${usdc(big(r.reward_per_finding))} per leak`;
-            const left = timeLeft(r.deadline_ms, m.env.nowMs);
+            const until = left(r.deadline_ms);
             // (one job: a single wide row; two: two columns; three or more: a grid. Never a lone card beside empty space)
             return shown.length === 1 ? (
               <li key={r.id} className="border-b border-rule">
@@ -222,7 +225,7 @@ function LiveNow() {
                   <span className="tabular text-[15px] text-fg">{bounty}</span>
                   <span className="flex flex-wrap justify-between gap-x-4 text-[14px] md:justify-end md:gap-x-8">
                     <span className="text-fg">{p.status}</span>
-                    <span className="text-fg-2">{left}</span>
+                    <span className="text-fg-2">{until}</span>
                   </span>
                 </Link>
               </li>
@@ -234,7 +237,7 @@ function LiveNow() {
                   <span className="tabular mt-3 text-[15px] text-fg">{bounty}</span>
                   <span className="mt-1 flex flex-wrap justify-between gap-x-4 text-[14px]">
                     <span className="text-fg">{p.status}</span>
-                    <span className="text-fg-2">{left}</span>
+                    <span className="text-fg-2">{until}</span>
                   </span>
                 </Link>
               </li>

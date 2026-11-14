@@ -1,13 +1,14 @@
 // Read-only NEAR JSON-RPC: contract views, blocks, tx outcomes. No keys, nothing to sign with.
-// Ported from web/src/near/rpc.ts (rt-web) unchanged: one shared Limiter caps in-flight requests and imposes a jittered
-// cooldown after a 429 (a browser sees it as a CORS failure), and calls fail over between endpoints.
 // Works on the server (the landing's first paint) and in the browser (the live strip, the app).
+// Failover: a request that fails in transport (in a browser a 429 arrives without CORS headers, so it surfaces as a
+// TypeError), answers 429 or 5xx, or takes longer than the timeout marks that endpoint out for 30 s and moves on to the
+// next one at once: no retries on the same endpoint and no global pause, so one provider's bad minute never holds the
+// page. The last endpoint that worked is tried first. A shared Limiter only caps how many requests are in flight.
 
-
-// rpc.testnet.near.org is deprecated and rate-limited (-429); fastnear is the default.
-// test.rpc.fastnear.com can rate-limit (429); the archival endpoint also serves current state, so it is the failover.
-export const TESTNET_RPCS = ['https://test.rpc.fastnear.com', 'https://archival-rpc.testnet.fastnear.com'];
-export const TESTNET_ARCHIVAL_RPCS = ['https://archival-rpc.testnet.fastnear.com'];
+// Every endpoint here answers views pinned to a block and sends CORS headers (checked from a browser origin).
+// rpc.testnet.near.org is slow (≈3 s a call) and rate-limited: the last resort.
+export const TESTNET_RPCS = ['https://test.rpc.fastnear.com', 'https://near-testnet.drpc.org', 'https://near-testnet.gateway.tatum.io', 'https://rpc.testnet.near.org'];
+export const TESTNET_ARCHIVAL_RPCS = ['https://archival-rpc.testnet.fastnear.com', 'https://archival-rpc.testnet.near.org'];
 export const EXPLORER = 'https://testnet.nearblocks.io';
 
 export const txUrl = (hash: string) => `${EXPLORER}/txns/${hash}`;
@@ -24,103 +25,93 @@ export class RpcError extends Error {
   }
 }
 
-/** Caps concurrent requests and imposes a shared cooldown after rate limiting (one browser IP shares the public
- *  RPC limit; a burst of independent retries only makes the 429s worse). */
+/** Caps how many requests are in flight at once (one browser IP shares each public RPC's limit). */
 export class Limiter {
   private active = 0;
   private queue: (() => void)[] = [];
-  private pausedUntil = 0;
-  private backoffMs = 0;
   constructor(public max: number) {}
   async run<T>(fn: () => Promise<T>): Promise<T> {
     if (this.active >= this.max) await new Promise<void>((ok) => this.queue.push(ok));
     this.active++;
     try {
-      const wait = this.pausedUntil - Date.now();
-      if (wait > 0) await new Promise((ok) => setTimeout(ok, wait));
       return await fn();
     } finally {
       this.active--;
       this.queue.shift()?.();
     }
   }
-  /** a request was rate-limited / failed in transport: everyone waits */
-  penalize() {
-    this.backoffMs = Math.min(15_000, this.backoffMs ? this.backoffMs * 2 : 1000);
-    this.pausedUntil = Math.max(this.pausedUntil, Date.now() + this.backoffMs * (0.5 + Math.random()));
-  }
-  reward() {
-    this.backoffMs = 0;
-  }
 }
+
+/** endpoint health, shared by every Rpc on the page: out until (ms), and the last one that answered */
+const outUntil = new Map<string, number>();
+let lastGood: string | null = null;
+const COOLDOWN_MS = 30_000;
 
 const jitter = (ms: number) => ms * (0.5 + Math.random());
 
 export class Rpc {
   constructor(
     public urls: string[] = TESTNET_RPCS,
-    private timeoutMs = 15000,
+    private timeoutMs = 4000,
     private limiter?: Limiter,
   ) {}
 
+  /** the endpoints in the order to try: healthy ones first (the last good one leading), then those cooling down */
+  private order(): string[] {
+    const now = Date.now();
+    const up = this.urls.filter((u) => (outUntil.get(u) ?? 0) <= now);
+    const down = this.urls.filter((u) => !up.includes(u)).sort((a, b) => (outUntil.get(a) ?? 0) - (outUntil.get(b) ?? 0));
+    if (lastGood && up.includes(lastGood)) up.sort((a, b) => Number(b === lastGood) - Number(a === lastGood));
+    return [...up, ...down];
+  }
+
   async call<T>(method: string, params: unknown): Promise<T> {
     let lastErr: unknown;
-    // up to 4 rounds over all endpoints, backing off when every endpoint rate-limits (429) or fails transport
-    const rounds = this.limiter ? 6 : 4;
-    for (let round = 0; round < rounds; round++) {
-      if (round && !this.limiter) await new Promise((ok) => setTimeout(ok, jitter(1000 * 2 ** (round - 1))));
-      try {
-        return await this.callOnce<T>(method, params);
-      } catch (err) {
-        if ((err as { deterministic?: boolean }).deterministic) throw err;
-        lastErr = err;
+    // one pass over every endpoint; a second, after a short pause, only if every one of them failed
+    for (let pass = 0; pass < 2; pass++) {
+      if (pass) await new Promise((ok) => setTimeout(ok, jitter(800)));
+      for (const url of this.order()) {
+        try {
+          return await this.once<T>(url, method, params);
+        } catch (err) {
+          if ((err as { deterministic?: boolean }).deterministic) throw err;
+          lastErr = err;
+          outUntil.set(url, Date.now() + COOLDOWN_MS);
+          if (lastGood === url) lastGood = null;
+        }
       }
     }
     throw lastErr instanceof Error ? lastErr : new RpcError(String(lastErr));
   }
 
-  private async callOnce<T>(method: string, params: unknown): Promise<T> {
-    let lastErr: unknown;
-    for (const url of this.urls) {
+  private async once<T>(url: string, method: string, params: unknown): Promise<T> {
+    const doFetch = async () => {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), this.timeoutMs);
       try {
-        const ctrl = new AbortController();
-        const timer = setTimeout(() => ctrl.abort(), this.timeoutMs);
-        const doFetch = () =>
-          fetch(url, {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ jsonrpc: '2.0', id: 'rt', method, params }),
-            signal: ctrl.signal,
-          }).finally(() => clearTimeout(timer));
-        // in a browser a 429 arrives without CORS headers, so it surfaces as a TypeError: treated as transient below
-        let res: Response;
-        try {
-          res = await (this.limiter ? this.limiter.run(doFetch) : doFetch());
-        } catch (e) {
-          this.limiter?.penalize();
-          throw e;
-        }
-        if (res.status === 429 || res.status >= 500) {
-          this.limiter?.penalize();
-          throw new RpcError(`HTTP ${res.status} from ${url}`);
-        }
-        this.limiter?.reward();
-        const body = (await res.json()) as { result?: T; error?: { message?: string; data?: unknown; cause?: { name?: string; info?: unknown } } };
-        if (body.error) {
-          // Contract/handler errors are deterministic — don't fail over.
-          const e = body.error;
-          const msg = [e.cause?.name, typeof e.data === 'string' ? e.data : JSON.stringify(e.data ?? e.cause?.info ?? ''), e.message]
-            .filter(Boolean)
-            .join(': ');
-          throw Object.assign(new RpcError(msg, e), { deterministic: true });
-        }
-        return body.result as T;
-      } catch (err) {
-        if ((err as { deterministic?: boolean }).deterministic) throw err;
-        lastErr = err;
+        return await fetch(url, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ jsonrpc: '2.0', id: 'rt', method, params }),
+          signal: ctrl.signal,
+        });
+      } finally {
+        clearTimeout(timer);
       }
+    };
+    const res = await (this.limiter ? this.limiter.run(doFetch) : doFetch());
+    if (res.status === 429 || res.status >= 500) throw new RpcError(`HTTP ${res.status} from ${url}`);
+    const body = (await res.json()) as { result?: T; error?: { message?: string; data?: unknown; cause?: { name?: string; info?: unknown } } };
+    if (body.error) {
+      const e = body.error;
+      const msg = [e.cause?.name, typeof e.data === 'string' ? e.data : JSON.stringify(e.data ?? e.cause?.info ?? ''), e.message].filter(Boolean).join(': ');
+      // (a node that can't serve the request, e.g. no state for that block or busy, is that node's problem: try the next)
+      if (/UNKNOWN_BLOCK|GARBAGE_COLLECTED|TIMEOUT_ERROR|INTERNAL_ERROR|TOO_MANY|rate/i.test(`${e.cause?.name ?? ''} ${e.message ?? ''}`)) throw new RpcError(msg, e);
+      // contract and handler errors are deterministic: every endpoint would say the same
+      throw Object.assign(new RpcError(msg, e), { deterministic: true });
     }
-    throw lastErr instanceof Error ? lastErr : new RpcError(String(lastErr));
+    lastGood = url;
+    return body.result as T;
   }
 
   /** call_function view. Returns parsed JSON + the block height it was read at. */

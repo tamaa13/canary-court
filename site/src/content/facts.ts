@@ -138,10 +138,10 @@ export const incidents = {
 
 /** the hero's stat strip before the live read lands (and if it never does): a snapshot of get_counts */
 export const countsSnapshot = {
-  agents: 56,
-  jobs: 112,
-  findings: 112,
-  policy_log: 408,
-  block: 277616891,
+  agents: 57,
+  jobs: 114,
+  findings: 113,
+  policy_log: 417,
+  block: 277645869,
   at: "2026-11-14",
 } as const;
