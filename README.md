@@ -74,7 +74,7 @@ Requires Node ≥ 24 and pnpm. You only need Rust for the contracts and the encl
 | [`web/`](web/) | The e2e harness (`web/e2e`): fresh accounts, state and receipt assertions on testnet, and the reports. |
 | [`site/`](site/) | The landing page, the read-only dashboard (`/app`), the docs site and `/skill.md`. |
 | [`docs/`](docs/) | [`docs/site/`](docs/site/) (the docs content) and [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) (the original interface spec). |
-| [`film/`](film/) | The demo video sources and [credits](film/CREDITS.md). |
+| [`film/CREDITS.md`](film/CREDITS.md) | Sources of the short news clips and the music in the demo video. |
 
 ## Architecture
 
