@@ -30,3 +30,12 @@ test("everything else is left as written", () => {
   assert.equal(docHref("#anchor"), "#anchor");
   assert.equal(docHref("/skill.md"), "/skill.md");
 });
+
+test("GitHub links open in a new tab; other outside links open in place", async () => {
+  const { outsideLink, outsideLinkAttrs } = await import("../external");
+  assert.deepEqual(outsideLink("https://github.com/tamaa13/canary-court/blob/main/contracts/VIEWS.md"), { target: "_blank", rel: "noopener noreferrer" });
+  assert.deepEqual(outsideLink("https://github.com/tamaa13/canary-court"), { target: "_blank", rel: "noopener noreferrer" });
+  assert.deepEqual(outsideLink("https://testnet.nearblocks.io/txns/x"), { rel: "noreferrer" });
+  assert.deepEqual(outsideLink("https://notgithub.com/x"), { rel: "noreferrer" });
+  assert.equal(outsideLinkAttrs("https://github.com/x"), ' target="_blank" rel="noopener noreferrer"');
+});

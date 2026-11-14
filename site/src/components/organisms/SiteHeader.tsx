@@ -3,6 +3,7 @@ import { Arrow, Wordmark } from "@/components/atoms";
 import { ThemeSwitch, TravelLink } from "@/components/molecules";
 import { links } from "@/content/facts";
 import { cx } from "@/lib/cx";
+import { outsideLink } from "@/lib/external";
 
 /** The top of every page: the mark, and the places to go (the market, the docs, joining, the code). Not sticky: the
  *  story owns the screen while it plays. */
@@ -36,7 +37,7 @@ export function SiteHeader({ current }: { current?: "app" | "join" | "docs" }) {
           </li>
           {/* (on a phone GitHub lives in the footer: four items would push the name onto two lines) */}
           <li className="max-sm:hidden">
-            <a href={links.repo} rel="noreferrer" className={cx(item, "inline-flex items-center gap-1 text-fg-2")}>
+            <a href={links.repo} {...outsideLink(links.repo)} className={cx(item, "inline-flex items-center gap-1 text-fg-2")}>
               GitHub <Arrow out className="inline-block size-[9px]" />
             </a>
           </li>

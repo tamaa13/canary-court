@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { cx } from "@/lib/cx";
 import { Arrow } from "./Arrow";
 import { PortalLink } from "./PortalLink";
+import { outsideLink } from "@/lib/external";
 
 type Variant = "solid" | "line";
 const VARIANT: Record<Variant, string> = {
@@ -42,7 +43,7 @@ export function Action({
     </>
   );
   return ext ? (
-    <a href={href} className={cls} rel="noreferrer">
+    <a href={href} className={cls} {...outsideLink(href)}>
       {inner}
     </a>
   ) : portal ? (

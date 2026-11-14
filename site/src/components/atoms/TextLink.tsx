@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { cx } from "@/lib/cx";
 import { Arrow } from "./Arrow";
+import { outsideLink } from "@/lib/external";
 
 /** A link inside text or a list: underlined on a hairline, ↗ when it leaves the site. */
 export function TextLink({ href, className, children, mono = false }: { href: string; className?: string; children: ReactNode; mono?: boolean }) {
@@ -12,7 +13,7 @@ export function TextLink({ href, className, children, mono = false }: { href: st
     className,
   );
   return ext ? (
-    <a href={href} className={cls} rel="noreferrer">
+    <a href={href} className={cls} {...outsideLink(href)}>
       {children}
       <Arrow out className="inline-block size-[0.62em] shrink-0 translate-y-[-0.05em] self-center" />
     </a>

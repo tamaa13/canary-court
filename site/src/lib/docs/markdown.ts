@@ -4,6 +4,7 @@
 
 import { Marked, type Tokens } from "marked";
 import { docHref } from "./href";
+import { outsideLinkAttrs } from "@/lib/external";
 
 export interface Heading {
   depth: number;
@@ -67,7 +68,7 @@ export function renderDoc(body: string, title: string): { html: string; headings
         // (another docs page → /docs/<slug>; a repo path like ../../contracts/… → its page on GitHub: lib/docs/href.ts)
         const to = docHref(href);
         const ext = /^https?:\/\//.test(to);
-        return `<a href="${esc(to)}"${title ? ` title="${esc(title)}"` : ""}${ext ? ' rel="noreferrer" class="doc-out"' : ""}>${inner}</a>`;
+        return `<a href="${esc(to)}"${title ? ` title="${esc(title)}"` : ""}${ext ? `${outsideLinkAttrs(to)} class="doc-out"` : ""}>${inner}</a>`;
       },
     },
   });
